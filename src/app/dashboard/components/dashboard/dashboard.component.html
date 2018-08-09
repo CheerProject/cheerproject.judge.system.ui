@@ -1,0 +1,14 @@
+<mat-card *ngFor="let division of divisions"
+    (click)= "getRegistrations(division)"
+    class="division">
+  <mat-card-title>
+    {{division.name}}
+  </mat-card-title>
+  <mat-card-subtitle>
+    Equipos: {{division.teams}}
+  </mat-card-subtitle>
+  <mat-card-subtitle>
+    Pendientes: {{division.pending}}
+  </mat-card-subtitle>
+  <mat-progress-bar mode="determinate" value="{{division.progress}}"></mat-progress-bar>
+</mat-card>

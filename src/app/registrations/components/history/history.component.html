@@ -1,0 +1,11 @@
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+  <mat-tab label="Actual">
+    <app-registration [registrations]="actual"></app-registration>
+  </mat-tab>
+  <mat-tab label="Pendiente">
+    <app-registration [registrations]="pendiente"></app-registration>
+  </mat-tab>
+  <mat-tab label="Historial">
+    <app-registration [registrations]="historial"></app-registration>
+  </mat-tab>
+</mat-tab-group>
