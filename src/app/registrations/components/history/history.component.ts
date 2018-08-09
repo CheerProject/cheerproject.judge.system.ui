@@ -35,4 +35,9 @@ export class HistoryComponent implements OnInit {
       }
     });
   }
+
+  setPending(registration: Registration): void {
+    this.actual = this.actual.filter(r => r !== registration);
+    this.pendiente.push(registration);
+  }
 }
