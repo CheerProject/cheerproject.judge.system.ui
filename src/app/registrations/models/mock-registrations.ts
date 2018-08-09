@@ -20,11 +20,11 @@ export const REGISTRATIONS: Registration[] = [
       },
       division: {
         id: 5,
-        name: 'OPEN'
+        name: 'Open'
       },
       category: {
         id: 1,
-        name: 'Team'
+        name: 'Equipo'
       }
     },
     team: {
@@ -61,11 +61,11 @@ export const REGISTRATIONS: Registration[] = [
       },
       division: {
         id: 5,
-        name: 'OPEN'
+        name: 'Open'
       },
       category: {
         id: 1,
-        name: 'Team'
+        name: 'Equipo'
       }
     },
     team: {
@@ -103,11 +103,11 @@ export const REGISTRATIONS: Registration[] = [
       },
       division: {
         id: 5,
-        name: 'OPEN'
+        name: 'Open'
       },
       category: {
         id: 1,
-        name: 'Team'
+        name: 'Equipo'
       }
     },
     team: {
@@ -145,11 +145,11 @@ export const REGISTRATIONS: Registration[] = [
       },
       division: {
         id: 5,
-        name: 'OPEN'
+        name: 'Open'
       },
       category: {
         id: 1,
-        name: 'Team'
+        name: 'Equipo'
       }
     },
     team: {

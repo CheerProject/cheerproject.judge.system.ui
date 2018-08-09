@@ -1,5 +1,8 @@
 <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
-  <mat-tab label="Actual">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">list</mat-icon>
+    </ng-template>
     <mat-card *ngFor="let registration of actual" class="registration">
       <mat-card-header class="card-header">
         <div mat-card-avatar class="icon">
@@ -34,12 +37,19 @@
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-footer class="card-footer">
-        <button (click)="setPending(registration)" mat-button>Pendiente</button>
+        <button (click)="setPending(registration)" mat-button>
+          <mat-icon>history</mat-icon>
+          Pendiente
+        </button>
       </mat-card-footer>
     </mat-card>
   </mat-tab>
 
-  <mat-tab label="Pendiente">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">history</mat-icon>
+
+    </ng-template>
     <mat-card *ngFor="let registration of pendiente" class="registration">
       <mat-card-header class="card-header">
         <div mat-card-avatar class="icon">
@@ -76,6 +86,10 @@
   </mat-tab>
 
   <mat-tab label="Historial">
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">check_circle_outline</mat-icon>
+
+    </ng-template>
     <mat-card *ngFor="let registration of historial" class="registration">
       <mat-card-header class="card-header">
         <div mat-card-avatar class="icon">
@@ -110,5 +124,5 @@
       </mat-card-content>
     </mat-card>
   </mat-tab>
-  
+
 </mat-tab-group>
