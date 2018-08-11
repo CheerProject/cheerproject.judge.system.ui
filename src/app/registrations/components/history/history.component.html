@@ -1,15 +1,19 @@
 <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
   <mat-tab>
     <ng-template mat-tab-label>
-      <mat-icon class="tab-icon">list</mat-icon>
+      <mat-icon class="tab-icon" >list</mat-icon>
     </ng-template>
     <mat-card *ngFor="let registration of actual" class="registration">
+      <button mat-button class="bookmark-label" (click)="setPending(registration)">
+        <mat-icon [inline]="true">bookmark_border</mat-icon>
+      </button >
       <mat-card-header class="card-header">
         <div mat-card-avatar class="icon">
           <mat-icon [inline]="true">face</mat-icon>
         </div>
         <mat-card-title>{{registration.team.name}}</mat-card-title>
         <mat-card-subtitle>{{registration.team.coach}}</mat-card-subtitle>
+
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content class="card-content">
@@ -36,19 +40,28 @@
         </mat-grid-list>
       </mat-card-content>
       <mat-divider></mat-divider>
-      <mat-card-footer class="card-footer">
-        <button (click)="setPending(registration)" mat-button>
-          <mat-icon>history</mat-icon>
-          Pendiente
-        </button>
-      </mat-card-footer>
+      <mat-card-actions class="card-footer">
+        <mat-grid-list cols="2" rowHeight="30px">
+          <mat-grid-tile>
+            <div class="wrapper-pending">
+
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="wrapper-go">
+              <button mat-button class="btn-go">
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-actions>
     </mat-card>
   </mat-tab>
 
   <mat-tab>
     <ng-template mat-tab-label>
-      <mat-icon class="tab-icon">history</mat-icon>
-
+      <mat-icon class="tab-icon">bookmarks</mat-icon>
     </ng-template>
     <mat-card *ngFor="let registration of pendiente" class="registration">
       <mat-card-header class="card-header">
@@ -82,6 +95,20 @@
           </mat-grid-tile>
         </mat-grid-list>
       </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions class="card-footer">
+        <mat-grid-list cols="2" rowHeight="30px">
+          <mat-grid-tile>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="wrapper-go">
+              <button mat-button class="btn-go">
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-actions>
     </mat-card>
   </mat-tab>
 

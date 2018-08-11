@@ -33,10 +33,30 @@
     margin-top: 20px;
   }
   
-  .card-footer{
-    padding: 10px;
-  }
+
 
   .tab-icon{
     margin-right: 0px;
+  }
+
+  .btn-go{
+    float: right;
+  }
+
+  .wrapper-go{
+    width: 100%;
+    text-align: right;
+  }
+
+  .wrapper-pending{
+    width: 100%;
+    text-align: left;
+  }
+
+  .bookmark-label{
+    float: right;
+    padding: 20px;
+    margin-right: -15px;
+    margin-top: -25px !important;
+    font-size: 35px;
   }
