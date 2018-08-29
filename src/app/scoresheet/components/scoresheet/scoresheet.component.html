@@ -1,0 +1,62 @@
+<mat-card *ngFor="let parent of scoreSheet |getMapValues; last as isLast" class="parent-category">
+  <mat-card-header>
+    <mat-card-title>
+      {{parent.name}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content class="card-content">
+
+    <div *ngFor="let scoreCategory of parent.scoreCategories" class="categories">
+      <mat-card-subtitle>
+        {{scoreCategory.name}}
+      </mat-card-subtitle>
+      <div class="score-metrics">
+        <div *ngFor="let metric of scoreCategory.scoreMetrics" class="metric-container">
+          <mat-form-field *ngIf="metric.name !== TEXT_SCORE_METRIC" class="metric" appearance="outline">
+            <mat-label>{{metric.name}}</mat-label>
+            <input [(ngModel)]="metric.element.value" matInput type="number" class="align-right" min="{{metric.element.minScore}}" max="{{metric.element.maxScore}}"
+              step=0.1 #inputNumber="ngModel">
+            <mat-hint>
+              Min:{{metric.element.minScore}} Max: {{metric.element.maxScore}}
+            </mat-hint>
+            <div class="error-message" [hidden]="(inputNumber.value >= metric.element.minScore) || inputNumber.pristine">
+              El puntaje debe ser mayor a {{metric.element.minScore}}
+            </div>
+            <div class="error-message" [hidden]="(inputNumber.value <= metric.element.maxScore) || inputNumber.pristine">
+              El puntaje debe ser menor a {{metric.element.maxScore}}
+            </div>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="metric.name === TEXT_SCORE_METRIC" class="metric text" appearance="outline">
+            <textarea [(ngModel)]="metric.element.value" matInput> </textarea>
+          </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions *ngIf="isLast" class="card-footer">
+    <mat-grid-list cols="2" rowHeight="40px">
+      <mat-grid-tile>
+        <div class="button-finish">
+          <button mat-raised-button >
+            <mat-icon class="tab-icon">check_circle_outline</mat-icon>
+            Finalizar
+          </button>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="button-pending">
+          <button mat-raised-button >
+            <mat-icon class="tab-icon">bookmark_border</mat-icon>
+            Pendiente
+          </button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+  </mat-card-actions>
+</mat-card>

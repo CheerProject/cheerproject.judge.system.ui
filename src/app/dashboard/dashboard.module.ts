@@ -10,7 +10,6 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
   imports: [
     DashboardRoutingModule,
     SharedModule,
-    MatCardModule,
     MatProgressBarModule
   ],
   declarations: [

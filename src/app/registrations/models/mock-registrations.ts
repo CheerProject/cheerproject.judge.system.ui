@@ -1,4 +1,4 @@
-import { RegistrationStatus } from './../enums/registration-status.enum';
+import { RegistrationStatus } from '../enums/registration-status.enum';
 import { Status } from './status';
 import { Registration } from './registration';
 

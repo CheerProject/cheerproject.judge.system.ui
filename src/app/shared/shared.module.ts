@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { GetMapValuesPipe } from './pipes/get-map-values.pipe';
 
 @NgModule({
   imports: [
@@ -15,9 +18,13 @@ import {MatButtonModule} from '@angular/material/button';
     RouterModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatCardModule,
+    MatGridListModule
   ],
-  declarations: [],
+  declarations: [GetMapValuesPipe],
   exports: [
     CommonModule,
     FormsModule,
@@ -26,7 +33,10 @@ import {MatButtonModule} from '@angular/material/button';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule,
+    MatGridListModule,
+    GetMapValuesPipe
   ]
 })
 export class SharedModule {}

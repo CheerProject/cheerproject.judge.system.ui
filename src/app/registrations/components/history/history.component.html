@@ -1,19 +1,19 @@
 <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
   <mat-tab>
     <ng-template mat-tab-label>
-      <mat-icon class="tab-icon" >list</mat-icon>
+      <mat-icon class="tab-icon">list</mat-icon>
     </ng-template>
-    <mat-card *ngFor="let registration of actual" class="registration">
+
+    <mat-card *ngFor="let registration of actual" class="registration" (click)="getScoresheet(registration)">
       <button mat-button class="bookmark-label" (click)="setPending(registration)">
         <mat-icon [inline]="true">bookmark_border</mat-icon>
-      </button >
+      </button>
       <mat-card-header class="card-header">
         <div mat-card-avatar class="icon">
           <mat-icon [inline]="true">face</mat-icon>
         </div>
         <mat-card-title>{{registration.team.name}}</mat-card-title>
         <mat-card-subtitle>{{registration.team.coach}}</mat-card-subtitle>
-
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content class="card-content">
@@ -41,11 +41,8 @@
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-actions class="card-footer">
-        <mat-grid-list cols="2" rowHeight="30px">
+        <mat-grid-list cols="2" rowHeight="40px">
           <mat-grid-tile>
-            <div class="wrapper-pending">
-
-            </div>
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="wrapper-go">
@@ -63,7 +60,10 @@
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">bookmarks</mat-icon>
     </ng-template>
-    <mat-card *ngFor="let registration of pendiente" class="registration">
+    <mat-card *ngFor="let registration of pendiente" class="registration" (click)="getScoresheet(registration)">
+      <button mat-button class="bookmark-label" (click)="setCurrent(registration)">
+        <mat-icon [inline]="true">bookmark</mat-icon>
+      </button>
       <mat-card-header class="card-header">
         <div mat-card-avatar class="icon">
           <mat-icon [inline]="true">face</mat-icon>
@@ -97,7 +97,7 @@
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-actions class="card-footer">
-        <mat-grid-list cols="2" rowHeight="30px">
+        <mat-grid-list cols="2" rowHeight="40px">
           <mat-grid-tile>
           </mat-grid-tile>
           <mat-grid-tile>
@@ -115,7 +115,6 @@
   <mat-tab label="Historial">
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">check_circle_outline</mat-icon>
-
     </ng-template>
     <mat-card *ngFor="let registration of historial" class="registration">
       <mat-card-header class="card-header">
@@ -151,5 +150,4 @@
       </mat-card-content>
     </mat-card>
   </mat-tab>
-
 </mat-tab-group>

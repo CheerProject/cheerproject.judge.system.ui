@@ -1,5 +1,5 @@
-import { DIVISIONS } from './../../models/mock-divisions';
-import { Division } from './../../models/division';
+import { DIVISIONS } from '../../models/mock-divisions';
+import { Division } from '../../models/division';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 

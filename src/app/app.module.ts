@@ -7,6 +7,7 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { RegistrationsModule } from './registrations/registrations.module';
+import { ScoresheetModule } from './scoresheet/scoresheet.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RegistrationsModule } from './registrations/registrations.module';
     CoreModule,
     AppRoutingModule,
     DashboardModule,
-    RegistrationsModule
+    RegistrationsModule,
+    ScoresheetModule
   ],
   providers: [],
   bootstrap: [AppComponent]

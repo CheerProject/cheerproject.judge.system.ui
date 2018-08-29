@@ -1,0 +1,53 @@
+.parent-category {
+  margin: 10px 20px;
+  min-width: 220px;
+}
+
+.card-content {
+  margin-top: 20px;
+}
+
+.categories{
+  margin: 30px 10px;
+}
+
+.score-metrics {
+  padding: 0px 0px;
+}
+
+.metric-container{
+  margin-bottom: 10px;
+}
+
+.metric{
+  width: 100%;
+  min-width: 150px;
+}
+
+.align-right{
+  text-align: right;
+}
+
+textarea{
+  height: 100px;
+  width: 100%;
+}
+
+.error-message{
+  font-size: 10px;
+  color: red;
+}
+
+.button-finish, .button-pending{
+  width: 100%;
+  font-size: 10px;
+}
+
+.button-pending{
+  text-align: right;
+  margin-right: 10px;
+}
+
+.button-finish{
+  margin-left: 10px;
+}
