@@ -12,7 +12,7 @@ import { catchError, map, tap } from 'rxjs/operators';
   providedIn: DashboardModule
 })
 export class DashboardService extends BaseService {
-  private dashboardUrl = 'api/division'; // URL to web api
+  private dashboardUrl = 'api/divisions'; // URL to web api
   constructor(private http: HttpClient, messageService: MessageService) {
     super(messageService);
   }

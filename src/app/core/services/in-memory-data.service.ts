@@ -4,6 +4,7 @@ import { DIVISIONS } from '../../dashboard/models/mock-divisions';
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    return { DIVISIONS };
+    const divisions = DIVISIONS;
+    return { divisions };
   }
 }
