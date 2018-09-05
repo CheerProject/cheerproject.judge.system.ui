@@ -18,11 +18,9 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.divisions = this.dashBoardService.getDashBoard().map(division => {
-      const progress = (division.pending * 100) / division.teams;
-      division.progress = progress;
-      return division;
-    });
+    this.dashBoardService
+      .getDashBoard()
+      .subscribe(divisions => (this.divisions = divisions));
   }
 
   getRegistrations(division: Division): void {

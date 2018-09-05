@@ -5,11 +5,12 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GetMapValuesPipe } from './pipes/get-map-values.pipe';
+import { MessagesComponent } from './components/messages/messages.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { GetMapValuesPipe } from './pipes/get-map-values.pipe';
     MatCardModule,
     MatGridListModule
   ],
-  declarations: [GetMapValuesPipe],
+  declarations: [GetMapValuesPipe, MessagesComponent],
   exports: [
     CommonModule,
     FormsModule,
@@ -36,7 +37,8 @@ import { GetMapValuesPipe } from './pipes/get-map-values.pipe';
     MatDividerModule,
     MatCardModule,
     MatGridListModule,
-    GetMapValuesPipe
+    GetMapValuesPipe,
+    MessagesComponent
   ]
 })
 export class SharedModule {}
