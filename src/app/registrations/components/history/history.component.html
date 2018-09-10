@@ -4,7 +4,7 @@
       <mat-icon class="tab-icon">list</mat-icon>
     </ng-template>
 
-    <mat-card *ngFor="let registration of actual" class="registration" (click)="getScoresheet(registration)">
+    <mat-card *ngFor="let registration of actual " class="registration" (click)="getScoresheet(registration)">
       <button mat-button class="bookmark-label" (click)="setPending(registration)">
         <mat-icon [inline]="true">bookmark_border</mat-icon>
       </button>

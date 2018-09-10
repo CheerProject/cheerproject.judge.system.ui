@@ -1,4 +1,3 @@
-import { DIVISIONS } from './../models/mock-divisions';
 import { DashboardModule } from './../dashboard.module';
 import { Injectable } from '@angular/core';
 import { BaseService } from '../../core/services/base-service';
@@ -19,7 +18,14 @@ export class DashboardService extends BaseService {
 
   getDashBoard(): Observable<Division[]> {
     return this.http.get<Division[]>(this.dashboardUrl).pipe(
-      tap(heroes => this.log('Getting dashboard data')),
+      tap( _ => this.log('Getting dashboard data')),
+      map(divisions =>
+        divisions.map(division => {
+          const progress = (division.pending * 100) / division.teams;
+          division.progress = progress;
+          return division;
+        })
+      ),
       catchError(this.handleError('getDashboard', []))
     );
   }

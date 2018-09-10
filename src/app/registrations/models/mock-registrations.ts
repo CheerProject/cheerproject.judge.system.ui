@@ -19,7 +19,7 @@ export const REGISTRATIONS: Registration[] = [
         name: '4'
       },
       division: {
-        id: 5,
+        id: 1,
         name: 'Open'
       },
       category: {
@@ -60,7 +60,7 @@ export const REGISTRATIONS: Registration[] = [
         name: '4'
       },
       division: {
-        id: 5,
+        id: 1,
         name: 'Open'
       },
       category: {
@@ -69,7 +69,7 @@ export const REGISTRATIONS: Registration[] = [
       }
     },
     team: {
-      id: 1,
+      id: 2,
       name: 'Landivar',
       coach: 'Pablo Solís'
     },
@@ -87,9 +87,9 @@ export const REGISTRATIONS: Registration[] = [
   },
   ,
   {
-    id: 2,
+    id: 3,
     divisionGroup: {
-      id: 2,
+      id: 3,
       group: {
         groupId: 1
       },
@@ -102,7 +102,7 @@ export const REGISTRATIONS: Registration[] = [
         name: '4'
       },
       division: {
-        id: 5,
+        id: 1,
         name: 'Open'
       },
       category: {
@@ -111,7 +111,7 @@ export const REGISTRATIONS: Registration[] = [
       }
     },
     team: {
-      id: 1,
+      id: 3,
       name: 'Escuintla',
       coach: 'Entrenador'
     },
@@ -122,16 +122,16 @@ export const REGISTRATIONS: Registration[] = [
       address: 'DIGEF'
     },
     status: {
-      id: 1,
+      id: 2,
       name: RegistrationStatus.Pending
     },
     points: 0
   },
   ,
   {
-    id: 2,
+    id: 4,
     divisionGroup: {
-      id: 2,
+      id: 4,
       group: {
         groupId: 1
       },
@@ -144,7 +144,7 @@ export const REGISTRATIONS: Registration[] = [
         name: '4'
       },
       division: {
-        id: 5,
+        id: 1,
         name: 'Open'
       },
       category: {
@@ -153,7 +153,7 @@ export const REGISTRATIONS: Registration[] = [
       }
     },
     team: {
-      id: 1,
+      id: 4,
       name: 'Pegasos',
       coach: 'Gabriela Martines'
     },
@@ -164,7 +164,7 @@ export const REGISTRATIONS: Registration[] = [
       address: 'DIGEF'
     },
     status: {
-      id: 1,
+      id: 3,
       name: RegistrationStatus.Finished
     },
     points: 100

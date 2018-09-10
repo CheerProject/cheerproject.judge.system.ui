@@ -1,3 +1,4 @@
+import { RegistrationsService } from './services/registrations.service';
 import { SharedModule } from '../shared/shared.module';
 import { NgModule } from '@angular/core';
 
@@ -9,6 +10,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 @NgModule({
   imports: [RegistrationsRoutingModule, SharedModule, MatTabsModule],
   declarations: [HistoryComponent],
-  exports: [HistoryComponent]
+  exports: [HistoryComponent],
+  providers: [RegistrationsService]
 })
 export class RegistrationsModule {}

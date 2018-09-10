@@ -1,7 +1,9 @@
+import { RegistrationView } from './../../models/registration-view';
+import { RegistrationsService } from './../../services/registrations.service';
 import { REGISTRATIONS } from '../../models/mock-registrations';
 import { Registration } from '../../models/registration';
 import { Component, OnInit } from '@angular/core';
-import { RegistrationStatus } from '../../enums/registration-status.enum';
+
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-history',
@@ -9,30 +11,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit {
-  registrations: Registration[] = REGISTRATIONS;
   actual: Registration[] = [];
   pendiente: Registration[] = [];
   historial: Registration[] = [];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private registrationsService: RegistrationsService
+  ) {}
 
   ngOnInit() {
     this.processRegistration();
   }
 
-  processRegistration(): void {
-    this.registrations.forEach(registration => {
-      switch (registration.status.name) {
-        case RegistrationStatus.OnTime:
-          this.actual.push(registration);
-          break;
-        case RegistrationStatus.Pending:
-          this.pendiente.push(registration);
-          break;
-        case RegistrationStatus.Finished:
-          this.historial.push(registration);
-          break;
-      }
+  processRegistration() {
+    this.registrationsService.getRegistrations().subscribe(registrations => {
+      this.actual = registrations.ontime;
+      this.pendiente = registrations.pending;
+      this.historial = registrations.completed;
     });
   }
 
