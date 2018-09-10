@@ -1,0 +1,20 @@
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.user-name{
+    font-size: 0.7em;
+}
+
+.app-name{
+  font-size: 1em;
+}
+
+a.home{
+  text-decoration: none;
+  cursor: pointer;
+}
