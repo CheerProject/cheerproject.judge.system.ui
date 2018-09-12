@@ -7,7 +7,7 @@
   margin-top: 20px;
 }
 
-.categories{
+.categories {
   margin: 30px 10px;
 }
 
@@ -15,39 +15,87 @@
   padding: 0px 0px;
 }
 
-.metric-container{
-  margin-bottom: 10px;
+.metric-container {
+  display: block;
 }
 
-.metric{
+
+.metric {
   width: 100%;
   min-width: 150px;
 }
 
-.align-right{
+.align-right {
   text-align: right;
 }
 
-textarea{
+textarea {
   height: 100px;
   width: 100%;
 }
 
-.error-message{
+.error-message {
   font-size: 10px;
   color: red;
 }
 
-.button-finish, .button-pending{
+.button-finish,
+.button-pending {
   width: 100%;
   font-size: 10px;
 }
 
-.button-pending{
+.button-pending {
   text-align: right;
   margin-right: 10px;
 }
 
-.button-finish{
+.button-finish {
   margin-left: 10px;
+}
+
+.accordion-headers .mat-expansion-panel-header-title,
+.accordion-headers .mat-expansion-panel-header-description {
+  flex-basis: 50%;
+}
+
+.accordion-headers .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: right;
+}
+
+
+
+.mat-expansion-panel-header.mat-expanded {
+  background: #4267b2 !important;
+  background-color: white;
+  margin-bottom: 15px;
+}
+
+.mat-expansion-panel-header.mat-expanded .mat-expansion-panel-header-title,
+.mat-expansion-panel-header.mat-expanded .mat-expansion-panel-header-description {
+  color: white !important;
+}
+
+.slider-margin{
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.step-title{
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+
+.step-title, .step-description{
+  margin-top: 10px;
+}
+
+.label-template{
+  padding-top: 20px;
+}
+
+.stepper-container{
+  margin-top: 20px;  
 }

@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -11,6 +10,11 @@ import { ScoresheetModule } from './scoresheet/scoresheet.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './core/services/in-memory-data.service';
+import {
+  BrowserModule,
+  HAMMER_GESTURE_CONFIG
+} from '@angular/platform-browser';
+import { GestureConfig } from '@angular/material';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +35,7 @@ import { InMemoryDataService } from './core/services/in-memory-data.service';
       dataEncapsulation: false
     })
   ],
-  providers: [],
+  providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

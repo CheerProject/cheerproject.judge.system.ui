@@ -8,7 +8,10 @@ export class GetMapValuesPipe implements PipeTransform {
     const ret = [];
 
     map.forEach((val, key) => {
-      ret.push(val);
+      ret.push({
+        key: key,
+        val: val
+      });
     });
 
     return ret;

@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GetMapValuesPipe } from './pipes/get-map-values.pipe';
 import { MessagesComponent } from './components/messages/messages.component';
-
+import { MatBadgeModule } from '@angular/material/badge';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +19,7 @@ import { MessagesComponent } from './components/messages/messages.component';
     RouterModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatBadgeModule,
     MatToolbarModule,
     MatButtonModule,
     MatDividerModule,
@@ -31,6 +32,7 @@ import { MessagesComponent } from './components/messages/messages.component';
     FormsModule,
     BrowserAnimationsModule,
     RouterModule,
+    MatBadgeModule,
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,

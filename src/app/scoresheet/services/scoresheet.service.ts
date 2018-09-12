@@ -1,15 +1,12 @@
 import { tap, map, catchError } from 'rxjs/operators';
 import { BaseService } from './../../core/services/base-service';
-import { ScoresheetComponent } from './../components/scoresheet/scoresheet.component';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from '../../core/services/message.service';
 import { Observable } from 'rxjs';
 import { UserScoresheetElement } from '../models/user-scoresheet-element';
 
-@Injectable({
-  providedIn: ScoresheetComponent
-})
+@Injectable()
 export class ScoresheetService extends BaseService {
   private scoresheeUrl = 'api/scoresheets';
   private scoreSheet = new Map();
