@@ -11,28 +11,30 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GetMapValuesPipe } from './pipes/get-map-values.pipe';
 import { MessagesComponent } from './components/messages/messages.component';
+import { BrowserModule } from '@angular/platform-browser';
 import { MatBadgeModule } from '@angular/material/badge';
 @NgModule({
   imports: [
+    BrowserModule,
     CommonModule,
     FormsModule,
     RouterModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatBadgeModule,
     MatToolbarModule,
     MatButtonModule,
     MatDividerModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatBadgeModule
   ],
   declarations: [GetMapValuesPipe, MessagesComponent],
   exports: [
+    BrowserModule,
     CommonModule,
     FormsModule,
     BrowserAnimationsModule,
     RouterModule,
-    MatBadgeModule,
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
@@ -40,7 +42,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatCardModule,
     MatGridListModule,
     GetMapValuesPipe,
-    MessagesComponent
+    MessagesComponent,
+    MatBadgeModule
   ]
 })
 export class SharedModule {}

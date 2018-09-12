@@ -4,9 +4,11 @@
 
     <div *ngFor="let parent of scoreSheet |getMapValues; index as parentIndex; last as parentLast ">
       <mat-step>
-        <ng-template matStepLabel *ngIf="parent.val.name !== OTHERS" class="label-template">
-          <span class="step-title" matBadge="{{result[parent.val.id].subTotal}} / {{result[parent.val.id].total}}" matBadgeOverlap="false" >{{parent.val.name}}</span>
-
+        <ng-template matStepLabel *ngIf="parent.val.name !== OTHERS">
+          <div class="label-template">
+            <div class="step-title">{{parent.val.name}}</div>
+            <div class="step-description">{{result[parentIndex].subTotal}} / {{result[parentIndex].total}}</div>
+          </div>
         </ng-template>
         <ng-template matStepLabel *ngIf="parent.val.name == OTHERS">
           <div class="step-title">{{parent.val.name}}</div>
@@ -21,7 +23,7 @@
               </mat-panel-title>
               <mat-panel-description *ngIf="parent.val.name !== OTHERS">
                 <!-- {{getSubTotal(parent.key, scoreCategory.id)}} -->
-                {{result[parent.val.id]["childStat"][i].subTotal}} / {{result[parent.val.id]["childStat"][i].total}}
+                {{result[parentIndex]["childStat"][i].subTotal}} / {{result[parentIndex]["childStat"][i].total}}
               </mat-panel-description>
             </mat-expansion-panel-header>
 
@@ -32,8 +34,8 @@
                   <div>{{metric.name}}: {{ metric.element.value }} / {{metric.element.maxScore}}</div>
                 </div>
                 <div *ngIf="!metric.element.value">
-                    <div>{{metric.name}}: {{ metric.element.minScore }} / {{metric.element.maxScore}}</div>
-                  </div>
+                  <div>{{metric.name}}: {{ metric.element.minScore }} / {{metric.element.maxScore}}</div>
+                </div>
                 <div class="slider-margin">
                   <mat-slider class="slider-margin" max="{{metric.element.maxScore}}" min="{{metric.element.minScore}}"
                     step="0.5" thumbLabel tickInterval="1" [(ngModel)]="metric.element.value" (change)=getTotal()>
@@ -75,7 +77,6 @@
               <button mat-button color="primary" (click)="nextStep(parentIndex, i)" matStepperNext>
                 <mat-icon>check_circle_outline</mat-icon>
               </button>
-
             </mat-action-row>
 
 
@@ -85,12 +86,21 @@
         </mat-accordion>
       </mat-step>
 
-      <mat-step *ngIf="parentLast" label="FINALIZAR">
-        <div *ngFor="let item of result" class="total-review">
-          <pre>
-           {{item | json}}
-          </pre>
-        </div>
+      <mat-step *ngIf="parentLast">
+        <ng-template matStepLabel class="label-template">
+          <span class="step-title">Fin</span>
+        </ng-template>
+        <table>
+          <tr *ngFor="let item of result" class="total-review">
+            <td class="td-left">
+              <span>{{item.name}} </span>
+            </td>
+            <td class="td-right">
+              <span> {{item.subTotal}} / {{item.total}}</span>
+            </td>
+            <br>
+          </tr>
+        </table>
       </mat-step>
     </div>
 

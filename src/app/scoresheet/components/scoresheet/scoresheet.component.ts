@@ -81,9 +81,12 @@ export class ScoresheetComponent implements OnInit {
   }
 
   getTotal() {
-
     const last = this.scoreSheet.size - 1;
     let index = 0;
+    let statIndex = 0;
+    let finalTotal = 0;
+    let finalSubTotal = 0;
+
     this.scoreSheet.forEach((val, key) => {
       let globalSubTotal = 0;
       let globalTotal = 0;
@@ -109,24 +112,29 @@ export class ScoresheetComponent implements OnInit {
       globalSubTotal += categorySubTotal;
       globalTotal += categoryTotal;
 
+      finalTotal += globalTotal;
+      finalSubTotal += globalSubTotal;
+
       if (parentName !== this.OTHERS) {
         stat.total = globalTotal;
         stat.subTotal = globalSubTotal;
-        this.result[stat.id] = stat;
+        this.result[statIndex] = stat;
+        statIndex++;
       }
       if (last === index) {
         // execute last item logic
+
         const finalStats: Stat = {
-          id: -1,
+          id: 'total',
           name: this.GLOBAL_TOTAL,
-          total: globalTotal,
-          subTotal: globalSubTotal
+          total: finalTotal,
+          subTotal: finalSubTotal
         };
-        this.result[finalStats.id] = finalStats;
+
+        this.result[statIndex] = finalStats;
       }
+
       index++;
     });
-
-    console.log(this.result);
   }
 }

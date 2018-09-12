@@ -1,5 +1,5 @@
 export class Stat {
-  id: number;
+  id: string;
   name: string;
   total: number;
   subTotal: number;

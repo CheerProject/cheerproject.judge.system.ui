@@ -77,25 +77,57 @@ textarea {
   color: white !important;
 }
 
-.slider-margin{
+.slider-margin {
   width: 100%;
   margin: 10px 0px;
 }
 
-.step-title{
+
+::ng-deep .mat-step-label {
+  width: 100% !important;
+}
+
+.step-title {
   font-size: 1.3em;
   font-weight: bold;
+  float: left;
 }
 
 
-.step-title, .step-description{
-  margin-top: 10px;
+.step-description {
+  float: right;
+  background-color: #eee;
+  border: none;
+  color: black;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  border-radius: 50px;
 }
 
-.label-template{
-  padding-top: 20px;
+
+.stepper-container {
+  margin-top: 20px;
 }
 
-.stepper-container{
-  margin-top: 20px;  
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #eee;
+  text-align: left;
+  padding: 8px;
+
+}
+
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
+.td-right{
+  text-align: center;
 }
