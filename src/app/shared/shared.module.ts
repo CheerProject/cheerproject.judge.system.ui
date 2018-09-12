@@ -13,6 +13,7 @@ import { GetMapValuesPipe } from './pipes/get-map-values.pipe';
 import { MessagesComponent } from './components/messages/messages.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatBadgeModule } from '@angular/material/badge';
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   imports: [
     BrowserModule,
@@ -26,7 +27,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatDividerModule,
     MatCardModule,
     MatGridListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatTableModule
   ],
   declarations: [GetMapValuesPipe, MessagesComponent],
   exports: [
@@ -43,7 +45,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatGridListModule,
     GetMapValuesPipe,
     MessagesComponent,
-    MatBadgeModule
+    MatBadgeModule,
+    MatTableModule
   ]
 })
 export class SharedModule {}

@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<mat-toolbar class="toolbar">
+<mat-toolbar class="toolbar" color="primary">
   <span>
     <a mat-button routerLink="/dashboard">
       <mat-icon>home</mat-icon>
@@ -7,6 +7,9 @@
     </a>
   </span>
   <span class="example-spacer"></span>
+  <a mat-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </a>
   <mat-icon class="example-icon">account_circle</mat-icon>
   <span class="user-name">Eduardo Aviles</span>
 </mat-toolbar>

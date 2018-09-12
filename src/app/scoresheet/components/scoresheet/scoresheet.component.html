@@ -22,7 +22,6 @@
                 {{scoreCategory.name}}
               </mat-panel-title>
               <mat-panel-description *ngIf="parent.val.name !== OTHERS">
-                <!-- {{getSubTotal(parent.key, scoreCategory.id)}} -->
                 {{result[parentIndex]["childStat"][i].subTotal}} / {{result[parentIndex]["childStat"][i].total}}
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -88,19 +87,51 @@
 
       <mat-step *ngIf="parentLast">
         <ng-template matStepLabel class="label-template">
-          <span class="step-title">Fin</span>
+          <span class="step-title">Finalizar</span>
         </ng-template>
-        <table>
-          <tr *ngFor="let item of result" class="total-review">
-            <td class="td-left">
-              <span>{{item.name}} </span>
-            </td>
-            <td class="td-right">
-              <span> {{item.subTotal}} / {{item.total}}</span>
-            </td>
-            <br>
-          </tr>
-        </table>
+
+        <mat-card class="stats-container">
+          <mat-card-header class="card-header">
+             <mat-card-title>Verificacion final</mat-card-title>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content class="card-content">
+            <table class="stats">
+              <tr *ngFor="let item of result; last as lastRow" class="total-review" [ngClass]="(lastRow)?'last-row-stat':'row-stat'">
+                <td class="td-left">
+                  <span>{{item.name}} </span>
+                </td>
+                <td class="td-right">
+                  <span> {{item.subTotal}} / {{item.total}}</span>
+                </td>
+                <br>
+              </tr>
+            </table>
+          </mat-card-content>
+          <mat-divider></mat-divider>
+          <mat-card-actions class="card-footer">
+            <mat-grid-list cols="2" rowHeight="40px">
+              <mat-grid-tile>
+                <div class="wrapper-finish">
+                  <button mat-button class="btn-go">
+                    <mat-icon>check_circle_outline</mat-icon>
+                    Finalizar
+                  </button>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <div class="wrapper-pending">
+                  <button mat-button class="btn-pending">
+                    <mat-icon>bookmark_border</mat-icon>
+                    Pendiente
+                  </button>
+                </div>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card-actions>
+        </mat-card>
+
+
       </mat-step>
     </div>
 

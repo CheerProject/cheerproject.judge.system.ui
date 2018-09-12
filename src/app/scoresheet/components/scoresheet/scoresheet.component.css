@@ -57,17 +57,19 @@ textarea {
 .accordion-headers .mat-expansion-panel-header-title,
 .accordion-headers .mat-expansion-panel-header-description {
   flex-basis: 50%;
+  font-weight: bold;
 }
 
 .accordion-headers .mat-expansion-panel-header-description {
   justify-content: space-between;
   align-items: right;
+  font-size: 1.5;
 }
 
 
 
 .mat-expansion-panel-header.mat-expanded {
-  background: #4267b2 !important;
+  background: #3f51b5 !important;
   background-color: white;
   margin-bottom: 15px;
 }
@@ -106,28 +108,78 @@ textarea {
   border-radius: 50px;
 }
 
-
 .stepper-container {
   margin-top: 20px;
 }
 
-
-table {
+table.stats {
   border-collapse: collapse;
+  border-spacing: 0;
+  border-color: grey;
   width: 100%;
 }
 
-td, th {
-  border: 1px solid #eee;
+table.stats td, th {
+  border-bottom-color: rgba(0,0,0,.12);
   text-align: left;
-  padding: 8px;
-
+  padding: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-collapse: separate;
+  display: table-cell;
+  font-size: 14px;
 }
 
-tr:nth-child(even) {
+table.stats tr{
+  height: 48px;
+}
+
+table.stats tr:last-child { 
+  font-weight: bold;
+}
+
+table.stats tr:last-child td{
+  border-bottom-width: 0; 
+  border-bottom-style: none;
+}
+
+/*
+table.stats tr:nth-child(even) {
   background-color: #eee;
+}*/
+
+table.stats .td-right{
+  text-align: left;
+  padding-right: 24px
 }
 
-.td-right{
-  text-align: center;
+table.stats .td-left{
+  text-align: left;
+  padding-left: 24px
+}
+
+table.final-stats{
+  width: 100%;
+}
+
+.stats-container{
+  margin-top: 15px;
+}
+
+.wrapper-pending {
+  width: 100%;
+  text-align: right;
+}
+
+.wrapper-finish {
+  width: 100%;
+  text-align: left;
+}
+
+.btn-go{
+  margin-left: 30px !important;
+}
+
+.btn-pending{
+  margin-right: 30px !important;
 }
