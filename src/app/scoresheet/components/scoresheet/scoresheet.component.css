@@ -54,13 +54,16 @@ textarea {
   margin-left: 10px;
 }
 
-.accordion-headers .mat-expansion-panel-header-title,
-.accordion-headers .mat-expansion-panel-header-description {
+
+
+.accordion-container .mat-expansion-panel-header-title,
+.accordion-container .mat-expansion-panel-header-description {
   flex-basis: 50%;
   font-weight: bold;
+  color: #878787 !important;
 }
 
-.accordion-headers .mat-expansion-panel-header-description {
+.accordion-container .mat-expansion-panel-header-description {
   justify-content: space-between;
   align-items: right;
   font-size: 1.5;
@@ -84,26 +87,33 @@ textarea {
   margin: 10px 0px;
 }
 
-
+::ng-deep .mat-stepper-vertical .mat-step-header{
+  background-color: #f8f8f8f5 !important;
+}
 ::ng-deep .mat-step-label {
   width: 100% !important;
 }
 
+::ng-deep .mat-vertical-content{
+  padding: 24px !important;
+}
 .step-title {
   font-size: 1.3em;
   font-weight: bold;
   float: left;
+  margin-top: 5px
 }
 
 
 .step-description {
   float: right;
-  background-color: #eee;
+  background-color: #BDBDBD;
   border: none;
-  color: black;
+  color: white;
   padding: 8px 12px;
   text-align: center;
   text-decoration: none;
+  font-weight: 800;
   display: block;
   border-radius: 50px;
 }
@@ -128,6 +138,7 @@ table.stats td, th {
   border-collapse: separate;
   display: table-cell;
   font-size: 14px;
+  color: #757575;
 }
 
 table.stats tr{
@@ -182,4 +193,9 @@ table.final-stats{
 
 .btn-pending{
   margin-right: 30px !important;
+}
+
+.mat-card-title{
+  font-weight: bold;
+  font-size: 1.1em;
 }

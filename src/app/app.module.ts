@@ -14,6 +14,7 @@ import {
   HAMMER_GESTURE_CONFIG
 } from '@angular/platform-browser';
 import { GestureConfig } from '@angular/material';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { GestureConfig } from '@angular/material';
     DashboardModule,
     RegistrationsModule,
     ScoresheetModule,
+    AuthModule,
     HttpClientModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests

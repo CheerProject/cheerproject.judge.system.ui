@@ -16,7 +16,6 @@ import {MatSliderModule} from '@angular/material/slider';
     ScoresheetRoutingModule,
     SharedModule,
     MatTableModule,
-    MatFormFieldModule,
     MatInputModule,
     MatStepperModule,
     MatExpansionModule,

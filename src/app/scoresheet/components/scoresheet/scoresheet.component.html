@@ -13,11 +13,11 @@
         <ng-template matStepLabel *ngIf="parent.val.name == OTHERS">
           <div class="step-title">{{parent.val.name}}</div>
         </ng-template>
-        <mat-accordion class="accordion-headers">
+        <mat-accordion class="accordion-container">
           <mat-expansion-panel (opened)="setStep(parentIndex, i)" [expanded]="parentAccordion[parentIndex] === i"
-            hideToggle *ngFor="let scoreCategory of parent.val.scoreCategories; index as i; first as isFirst; last as isLast">
+            hideToggle *ngFor="let scoreCategory of parent.val.scoreCategories; index as i; first as isFirst; last as isLast" class="expansion-container">
 
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="light-primary-color">
               <mat-panel-title class="panel-header-title">
                 {{scoreCategory.name}}
               </mat-panel-title>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="slider-margin">
                   <mat-slider class="slider-margin" max="{{metric.element.maxScore}}" min="{{metric.element.minScore}}"
-                    step="0.5" thumbLabel tickInterval="1" [(ngModel)]="metric.element.value" (change)=getTotal()>
+                    step="0.5" thumbLabel tickInterval="1" [(ngModel)]="metric.element.value" (change)=getTotal() color="primary">
                   </mat-slider>
                 </div>
 
@@ -92,7 +92,7 @@
 
         <mat-card class="stats-container">
           <mat-card-header class="card-header">
-             <mat-card-title>Verificacion final</mat-card-title>
+             <mat-card-title >Verificacion final</mat-card-title>
           </mat-card-header>
           <mat-divider></mat-divider>
           <mat-card-content class="card-content">
