@@ -7,15 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { RegistrationsModule } from './registrations/registrations.module';
 import { ScoresheetModule } from './scoresheet/scoresheet.module';
-import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './core/services/in-memory-data.service';
-import {
-  HAMMER_GESTURE_CONFIG
-} from '@angular/platform-browser';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { GestureConfig } from '@angular/material';
 import { AuthModule } from './auth/auth.module';
-
+import { AuthService } from './auth/services/auth.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor, ErrorInterceptor } from './auth/interceptors/token.interceptor';
+import {AuthGuardService as AuthGuard} from './auth/guards/auth-guard.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +36,22 @@ import { AuthModule } from './auth/auth.module';
       dataEncapsulation: false
     })
   ],
-  providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
+  providers: [
+    AuthService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    ,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

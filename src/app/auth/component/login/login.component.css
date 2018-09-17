@@ -1,12 +1,82 @@
-.login-form{
-    max-width: 400px;
+.login-container {
+  margin-top:35px !important;
+  max-width: 500px;
+  min-width: 200px;
+  margin: auto;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+}
+
+.login-container>* {
+  width: 100%;
+
+}
+
+.login-btn {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.login-header {
+  font-weight: bold;
+  text-align: center;
+  padding: 25px 0;
+  background-color: rgba(238, 238, 238);
+  color: grey;
+}
+
+.login-footer {
+    font-weight: bold !important;
+  height: 50px;
+  
+}
+
+.login-footer .login-btn {
+  height: 100%;
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  margin: 25px 0;
+}
+
+mat-form-field {
+  padding: 0px 30px;
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width:700px) {
+  .login-container {
+  
+    max-width:350px;
     margin: auto;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+  
+  }
 }
 
-.login-btn{
-    width: 100%;
+@media only screen and (max-width:375px) {
+  .login-container {
+   
+    max-width: 320px;
+    margin: auto;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+  
+  }
 }
 
-.full-width{
-    width: 100%;
+
+@media only screen and (max-width:320px) {
+  .login-container {
+
+    max-width: 250px;
+    margin: auto;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+  
+  }
 }
+

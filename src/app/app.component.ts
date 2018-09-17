@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { AuthService } from './auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,14 @@ import { Location } from '@angular/common';
 })
 export class AppComponent {
   title = 'Cheer app';
-  constructor(private location: Location) {}
+
+  constructor(private location: Location, private auth: AuthService) {
+  }
   goBack(): void {
     this.location.back();
+  }
+
+  isAuthenticated(): boolean {
+    return this.auth.isAuthtenticated();
   }
 }
