@@ -1,4 +1,3 @@
-import { DashboardModule } from './../dashboard.module';
 import { Injectable } from '@angular/core';
 import { BaseService } from '../../core/services/base-service';
 import { MessageService } from '../../core/services/message.service';
@@ -7,9 +6,7 @@ import { Division } from '../models/division';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: DashboardModule
-})
+@Injectable()
 export class DashboardService extends BaseService {
   private dashboardUrl = 'api/divisions'; // URL to web api
   constructor(private http: HttpClient, messageService: MessageService) {

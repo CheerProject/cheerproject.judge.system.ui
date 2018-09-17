@@ -237,7 +237,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
   {
     id: 16,
     minScore: 1,
-    maxScore: 2,
+    maxScore: 10,
     value: '',
     scoreMetric: difficulty,
     scoreCategory: routineComposition
@@ -245,7 +245,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
   {
     id: 17,
     minScore: 1,
-    maxScore: 2,
+    maxScore: 10,
     value: '',
     scoreMetric: difficulty,
     scoreCategory: performance
@@ -253,7 +253,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
   {
     id: 18,
     minScore: 1,
-    maxScore: 2,
+    maxScore: 10,
     value: '',
     scoreMetric: difficulty,
     scoreCategory: dance

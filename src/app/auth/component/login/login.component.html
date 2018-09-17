@@ -1,0 +1,24 @@
+<mat-card class="login-form">
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-subtitle>Favor introducir sus credenciales</mat-card-subtitle>
+  </mat-card-header>
+
+
+  <mat-card-content>
+    <div class="full-width">
+      <mat-form-field>
+        <input matInput placeholder="Enter your email" [formControl]="email" required >
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="full-width">
+      <mat-form-field>
+        <input matInput placeholder="Password" required >
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-actions class="btn-wrapper">
+    <button mat-button class="login-btn">Login</button>
+  </mat-card-actions>
+</mat-card>
