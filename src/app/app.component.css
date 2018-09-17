@@ -24,6 +24,11 @@ a.home{
   margin: auto;
 }
 
+.auth-container{
+  display: flex;
+  flex-direction: row;
+}
+
 .dark-primary-color    { background: #303F9F; }
 .default-primary-color { background: #3F51B5; }
 .light-primary-color   { background: #C5CAE9; }
