@@ -43,7 +43,6 @@ export class HistoryComponent implements OnInit {
   }
 
   getScoresheet(registration: Registration): void {
-    console.log('getting scoresheets');
     this.router.navigate([
       '/registrations',
       registration.divisionGroup.division.id,

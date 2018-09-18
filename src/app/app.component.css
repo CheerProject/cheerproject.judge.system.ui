@@ -29,6 +29,12 @@ a.home{
   flex-direction: row;
 }
 
+.icon{
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+
 .dark-primary-color    { background: #303F9F; }
 .default-primary-color { background: #3F51B5; }
 .light-primary-color   { background: #C5CAE9; }

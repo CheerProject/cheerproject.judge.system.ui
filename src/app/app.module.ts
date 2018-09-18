@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import { NgxsModule } from '@ngxs/store';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
@@ -16,6 +16,8 @@ import { AuthService } from './auth/services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor, ErrorInterceptor } from './auth/interceptors/token.interceptor';
 import {AuthGuardService as AuthGuard} from './auth/guards/auth-guard.service';
+import { AuthState } from './auth/state/auth.state';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,10 +25,10 @@ import {AuthGuardService as AuthGuard} from './auth/guards/auth-guard.service';
     SharedModule,
     CoreModule,
     AppRoutingModule,
+    AuthModule,
     DashboardModule,
     RegistrationsModule,
     ScoresheetModule,
-    AuthModule,
     HttpClientModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
@@ -34,6 +36,10 @@ import {AuthGuardService as AuthGuard} from './auth/guards/auth-guard.service';
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false
+    }),
+    NgxsModule.forRoot([AuthState]),
+    NgxsStoragePluginModule.forRoot({
+      key: ['auth.email','auth.token']
     })
   ],
   providers: [

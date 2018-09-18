@@ -8,33 +8,27 @@ import { Injectable } from '@angular/core';
 
 import { User } from '../models/user';
 import { Observable, throwError } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { MessageService } from '../../core/services/message.service';
+import { Store } from '@ngxs/store';
+import { AuthState } from '../state/auth.state';
 
 @Injectable()
 export class AuthService extends BaseService {
   private BASE_URL = 'api/users';
 
-  constructor(private http: HttpClient, messageService: MessageService) {
+  constructor(private _store: Store, private http: HttpClient, messageService: MessageService) {
     super(messageService);
   }
 
-  isAuthtenticated(): boolean {
-    return this.getToken() ? true : false;
-  }
-
-  getToken(): string {
-    return localStorage.getItem('token');
-  }
-
-  logIn(email: string, password: string): Observable<User> {
+ 
+  login(payload: User): Observable<User> {
     return this.http.get<User[]>(this.BASE_URL).pipe(
-      tap(_ => this.log(`Iniciando session para usuario ${email}`)),
       map(users => {
-        const user = users.find(element => element.email === email);
+        const user = users.find(element => element.email === payload.email);
 
         if (user) {
-          if (user.password !== password) {
+          if (user.password !== payload.password) {
             throw new Error('Invalid password');
           }
           return user;
@@ -42,14 +36,7 @@ export class AuthService extends BaseService {
           throw new Error('User does not exist');
         }
       }),
-      tap(user => {
-        if (user && user.token) {
-          localStorage.setItem('token', user.token);
-        }
-
-        const fetched = user ? 'fetched' : throwError;
-        this.log(`${fetched} with email ${email}`);
-      })
+      catchError(this.handleError('Login',new User()))
     );
   }
 

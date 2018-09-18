@@ -14,6 +14,8 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatBadgeModule } from '@angular/material/badge';
 import {MatTableModule} from '@angular/material/table';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import {MatTableModule} from '@angular/material/table';
     MatCardModule,
     MatGridListModule,
     MatBadgeModule,
-    MatTableModule
+    MatTableModule,
+    MatSnackBarModule
   ],
   declarations: [GetMapValuesPipe, MessagesComponent],
   exports: [
@@ -46,7 +49,8 @@ import {MatTableModule} from '@angular/material/table';
     GetMapValuesPipe,
     MessagesComponent,
     MatBadgeModule,
-    MatTableModule
+    MatTableModule,
+    MatSnackBarModule
   ]
 })
 export class SharedModule {}
