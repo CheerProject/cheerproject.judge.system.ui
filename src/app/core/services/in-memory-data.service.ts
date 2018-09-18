@@ -11,7 +11,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const scoresheets = SCORESHEETS;
     const users: User[] = [{
       id: 1,
-      email: 'e@e.com',
+      email: 'eduardo@e.com',
       password: '1234',
       token:
         // tslint:disable-next-line:max-line-length

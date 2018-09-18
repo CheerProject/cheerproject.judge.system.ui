@@ -49,31 +49,31 @@
             </div>
 
             <mat-action-row *ngIf="isFirst && !isLast">
-              <button mat-button color="primary" (click)="nextStep(parentIndex, i)">
+              <button mat-button mat-stroked-button  color="primary" (click)="nextStep(parentIndex, i)">
                 <mat-icon>chevron_right</mat-icon>
               </button>
             </mat-action-row>
 
             <mat-action-row *ngIf="!isFirst && !isLast">
-              <button mat-button color="warn" (click)="prevStep(parentIndex, i)">
+              <button mat-button mat-stroked-button color="warn" (click)="prevStep(parentIndex, i)">
                 <mat-icon>chevron_left</mat-icon>
               </button>
-              <button mat-button color="primary" (click)="nextStep(parentIndex, i)">
+              <button mat-button mat-stroked-button color="primary" (click)="nextStep(parentIndex, i)">
                 <mat-icon>chevron_right</mat-icon>
               </button>
             </mat-action-row>
 
             <mat-action-row *ngIf="isLast && !isFirst">
-              <button mat-button color="warn" (click)="prevStep(parentIndex, i)">
+              <button mat-button mat-stroked-button color="warn" (click)="prevStep(parentIndex, i)">
                 <mat-icon>chevron_left</mat-icon>
               </button>
-              <button mat-button color="primary" (click)="nextStep(parentIndex, i)" matStepperNext>
+              <button mat-button mat-stroked-button color="primary" (click)="nextStep(parentIndex, i)" matStepperNext>
                 <mat-icon>check_circle_outline</mat-icon>
               </button>
             </mat-action-row>
 
             <mat-action-row *ngIf="isLast && isFirst">
-              <button mat-button color="primary" (click)="nextStep(parentIndex, i)" matStepperNext>
+              <button mat-button mat-stroked-button color="primary" (click)="nextStep(parentIndex, i)" matStepperNext>
                 <mat-icon>check_circle_outline</mat-icon>
               </button>
             </mat-action-row>
@@ -113,7 +113,7 @@
             <mat-grid-list cols="2" rowHeight="40px">
               <mat-grid-tile>
                 <div class="wrapper-finish">
-                  <button mat-button class="btn-go">
+                  <button color="primary" mat-button mat-stroked-button class="btn-go">
                     <mat-icon>check_circle_outline</mat-icon>
                     Finalizar
                   </button>
@@ -121,7 +121,7 @@
               </mat-grid-tile>
               <mat-grid-tile>
                 <div class="wrapper-pending">
-                  <button mat-button class="btn-pending">
+                  <button mat-button  class="btn-pending">
                     <mat-icon>bookmark_border</mat-icon>
                     Pendiente
                   </button>

@@ -34,6 +34,17 @@
 // import 'core-js/es6/weak-map';
 // import 'core-js/es6/set';
 
+/**
+ * An array forEach with a delay between steps.
+ *
+ * @param {Function} callback Function to execute for each element. It receives three arguments, the element value, the element index and the array being traversed, respectivily.
+ * @param {Number} timeout Number of milliseconds that the function call should be delayed by.
+ * @param {Object} thisArg Object to use as this when executing callback.
+ * @this {Array}
+ * @return {undefined}
+ */
+import './app/shared/utils/extend';
+
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 // import 'classlist.js';  // Run `npm install --save classlist.js`.
 

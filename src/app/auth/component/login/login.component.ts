@@ -4,6 +4,8 @@ import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { Login, Logout } from '../../actions/auth.actions';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +16,7 @@ export class LoginComponent implements OnInit {
   userForm: FormGroup;
   MIN_LENGTH = 4;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private store: Store) {
     this.userForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -22,11 +24,11 @@ export class LoginComponent implements OnInit {
         Validators.minLength(this.MIN_LENGTH)
       ])
     });
-    this.authService.logout();
+    this.logout();
   }
 
   ngOnInit() {
-    this.authService.logout();
+    this.logout();
   }
 
   getErrorMessage() {
@@ -48,10 +50,13 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.userForm.valid) {
       const user = this.userForm.value as User;
-      console.log(user);
-      this.authService
-        .logIn(user.email, user.password)
-        .subscribe(data => this.router.navigateByUrl('/'));
+      this.store.dispatch(new Login(user))
+        .subscribe(() => this.router.navigateByUrl('/'));
     }
+
+  }
+
+  logout() {
+    this.store.dispatch(new Logout())
   }
 }

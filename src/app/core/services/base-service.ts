@@ -27,6 +27,6 @@ export class BaseService {
 
   /** Log a HeroService message with the MessageService */
   protected log(message: string) {
-    this.messageService.add(`Message: ${message}`);
+    this.messageService.add(message);
   }
 }

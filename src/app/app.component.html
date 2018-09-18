@@ -1,16 +1,19 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar class="toolbar" color="primary" *ngIf="isAuthenticated()">
+
+  <mat-icon class="icon" (click)="goBack()">arrow_back</mat-icon>
   <span>
     <a mat-button routerLink="/dashboard">
       <mat-icon>home</mat-icon>
-      Inicio
     </a>
   </span>
   <span class="example-spacer"></span>
-  <a mat-button (click)="goBack()">
-    <mat-icon>arrow_back</mat-icon>
-  </a>
-  <span class="user-name">Eduardo Aviles</span>
+
+
+
+  <mat-icon class="icon" (click)="logout()">power_settings_new</mat-icon>
+
+  <span class="user-name">{{username$ | async}}</span>
 </mat-toolbar>
 
 <div class="container">
