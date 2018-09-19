@@ -4,7 +4,7 @@
       <mat-icon class="tab-icon">list</mat-icon>
     </ng-template>
 
-    <mat-card *ngFor="let registration of actual " class="registration" (click)="getScoresheet(registration)">
+    <mat-card *ngFor="let registration of ontime$ | async " class="registration" (click)="getScoresheet(registration)">
       <button mat-button class="bookmark-label" (click)="setPending(registration)">
         <mat-icon [inline]="true">bookmark_border</mat-icon>
       </button>
@@ -60,7 +60,7 @@
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">bookmarks</mat-icon>
     </ng-template>
-    <mat-card *ngFor="let registration of pendiente" class="registration" (click)="getScoresheet(registration)">
+    <mat-card *ngFor="let registration of pending$ | async" class="registration" (click)="getScoresheet(registration)">
       <button mat-button class="bookmark-label" (click)="setCurrent(registration)">
         <mat-icon [inline]="true">bookmark</mat-icon>
       </button>
@@ -116,7 +116,7 @@
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">check_circle_outline</mat-icon>
     </ng-template>
-    <mat-card *ngFor="let registration of historial" class="registration">
+    <mat-card *ngFor="let registration of completed$ | async" class="registration">
       <mat-card-header class="card-header">
         <div mat-card-avatar class="icon">
           <mat-icon [inline]="true">face</mat-icon>

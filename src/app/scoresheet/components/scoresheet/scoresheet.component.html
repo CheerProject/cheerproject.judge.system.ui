@@ -1,27 +1,46 @@
+<div *ngIf=" registration$ | async; let registration">
+  
+  <div class="team-profile">
+    <div class="team-info">
+      <div class="name">{{ registration.team.name}}</div>
+      <div class="coach">{{ registration.team.coach}}</div>
+      <div class="location">Ciudad</div>
+    </div>
+    <div class="team-category">
+      <div class="division">{{ registration.divisionGroup.division.name}}</div>
+      <div class="gender">{{ registration.divisionGroup.gender.name}}</div>
+    </div>
+    <div class="team-level">
+      <div class="level">{{ registration.divisionGroup.level.name}}</div>
+      <div class="levelLabel">Nivel</div>
+    </div>
+    
+  </div>
+</div>
 <div class="stepper-container">
 
   <mat-vertical-stepper [linear]="false" #stepper>
 
-    <div *ngFor="let parent of scoreSheet |getMapValues; index as parentIndex; last as parentLast ">
+    <div *ngFor="let parent of scoreSheet.parentCategory; index as parentIndex; last as parentLast ">
       <mat-step>
-        <ng-template matStepLabel *ngIf="parent.val.name !== OTHERS">
+        <ng-template matStepLabel *ngIf="parent.name !== OTHERS">
           <div class="label-template">
-            <div class="step-title">{{parent.val.name}}</div>
+            <div class="step-title">{{parent.name}}</div>
             <div class="step-description">{{result[parentIndex].subTotal}} / {{result[parentIndex].total}}</div>
           </div>
         </ng-template>
-        <ng-template matStepLabel *ngIf="parent.val.name == OTHERS">
-          <div class="step-title">{{parent.val.name}}</div>
+        <ng-template matStepLabel *ngIf="parent.name == OTHERS">
+          <div class="step-title">{{parent.name}}</div>
         </ng-template>
         <mat-accordion class="accordion-container">
           <mat-expansion-panel (opened)="setStep(parentIndex, i)" [expanded]="parentAccordion[parentIndex] === i"
-            hideToggle *ngFor="let scoreCategory of parent.val.scoreCategories; index as i; first as isFirst; last as isLast" class="expansion-container">
+            hideToggle *ngFor="let scoreCategory of parent.scoreCategories; index as i; first as isFirst; last as isLast" class="expansion-container">
 
             <mat-expansion-panel-header class="light-primary-color">
               <mat-panel-title class="panel-header-title">
                 {{scoreCategory.name}}
               </mat-panel-title>
-              <mat-panel-description *ngIf="parent.val.name !== OTHERS">
+              <mat-panel-description *ngIf="parent.name !== OTHERS">
                 {{result[parentIndex]["childStat"][i].subTotal}} / {{result[parentIndex]["childStat"][i].total}}
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -113,17 +132,17 @@
             <mat-grid-list cols="2" rowHeight="40px">
               <mat-grid-tile>
                 <div class="wrapper-finish">
-                  <button color="primary" mat-button mat-stroked-button class="btn-go">
+                  <a color="primary" mat-button  class="btn-go">
                     <mat-icon>check_circle_outline</mat-icon>
-                    Finalizar
-                  </button>
+
+                  </a>
                 </div>
               </mat-grid-tile>
               <mat-grid-tile>
                 <div class="wrapper-pending">
-                  <button mat-button  class="btn-pending">
+                  <button mat-button color="warn" class="btn-pending">
                     <mat-icon>bookmark_border</mat-icon>
-                    Pendiente
+
                   </button>
                 </div>
               </mat-grid-tile>

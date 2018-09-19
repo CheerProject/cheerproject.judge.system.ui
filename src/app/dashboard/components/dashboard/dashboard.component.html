@@ -1,4 +1,4 @@
-<mat-card *ngFor="let division of divisions"
+<mat-card *ngFor="let division of divisions$ | async"
     (click)= "getRegistrations(division)"
     class="division">
   <mat-card-title>

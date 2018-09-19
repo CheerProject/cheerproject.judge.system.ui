@@ -1,8 +1,6 @@
 import { BaseService } from './../../core/services/base-service';
 import {
   HttpClient,
-  HttpHeaders,
-  HttpErrorResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -11,7 +9,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { MessageService } from '../../core/services/message.service';
 import { Store } from '@ngxs/store';
-import { AuthState } from '../state/auth.state';
+import { AuthState } from '../store/state/auth.state';
 
 @Injectable()
 export class AuthService extends BaseService {

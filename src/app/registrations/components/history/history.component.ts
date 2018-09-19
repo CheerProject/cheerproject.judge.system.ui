@@ -5,48 +5,48 @@ import { Registration } from '../../models/registration';
 import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
+import { Store, Select } from '@ngxs/store';
+import { GetRegistrations, AddPending, AddOntime } from '../../store/actions/registration.actions';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit {
-  actual: Registration[] = [];
-  pendiente: Registration[] = [];
-  historial: Registration[] = [];
+
+  @Select(state => state.registrations.registrations.ontime)
+  ontime$: Observable<Registration[]>;
+
+  @Select(state => state.registrations.registrations.pending)
+  pending$: Observable<Registration[]>;
+
+  @Select(state => state.registrations.registrations.completed)
+  completed$: Observable<Registration[]>;
 
   constructor(
     private router: Router,
-    private registrationsService: RegistrationsService
-  ) {}
+    private registrationsService: RegistrationsService,
+    private store: Store,
+  ) { }
 
   ngOnInit() {
-    this.processRegistration();
+    this.store.dispatch(new GetRegistrations());
   }
 
-  processRegistration() {
-    this.registrationsService.getRegistrations().subscribe(registrations => {
-      this.actual = registrations.ontime;
-      this.pendiente = registrations.pending;
-      this.historial = registrations.completed;
-    });
-  }
 
   setPending(registration: Registration): void {
-    this.actual = this.actual.filter(r => r !== registration);
-    this.pendiente.push(registration);
+    this.store.dispatch(new AddPending(registration));
   }
 
   setCurrent(registration: Registration): void {
-    this.pendiente = this.pendiente.filter(r => r !== registration);
-    this.actual.push(registration);
+    this.store.dispatch(new AddOntime(registration));
   }
 
   getScoresheet(registration: Registration): void {
     this.router.navigate([
-      '/registrations',
-      registration.divisionGroup.division.id,
-      'scoresheets'
+      '/scoresheets',
+      registration.id
     ]);
   }
 }

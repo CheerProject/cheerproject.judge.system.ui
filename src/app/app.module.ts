@@ -16,8 +16,9 @@ import { AuthService } from './auth/services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor, ErrorInterceptor } from './auth/interceptors/token.interceptor';
 import {AuthGuardService as AuthGuard} from './auth/guards/auth-guard.service';
-import { AuthState } from './auth/state/auth.state';
+import { AuthState } from './auth/store/state/auth.state';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,9 +39,8 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
       dataEncapsulation: false
     }),
     NgxsModule.forRoot([AuthState]),
-    NgxsStoragePluginModule.forRoot({
-      key: ['auth.email','auth.token']
-    })
+    NgxsStoragePluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot()
   ],
   providers: [
     AuthService,

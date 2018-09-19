@@ -5,16 +5,21 @@ import { HttpClient } from '@angular/common/http';
 import { MessageService } from '../../core/services/message.service';
 import { Observable } from 'rxjs';
 import { UserScoresheetElement } from '../models/user-scoresheet-element';
+import { ScoresheetModel, ScoreMetricElementModel, ScoreMetricModel, ScoreCategoryModel, ParentCategoryModel } from '../models/scoresheet-model';
+import { Stat } from '../models/stat';
+import { nextTick } from 'q';
 
 @Injectable()
 export class ScoresheetService extends BaseService {
   private scoresheeUrl = 'api/scoresheets';
-  private scoreSheet = new Map();
+  OTHERS = 'Others';
+  GLOBAL_TOTAL = 'Total';
+  private scoreSheet: ScoresheetModel;
   constructor(private http: HttpClient, messageService: MessageService) {
     super(messageService);
   }
 
-  private createNewElement(ssElement: UserScoresheetElement): any {
+  private createNewElement(ssElement: UserScoresheetElement): ParentCategoryModel {
     return {
       id: ssElement.scoreCategory.parentScoreCategory.id,
       name: ssElement.scoreCategory.parentScoreCategory.name,
@@ -22,7 +27,7 @@ export class ScoresheetService extends BaseService {
     };
   }
 
-  private updateElement(parent: any, ssElement: UserScoresheetElement): any {
+  private updateElement(parent: any, ssElement: UserScoresheetElement): ParentCategoryModel {
     if (this.categoryExist(parent, ssElement)) {
       const element = this.createMetric(ssElement);
       parent.scoreCategories
@@ -35,7 +40,7 @@ export class ScoresheetService extends BaseService {
     return parent;
   }
 
-  private createElement(ssElement: UserScoresheetElement): any {
+  private createElement(ssElement: UserScoresheetElement): ScoreMetricElementModel {
     return {
       id: ssElement.id,
       minScore: ssElement.minScore,
@@ -44,7 +49,7 @@ export class ScoresheetService extends BaseService {
     };
   }
 
-  private createMetric(ssElement: UserScoresheetElement): any {
+  private createMetric(ssElement: UserScoresheetElement): ScoreMetricModel {
     return {
       id: ssElement.scoreMetric.id,
       name: ssElement.scoreMetric.name,
@@ -52,7 +57,7 @@ export class ScoresheetService extends BaseService {
     };
   }
 
-  private createCategory(ssElement: UserScoresheetElement): any {
+  private createCategory(ssElement: UserScoresheetElement): ScoreCategoryModel {
     return {
       id: ssElement.scoreCategory.id,
       name: ssElement.scoreCategory.name,
@@ -66,26 +71,124 @@ export class ScoresheetService extends BaseService {
     );
   }
 
-  getScoresheet(): Observable<Map<number, any>> {
+  getScoresheet(): Observable<ScoresheetModel> {
     return this.http.get<UserScoresheetElement[]>(this.scoresheeUrl).pipe(
       tap(_ => this.log('Getting scoresheet data')),
       map(rawScoreSheet => {
-        this.scoreSheet = new Map();
+        this.scoreSheet = new ScoresheetModel();
+
+
         for (const ssElement of rawScoreSheet) {
           const parentId = ssElement.scoreCategory.parentScoreCategory.id;
-          let parent = this.scoreSheet.get(parentId);
+          let parent = this.scoreSheet.parentCategory.find((parent) => parent.id === parentId);
           if (!parent) {
             parent = this.createNewElement(ssElement);
-            this.scoreSheet.set(parentId, parent);
+            this.scoreSheet.parentCategory.push(parent);
           } else {
+            const index = this.scoreSheet.parentCategory.findIndex((element) => element.id === parent.id);
             parent = this.updateElement(parent, ssElement);
-            this.scoreSheet.set(parentId, parent);
+            this.scoreSheet.parentCategory[index] = parent;
           }
+
+
         }
         return this.scoreSheet;
       }),
       tap(_ => this.log('Scoresheet processed')),
-      catchError(this.handleError('getScoresheet', new Map()))
+      catchError(this.handleError('getScoresheet', new ScoresheetModel()))
     );
   }
+
+
+
+  getSubTotal(scoreCategory): Stat {
+    let subTotal = 0;
+    let total = 0;
+
+    for (const scoreMetric of scoreCategory.scoreMetrics) {
+      subTotal +=
+        scoreMetric.element.value === ''
+          ? 0
+          : Number(scoreMetric.element.value);
+
+      total +=
+        scoreMetric.element.maxScore === ''
+          ? 0
+          : Number(scoreMetric.element.maxScore);
+    }
+
+    if (subTotal > total) {
+      subTotal = 0;
+    }
+
+    const stat: Stat = {
+      id: scoreCategory.id,
+      name: scoreCategory.name,
+      total: total,
+      subTotal: subTotal
+    };
+
+    return stat;
+  }
+
+  getTotal(): Stat[] {
+
+    const last = this.scoreSheet.parentCategory.length - 1;
+    let index = 0;
+    let statIndex = 0;
+    let finalTotal = 0;
+    let finalSubTotal = 0;
+    const result: Stat[] = [];
+
+    this.scoreSheet.parentCategory.forEach((val, key) => {
+      let globalSubTotal = 0;
+      let globalTotal = 0;
+      const parentName = val.name;
+      let categoryTotal = 0;
+      let categorySubTotal = 0;
+
+      const stat: Stat = {
+        id: val.id,
+        name: parentName,
+        total: 0,
+        subTotal: 0,
+        childStat: []
+      };
+
+      for (const scoreCategory of val.scoreCategories) {
+        const childStat = this.getSubTotal(scoreCategory);
+        categoryTotal += childStat.total;
+        categorySubTotal += childStat.subTotal;
+        stat.childStat.push(childStat);
+      }
+
+      globalSubTotal += categorySubTotal;
+      globalTotal += categoryTotal;
+
+      finalTotal += globalTotal;
+      finalSubTotal += globalSubTotal;
+
+      if (parentName !== this.OTHERS) {
+        stat.total = globalTotal;
+        stat.subTotal = globalSubTotal;
+        result[statIndex] = stat;
+        statIndex++;
+      }
+      if (last === index) {
+        const finalStats: Stat = {
+          id: 'total',
+          name: this.GLOBAL_TOTAL,
+          total: finalTotal,
+          subTotal: finalSubTotal
+        };
+        result[statIndex] = finalStats;
+      }
+
+      index++;
+    });
+
+    return result;
+
+  }
+
 }

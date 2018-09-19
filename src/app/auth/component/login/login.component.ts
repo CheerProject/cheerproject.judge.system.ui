@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
-import { tap } from 'rxjs/operators';
+
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { Login, Logout } from '../../actions/auth.actions';
+import { Login, Logout } from '../../store/actions/auth.actions';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

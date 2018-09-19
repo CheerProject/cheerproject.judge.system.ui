@@ -11,7 +11,7 @@ import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Store } from '@ngxs/store';
-import { AuthState } from '../state/auth.state';
+import { AuthState } from '../store/state/auth.state';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

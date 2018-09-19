@@ -12,7 +12,6 @@ export class MessageService {
   add(message: string) {
     this.messages.push(message);
     let ref = this.snackBar.open(message, 'Cerrar', {
-      verticalPosition: 'top',
       duration: 3000,
     });
     

@@ -1,9 +1,9 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { User } from '../models/user';
-import { AuthService } from '../services/auth.service';
+import { User } from '../../models/user';
+import { AuthService } from '../../services/auth.service';
 import { Login, Logout } from '../actions/auth.actions';
-import { map, tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+
 
 
 @State<User>({
@@ -24,12 +24,12 @@ export class AuthState {
     login({ patchState }: StateContext<User>, { user }: Login) {
         return this.authService.login(user).pipe(
             tap((result) => {
-                patchState(result);
+                patchState({token: result.token, email: result.email});
             }))
     }
 
     @Action(Logout)
-    logout({ setState, getState }: StateContext<User>) {
+    logout({ setState }: StateContext<User>) {
         setState({});
     }
 }

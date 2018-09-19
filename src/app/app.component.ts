@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService } from './auth/services/auth.service';
 import { Store, Select } from '@ngxs/store';
-import { AuthState } from './auth/state/auth.state';
+import { AuthState } from './auth/store/state/auth.state';
 import { Observable } from 'rxjs';
-import { Logout } from '../app/auth/actions/auth.actions';
+import { Logout } from '../app/auth/store/actions/auth.actions';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 @Component({
