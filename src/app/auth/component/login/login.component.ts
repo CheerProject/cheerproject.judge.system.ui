@@ -24,11 +24,9 @@ export class LoginComponent implements OnInit {
         Validators.minLength(this.MIN_LENGTH)
       ])
     });
-    this.logout();
   }
 
   ngOnInit() {
-    this.logout();
   }
 
   getErrorMessage() {

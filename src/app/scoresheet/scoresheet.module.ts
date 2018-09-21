@@ -10,6 +10,9 @@ import { ScoresheetService } from './services/scoresheet.service';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSliderModule} from '@angular/material/slider';
+import { NgxsModule } from '@ngxs/store';
+import { ScoresheetState } from './store/state/scoresheet.state';
+import { StatState } from './store/state/stats.state';
 
 @NgModule({
   imports: [
@@ -19,7 +22,8 @@ import {MatSliderModule} from '@angular/material/slider';
     MatInputModule,
     MatStepperModule,
     MatExpansionModule,
-    MatSliderModule
+    MatSliderModule,
+    NgxsModule.forFeature([StatState,ScoresheetState])
   ],
   declarations: [ScoresheetComponent],
   exports: [ScoresheetComponent],

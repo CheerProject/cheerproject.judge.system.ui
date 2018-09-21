@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgxsModule } from '@ngxs/store';
+import { NgxsModule, NGXS_PLUGINS } from '@ngxs/store';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
@@ -15,10 +15,11 @@ import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor, ErrorInterceptor } from './auth/interceptors/token.interceptor';
-import {AuthGuardService as AuthGuard} from './auth/guards/auth-guard.service';
+import { AuthGuardService as AuthGuard } from './auth/guards/auth-guard.service';
 import { AuthState } from './auth/store/state/auth.state';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { logoutPlugin } from './auth/plugins/logout.plugin';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,11 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
     SharedModule,
     CoreModule,
     AppRoutingModule,
+    NgxsModule.forRoot([AuthState]),
+    NgxsStoragePluginModule.forRoot({
+      key: ['auth', 'divisions', 'registrations', 'scoresheets', 'stats']
+    }),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
     AuthModule,
     DashboardModule,
     RegistrationsModule,
@@ -38,9 +44,6 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false
     }),
-    NgxsModule.forRoot([AuthState]),
-    NgxsStoragePluginModule.forRoot(),
-    NgxsReduxDevtoolsPluginModule.forRoot()
   ],
   providers: [
     AuthService,
@@ -56,8 +59,13 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
       useClass: ErrorInterceptor,
       multi: true
     },
+    {
+      provide: NGXS_PLUGINS,
+      useValue: logoutPlugin,
+      multi: true
+    },
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

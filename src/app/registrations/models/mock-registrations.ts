@@ -165,8 +165,8 @@ export const REGISTRATIONS: Registration[] = [
     },
     status: {
       id: 3,
-      name: RegistrationStatus.Finished
+      name: RegistrationStatus.OnTime
     },
-    points: 100
+    points: 0
   }
 ];

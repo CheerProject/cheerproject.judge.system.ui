@@ -1,6 +1,7 @@
 import { ScoreCategory } from "./score-category";
 
 export class ScoresheetModel{
+    registrationId?: number;
     parentCategory: ParentCategoryModel[] = [];
 }
 

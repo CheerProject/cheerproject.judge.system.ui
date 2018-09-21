@@ -14,7 +14,9 @@ export class ScoresheetService extends BaseService {
   private scoresheeUrl = 'api/scoresheets';
   OTHERS = 'Others';
   GLOBAL_TOTAL = 'Total';
-  private scoreSheet: ScoresheetModel;
+  private scoreSheet: ScoresheetModel = new ScoresheetModel();
+  private result: Stat[] = [];
+
   constructor(private http: HttpClient, messageService: MessageService) {
     super(messageService);
   }
@@ -131,47 +133,49 @@ export class ScoresheetService extends BaseService {
     return stat;
   }
 
-  getTotal(): Stat[] {
+  getTotal(scoreSheet: ScoresheetModel): Stat[] {
 
-    const last = this.scoreSheet.parentCategory.length - 1;
+
+    const last = scoreSheet.parentCategory.length - 1;
     let index = 0;
     let statIndex = 0;
     let finalTotal = 0;
     let finalSubTotal = 0;
-    const result: Stat[] = [];
+    this.result = [];
 
-    this.scoreSheet.parentCategory.forEach((val, key) => {
+    scoreSheet.parentCategory.forEach((val, key) => {
       let globalSubTotal = 0;
       let globalTotal = 0;
       const parentName = val.name;
       let categoryTotal = 0;
       let categorySubTotal = 0;
-
-      const stat: Stat = {
-        id: val.id,
-        name: parentName,
-        total: 0,
-        subTotal: 0,
-        childStat: []
-      };
-
-      for (const scoreCategory of val.scoreCategories) {
-        const childStat = this.getSubTotal(scoreCategory);
-        categoryTotal += childStat.total;
-        categorySubTotal += childStat.subTotal;
-        stat.childStat.push(childStat);
-      }
-
-      globalSubTotal += categorySubTotal;
-      globalTotal += categoryTotal;
-
-      finalTotal += globalTotal;
-      finalSubTotal += globalSubTotal;
-
+      
       if (parentName !== this.OTHERS) {
+        const stat: Stat = {
+          id: val.id,
+          name: parentName,
+          total: 0,
+          subTotal: 0,
+          childStat: []
+        };
+
+        for (const scoreCategory of val.scoreCategories) {
+          const childStat = this.getSubTotal(scoreCategory);
+          categoryTotal += childStat.total;
+          categorySubTotal += childStat.subTotal;
+          stat.childStat.push(childStat);
+        }
+
+        globalSubTotal += categorySubTotal;
+        globalTotal += categoryTotal;
+
+        finalTotal += globalTotal;
+        finalSubTotal += globalSubTotal;
+
+
         stat.total = globalTotal;
         stat.subTotal = globalSubTotal;
-        result[statIndex] = stat;
+        this.result[statIndex] = stat;
         statIndex++;
       }
       if (last === index) {
@@ -181,13 +185,13 @@ export class ScoresheetService extends BaseService {
           total: finalTotal,
           subTotal: finalSubTotal
         };
-        result[statIndex] = finalStats;
+        this.result[statIndex] = finalStats;
       }
 
       index++;
     });
+    return this.result;
 
-    return result;
 
   }
 

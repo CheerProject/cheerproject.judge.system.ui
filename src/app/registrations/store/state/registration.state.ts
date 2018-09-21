@@ -1,7 +1,6 @@
-import { Registration } from "../../models/registration";
 import { RegistrationView } from "../../models/registration-view";
 import { State, Action, StateContext } from "@ngxs/store";
-import { GetRegistrations, RemoveOntime, RemovePending, AddOntime, AddPending } from "../actions/registration.actions";
+import { GetRegistrations, RemoveOntime, RemovePending, AddOntime, AddPending, AddCompleted } from "../actions/registration.actions";
 import { RegistrationsService } from "../../services/registrations.service";
 import { tap } from "rxjs/operators";
 
@@ -24,7 +23,7 @@ export class RegistrationState {
     constructor(private registrationsService: RegistrationsService) { }
 
     @Action(GetRegistrations)
-    GetRegistrations({ getState, patchState }: StateContext<RegistrationModel>) {
+    getRegistrations({ getState, patchState }: StateContext<RegistrationModel>) {
         const state = getState();
         if (this.isEmpty(state.registrations)) {
             return this.registrationsService.getRegistrations().pipe(
@@ -35,7 +34,7 @@ export class RegistrationState {
     }
 
     @Action(AddOntime)
-    AddOntime({ getState, patchState, dispatch }: StateContext<RegistrationModel>, { registration }: AddOntime) {
+    addOntime({ getState, patchState, dispatch }: StateContext<RegistrationModel>, { registration }: AddOntime) {
         const state = getState();
         patchState({
             registrations: {
@@ -48,7 +47,7 @@ export class RegistrationState {
     }
 
     @Action(AddPending)
-    AddPending({ getState, patchState, dispatch }: StateContext<RegistrationModel>, { registration }: AddOntime) {
+    addPending({ getState, patchState, dispatch }: StateContext<RegistrationModel>, { registration }: AddOntime) {
         const state = getState();
         patchState({
             registrations: {
@@ -61,7 +60,7 @@ export class RegistrationState {
     }
 
     @Action(RemoveOntime)
-    RemoveOntime({ getState, patchState }: StateContext<RegistrationModel>, { registration }: RemoveOntime) {
+    removeOntime({ getState, patchState }: StateContext<RegistrationModel>, { registration }: RemoveOntime) {
         const state = getState();
         const ontime = state.registrations.ontime.filter(r => r !== registration)
         patchState({
@@ -74,7 +73,7 @@ export class RegistrationState {
     }
 
     @Action(RemovePending)
-    RemovePending({ getState, patchState }: StateContext<RegistrationModel>, { registration }: RemoveOntime) {
+    removePending({ getState, patchState }: StateContext<RegistrationModel>, { registration }: RemoveOntime) {
         const state = getState();
         const pending = state.registrations.pending.filter(r => r !== registration)
         patchState({
@@ -94,5 +93,18 @@ export class RegistrationState {
         }
 
         return true;
+    }
+
+    @Action(AddCompleted)
+    addCompleted({ getState, patchState, dispatch }: StateContext<RegistrationModel>, { registration }: AddCompleted) {
+        const state = getState();
+        patchState({
+            registrations: {
+                ontime: state.registrations.ontime,
+                pending: state.registrations.pending,
+                completed: [...state.registrations.completed, registration]
+            }
+        })
+        return dispatch(new RemoveOntime(registration));
     }
 }

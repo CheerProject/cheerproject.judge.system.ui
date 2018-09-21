@@ -3,9 +3,13 @@ import { ScoresheetService } from '../../services/scoresheet.service';
 import { tap, map } from 'rxjs/operators';
 import { Stat } from '../../models/stat';
 import { Observable } from 'rxjs';
-import { Store } from '@ngxs/store';
-import { ActivatedRoute } from '@angular/router';
+import { Store, Select } from '@ngxs/store';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ScoresheetModel } from '../../models/scoresheet-model';
+import { GetScoresheet, AddScoresheet } from '../../store/actions/scoresheet.actions';
+import { Registration } from '../../../registrations/models/registration';
+import { AddCompleted, AddPending } from '../../../registrations/store/actions/registration.actions';
+import { AddStats } from '../../store/actions/stats.actions';
 
 @Component({
   selector: 'app-scoresheet',
@@ -13,57 +17,58 @@ import { ScoresheetModel } from '../../models/scoresheet-model';
   styleUrls: ['./scoresheet.component.css']
 })
 export class ScoresheetComponent implements OnInit {
-  scoreSheet = new ScoresheetModel();
+
+
   TEXT_SCORE_METRIC = 'text';
   OTHERS = 'Others';
   GLOBAL_TOTAL = 'Total';
   FINALIZAR = 'Finalizar';
-  id;
+  id: any;
 
 
   parentAccordion: number[] = [];
   result: Stat[];
-  registration$: Observable<Object>;
+
+  scoreSheet: ScoresheetModel;
+  registration: Registration;
 
 
   constructor(
     private scoresheetService: ScoresheetService,
     private store: Store,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private router: Router) {
     this.id = this.route.snapshot.paramMap.get('registrationId');
-    this.registration$ = this.store.select((state) => state.registrations.registrations).pipe(
-      map(result => {
-        {
-          for (const registrations of Object.values<any[]>(result)) {
-            const found = registrations.find((element) => element.id === +this.id);
-            if (found) {
-              return found;
-            }
-          }
-          return {};
-        }
-      })
-    )
+
+    this.processScoreSheet();
+
+    this.store.select((state) => state.registrations.registrations).pipe(
+      map(result => this.findRegistration(result))
+    ).subscribe((reg) => {
+      this.registration = reg;
+    });
+
+    this.store.select((state) => state.scoresheets.scoresheets).pipe(
+      map(result => this.findScoresheet(result))
+    ).subscribe((score) => {
+      this.scoreSheet = score;
+      this.getTotal(this.scoreSheet);
+    });
+
   }
 
   ngOnInit() {
-    this.processScoreSheet();
+
   }
 
 
 
   processScoreSheet(): void {
-    this.scoresheetService
-      .getScoresheet()
-      .pipe(tap(data => this.initSteps(data.parentCategory.length)))
-      .subscribe(scoreSheet => {
-        this.scoreSheet = scoreSheet;
-        this.getTotal();
-      });
+    this.store.dispatch(new GetScoresheet(this.id));
   }
 
-  getTotal(){
-    this.result = this.scoresheetService.getTotal();
+  getTotal(scoreSheet: ScoresheetModel) {
+    this.result = this.scoresheetService.getTotal(scoreSheet);
   }
 
   initSteps(size: number) {
@@ -84,5 +89,51 @@ export class ScoresheetComponent implements OnInit {
     this.parentAccordion[parent]--;
   }
 
+  findScoresheet(scoresheets: ScoresheetModel[]): ScoresheetModel {
+    for (const scoresheet of scoresheets) {
+      if (scoresheet.registrationId === this.id) {
+        this.initSteps(scoresheet.parentCategory.length)
+        return scoresheet;
+      }
+    }
+    return new ScoresheetModel();
+  }
 
+  findRegistration(result: any): Registration {
+    for (const registrations of Object.values<Registration[]>(result)) {
+      const found = registrations.find((element) => element.id === +this.id);
+      if (found) {
+        return found;
+      }
+    }
+    return new Registration();
+  }
+
+  save(scoreSheet: ScoresheetModel) {
+    if (this.verify(this.result)) {
+      this.store.dispatch([
+        new AddScoresheet(scoreSheet),
+        new AddCompleted(this.registration),
+        new AddStats({registrationId: this.id, stats: this.result})
+      ]).subscribe(() => this.router.navigate(['/registrations', this.registration.divisionGroup.division.id]));
+    }
+  }
+
+  pending(scoreSheet: ScoresheetModel) {
+    this.store.dispatch([
+      new AddScoresheet(scoreSheet),
+      new AddPending(this.registration)
+    ]).subscribe(() => this.router.navigate(['/registrations', this.registration.divisionGroup.division.id]));
+  }
+
+  verify(result: Stat[]) {
+    for (const item of result) {
+      if (item.subTotal == 0) {
+        alert(`La categoria ${item.name} debe contener un valor`);
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
