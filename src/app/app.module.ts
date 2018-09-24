@@ -14,12 +14,16 @@ import { GestureConfig } from '@angular/material';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor, ErrorInterceptor } from './auth/interceptors/token.interceptor';
+import {
+  TokenInterceptor,
+  ErrorInterceptor
+} from './auth/interceptors/token.interceptor';
 import { AuthGuardService as AuthGuard } from './auth/guards/auth-guard.service';
 import { AuthState } from './auth/store/state/auth.state';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { logoutPlugin } from './auth/plugins/logout.plugin';
+import { ResultsModule } from './results/results.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,6 +40,7 @@ import { logoutPlugin } from './auth/plugins/logout.plugin';
     DashboardModule,
     RegistrationsModule,
     ScoresheetModule,
+    ResultsModule,
     HttpClientModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
@@ -43,7 +48,7 @@ import { logoutPlugin } from './auth/plugins/logout.plugin';
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false
-    }),
+    })
   ],
   providers: [
     AuthService,
@@ -68,4 +73,4 @@ import { logoutPlugin } from './auth/plugins/logout.plugin';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

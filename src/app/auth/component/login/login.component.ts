@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     if (this.userForm.valid) {
       const user = this.userForm.value as User;
       this.store.dispatch(new Login(user))
-        .subscribe(() => this.router.navigateByUrl('/'));
+        .subscribe(() => this.router.navigateByUrl('/dashboard'));
     }
 
   }

@@ -6,7 +6,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
-import { GetRegistrations, AddPending, AddOntime } from '../../store/actions/registration.actions';
+import {
+  GetRegistrations,
+  AddPending,
+  AddOntime
+} from '../../store/actions/registration.actions';
 import { Observable } from 'rxjs';
 import { Stat } from '../../../scoresheet/models/stat';
 import { map } from 'rxjs/operators';
@@ -18,7 +22,6 @@ import { StatsModel } from '../../../scoresheet/store/actions/stats.actions';
   styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit {
-
   @Select(state => state.registrations.registrations.ontime)
   ontime$: Observable<Registration[]>;
 
@@ -28,27 +31,24 @@ export class HistoryComponent implements OnInit {
   @Select(state => state.registrations.registrations.completed)
   completed$: Observable<Registration[]>;
 
-  registrationsStat: Object = {}
+  registrationsStat: Object = {};
 
-  constructor(
-    private router: Router,
-    private store: Store,
-  ) {
-
-    this.store.select((state) => state.stats)
+  constructor(private router: Router, private store: Store) {
+    this.store
+      .select(state => state.stats)
       .subscribe((stats: RegistrationStatsModel) => {
-        for (const item of stats.stats) {
-          this.registrationsStat[item.registrationId] = item.stats[item.stats.length-1].subTotal;
+        if (stats && stats.stats) {
+          for (const item of stats.stats) {
+            this.registrationsStat[item.registrationId] =
+              item.stats[item.stats.length - 1].subTotal;
+          }
         }
-        console.log(this.registrationsStat);
       });
-
   }
 
   ngOnInit() {
     this.store.dispatch(new GetRegistrations());
   }
-
 
   setPending(registration: Registration): void {
     this.store.dispatch(new AddPending(registration));
@@ -59,19 +59,12 @@ export class HistoryComponent implements OnInit {
   }
 
   getScoresheet(registration: Registration): void {
-    this.router.navigate([
-      '/scoresheets',
-      registration.id
-    ]);
+    this.router.navigate(['/scoresheets', registration.id]);
   }
 
   fromPendingToOntime(registration: Registration): void {
-    this.store.dispatch(new AddOntime(registration))
-      .subscribe(() => this.router.navigate([
-        '/scoresheets',
-        registration.id
-      ]));
+    this.store
+      .dispatch(new AddOntime(registration))
+      .subscribe(() => this.router.navigate(['/scoresheets', registration.id]));
   }
-
-
 }

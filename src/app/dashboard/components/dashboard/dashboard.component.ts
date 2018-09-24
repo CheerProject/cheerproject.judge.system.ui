@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new GetDivision())
+    this.store.dispatch(new GetDivision());
   }
 
   getRegistrations(division: Division): void {

@@ -117,6 +117,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: difficulty,
     scoreCategory: stunts
   },
@@ -125,6 +126,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: technique,
     scoreCategory: stunts
   },
@@ -133,6 +135,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 2.5,
     value: '',
+    round: 0,
     scoreMetric: creativity,
     scoreCategory: stunts
   },
@@ -141,6 +144,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: difficulty,
     scoreCategory: pyramids
   },
@@ -149,6 +153,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: technique,
     scoreCategory: pyramids
   },
@@ -157,6 +162,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 2.5,
     value: '',
+    round: 0,
     scoreMetric: creativity,
     scoreCategory: pyramids
   },
@@ -165,6 +171,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: difficulty,
     scoreCategory: tosses
   },
@@ -173,6 +180,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: technique,
     scoreCategory: tosses
   },
@@ -181,6 +189,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: difficulty,
     scoreCategory: quantityCoed
   },
@@ -190,6 +199,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: difficulty,
     scoreCategory: standingTumbling
   },
@@ -198,6 +208,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: technique,
     scoreCategory: standingTumbling
   },
@@ -206,6 +217,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: difficulty,
     scoreCategory: runningTumbling
   },
@@ -214,6 +226,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: technique,
     scoreCategory: runningTumbling
   },
@@ -222,6 +235,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: difficulty,
     scoreCategory: jumps
   },
@@ -230,6 +244,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 5,
     value: '',
+    round: 0,
     scoreMetric: technique,
     scoreCategory: jumps
   },
@@ -239,6 +254,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 10,
     value: '',
+    round: 0,
     scoreMetric: difficulty,
     scoreCategory: routineComposition
   },
@@ -247,6 +263,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 10,
     value: '',
+    round: 0,
     scoreMetric: difficulty,
     scoreCategory: performance
   },
@@ -255,6 +272,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 1,
     maxScore: 10,
     value: '',
+    round: 0,
     scoreMetric: difficulty,
     scoreCategory: dance
   },
@@ -264,6 +282,7 @@ export const SCORESHEETS: UserScoresheetElement[] = [
     minScore: 0,
     maxScore: 0,
     value: '',
+    round: 0,
     scoreMetric: text,
     scoreCategory: comments
   }

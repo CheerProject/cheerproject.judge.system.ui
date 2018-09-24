@@ -9,7 +9,11 @@ import { NgxsModule } from '@ngxs/store';
 import { DivisionState } from './store/state/dashboard.state';
 
 @NgModule({
-  imports: [DashboardRoutingModule, SharedModule, MatProgressBarModule,NgxsModule.forFeature([DivisionState])],
+  imports: [
+    DashboardRoutingModule,
+    SharedModule,
+    NgxsModule.forFeature([DivisionState])
+  ],
   declarations: [DashboardComponent],
   exports: [DashboardComponent],
   providers: [DashboardService]

@@ -7,14 +7,13 @@ import { MatSnackBar } from '@angular/material';
 export class MessageService {
   messages: Array<string> = new Array<string>();
 
-  constructor(public snackBar: MatSnackBar) { }
+  constructor(public snackBar: MatSnackBar) {}
 
   add(message: string) {
     this.messages.push(message);
-    let ref = this.snackBar.open(message, 'Cerrar', {
-      duration: 3000,
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000
     });
-    
   }
 
   clear() {
