@@ -14,7 +14,6 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         id: 1,
         registration: 1,
-        round: 1,
         scoresheetelement: 1,
         value: '1'
       }

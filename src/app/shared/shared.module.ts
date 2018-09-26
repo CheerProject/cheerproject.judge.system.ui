@@ -16,6 +16,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import {MatTableModule} from '@angular/material/table';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { MatProgressBarModule } from '@angular/material';
     MatBadgeModule,
     MatTableModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule
   ],
   declarations: [GetMapValuesPipe, MessagesComponent],
   exports: [
@@ -53,7 +55,8 @@ import { MatProgressBarModule } from '@angular/material';
     MatBadgeModule,
     MatTableModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule
   ]
 })
 export class SharedModule {}

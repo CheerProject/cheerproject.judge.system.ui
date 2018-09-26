@@ -4,17 +4,6 @@
       <mat-icon class="tab-icon">list</mat-icon>
     </ng-template>
 
-    <div *ngIf=" (ontime$ | async)?.length == 0">
-        <div class="not-found-container">
-          <span>
-            <mat-icon [inline]="true">error_outline</mat-icon>
-          </span>
-          <div>
-            No hay registros por calificar
-          </div>
-        </div>
-      </div>
-
     <mat-card *ngFor="let registration of ontime$ | async " class="registration" (click)="getScoresheet(registration)">
       <button mat-button class="bookmark-label" (click)="setPending(registration)">
         <mat-icon [inline]="true">bookmark_border</mat-icon>
@@ -112,7 +101,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="points">
-              <span class="team-points">{{registration.points}}</span>
+              <span class="team-points">{{registrationsStat[registration.id]}}</span>
               <span>Pts</span>
             </div>
           </mat-grid-tile>

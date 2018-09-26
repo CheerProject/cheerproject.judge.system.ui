@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ScoresheetService } from '../../services/scoresheet.service';
 import { tap, map } from 'rxjs/operators';
 import { Stat } from '../../models/stat';
@@ -16,6 +16,8 @@ import {
   AddPending
 } from '../../../registrations/store/actions/registration.actions';
 import { AddStats } from '../../store/actions/stats.actions';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
+import { ScoresheetDialog } from '../dialogs/scoresheet.dialog';
 
 @Component({
   selector: 'app-scoresheet',
@@ -27,6 +29,9 @@ export class ScoresheetComponent implements OnInit {
   OTHERS = 'Others';
   GLOBAL_TOTAL = 'Total';
   FINALIZAR = 'Finalizar';
+  PENDING = 'PENDING';
+  CANCEL = 'CANCEL';
+  QUIT = 'QUIT'
   id: any;
 
   parentAccordion: number[] = [];
@@ -39,7 +44,8 @@ export class ScoresheetComponent implements OnInit {
     private scoresheetService: ScoresheetService,
     private store: Store,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.id = this.route.snapshot.paramMap.get('registrationId');
 
@@ -61,7 +67,7 @@ export class ScoresheetComponent implements OnInit {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   processScoreSheet(): void {
     this.store.dispatch(new GetScoresheet(this.id));
@@ -111,18 +117,38 @@ export class ScoresheetComponent implements OnInit {
 
   save(scoreSheet: ScoresheetModel) {
     if (this.verify(this.result)) {
-      this.store
-        .dispatch([
-          new AddScoresheet(scoreSheet),
-          new AddCompleted(this.registration),
-          new AddStats({ registrationId: this.id, stats: this.result })
-        ])
-        .subscribe(() =>
-          this.router.navigate([
-            '/registrations',
-            this.registration.divisionGroup.division.id
-          ])
-        );
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '400px';
+      dialogConfig.data = this.result;
+
+      const dialogRef = this.dialog.open(ScoresheetDialog, dialogConfig);
+
+      dialogRef.afterClosed().subscribe((data) => {
+        if (data) {
+          this.store
+            .dispatch([
+              new AddScoresheet(scoreSheet),
+              new AddCompleted(this.registration),
+              new AddStats({ registrationId: this.id, stats: this.result })
+            ])
+            .subscribe(() =>
+              this.router.navigate([
+                '/registrations',
+                this.registration.divisionGroup.division.id
+              ])
+            );
+        } else {
+          console.log('no se guardo')
+        }
+      });
+
+
+
+
+
     }
   }
 
@@ -130,6 +156,7 @@ export class ScoresheetComponent implements OnInit {
     this.store
       .dispatch([
         new AddScoresheet(scoreSheet),
+        new AddStats({ registrationId: this.id, stats: this.result }),
         new AddPending(this.registration)
       ])
       .subscribe(() =>
@@ -140,14 +167,25 @@ export class ScoresheetComponent implements OnInit {
       );
   }
 
-  verify(result: Stat[]) {
+  public verify(result: Stat[]) {
     for (const item of result) {
       if (item.subTotal === 0) {
-        alert(`La categoria ${item.name} debe contener un valor`);
         return false;
       }
     }
 
     return true;
   }
+
+  public reset(scoreSheet: ScoresheetModel) {
+    this.scoreSheet.parentCategory.forEach((element, index) => {
+      element.scoreCategories.forEach((category, index) => {
+        category.scoreMetrics.forEach((metric, index) => {
+          metric.element.value = '';
+        })
+      });
+    });
+  }
 }
+
+

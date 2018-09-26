@@ -32,8 +32,8 @@ export class ScoresheetService extends BaseService {
     ssElement: UserScoresheetElement
   ): ParentCategoryModel {
     return {
-      id: ssElement.scoreCategory.parentScoreCategory.id,
-      name: ssElement.scoreCategory.parentScoreCategory.name,
+      id: ssElement.scoresheetElement.scoreCategory.parentScoreCategory.id,
+      name: ssElement.scoresheetElement.scoreCategory.parentScoreCategory.name,
       scoreCategories: [this.createCategory(ssElement)]
     };
   }
@@ -45,7 +45,7 @@ export class ScoresheetService extends BaseService {
     if (this.categoryExist(parent, ssElement)) {
       const element = this.createMetric(ssElement);
       parent.scoreCategories
-        .find(category => category.id === ssElement.scoreCategory.id)
+        .find(category => category.id === ssElement.scoresheetElement.scoreCategory.id)
         .scoreMetrics.push(element);
     } else {
       const category = this.createCategory(ssElement);
@@ -59,32 +59,31 @@ export class ScoresheetService extends BaseService {
   ): ScoreMetricElementModel {
     return {
       id: ssElement.id,
-      minScore: ssElement.minScore,
-      maxScore: ssElement.maxScore,
-      value: ssElement.value,
-      round: ssElement.round
+      minScore: ssElement.scoresheetElement.minScore,
+      maxScore: ssElement.scoresheetElement.maxScore,
+      value: ssElement.value
     };
   }
 
   private createMetric(ssElement: UserScoresheetElement): ScoreMetricModel {
     return {
-      id: ssElement.scoreMetric.id,
-      name: ssElement.scoreMetric.name,
+      id: ssElement.scoresheetElement.scoreMetric.id,
+      name: ssElement.scoresheetElement.scoreMetric.name,
       element: this.createElement(ssElement)
     };
   }
 
   private createCategory(ssElement: UserScoresheetElement): ScoreCategoryModel {
     return {
-      id: ssElement.scoreCategory.id,
-      name: ssElement.scoreCategory.name,
+      id: ssElement.scoresheetElement.scoreCategory.id,
+      name: ssElement.scoresheetElement.scoreCategory.name,
       scoreMetrics: [this.createMetric(ssElement)]
     };
   }
 
   private categoryExist(parent: any, ssElement: UserScoresheetElement): true {
     return parent.scoreCategories.some(
-      category => category.id === ssElement.scoreCategory.id
+      category => category.id === ssElement.scoresheetElement.scoreCategory.id
     );
   }
 
@@ -94,7 +93,7 @@ export class ScoresheetService extends BaseService {
       map(rawScoreSheet => {
         this.scoreSheet = new ScoresheetModel();
         for (const ssElement of rawScoreSheet) {
-          const parentId = ssElement.scoreCategory.parentScoreCategory.id;
+          const parentId = ssElement.scoresheetElement.scoreCategory.parentScoreCategory.id;
           let parent = this.scoreSheet.parentCategory.find(
             item => item.id === parentId
           );
@@ -209,7 +208,6 @@ export class ScoresheetService extends BaseService {
         scoreCategorie.scoreMetrics.forEach(scoreMetric => {
           payload.push({
             registration: scoreSheet.registrationId,
-            round: scoreMetric.element.round,
             scoresheetelement: scoreMetric.element.id,
             value: scoreMetric.element.value
           });

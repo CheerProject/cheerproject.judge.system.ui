@@ -28,5 +28,4 @@ export class ScoreMetricElementModel {
   value: string;
   minScore: number;
   maxScore: number;
-  round: number;
 }

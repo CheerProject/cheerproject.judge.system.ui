@@ -1,10 +1,7 @@
-import { RegistrationView } from './../../models/registration-view';
-import { RegistrationsService } from './../../services/registrations.service';
-import { REGISTRATIONS } from '../../models/mock-registrations';
 import { Registration } from '../../models/registration';
 import { Component, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
 import {
   GetRegistrations,
@@ -33,11 +30,11 @@ export class HistoryComponent implements OnInit {
 
   registrationsStat: Object = {};
 
-  constructor(private router: Router, private store: Store) {
+  constructor(private route: ActivatedRoute,private router: Router, private store: Store) {
     this.store
       .select(state => state.stats)
       .subscribe((stats: RegistrationStatsModel) => {
-        if (stats && stats.stats) {
+        if (stats.stats) {
           for (const item of stats.stats) {
             this.registrationsStat[item.registrationId] =
               item.stats[item.stats.length - 1].subTotal;

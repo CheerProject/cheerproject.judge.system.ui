@@ -1,8 +1,6 @@
-import { DIVISIONS } from '../../models/mock-divisions';
 import { Division } from '../../models/division';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DashboardService } from '../../services/dashboard.service';
 import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { DivisionState } from '../../store/state/dashboard.state';

@@ -19,6 +19,9 @@ export class AuthService extends BaseService {
     super(messageService);
   }
 
+  getToken(){
+    return this._store.selectSnapshot((state)=>state.auth.token);
+  }
  
   login(payload: User): Observable<User> {
     return this.http.get<User[]>(this.BASE_URL).pipe(
@@ -60,4 +63,7 @@ export class AuthService extends BaseService {
   getStatus(isAuth: boolean): Observable<any> {
     return this.http.get<User>('api/status');
   }
+
+
+
 }

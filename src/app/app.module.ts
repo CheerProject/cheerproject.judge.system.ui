@@ -24,6 +24,7 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { logoutPlugin } from './auth/plugins/logout.plugin';
 import { ResultsModule } from './results/results.module';
+import { ConfirmDeactivateGuard } from './scoresheet/guards/spreadsheet-deactivate-guard.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,6 +54,7 @@ import { ResultsModule } from './results/results.module';
   providers: [
     AuthService,
     AuthGuard,
+    ConfirmDeactivateGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

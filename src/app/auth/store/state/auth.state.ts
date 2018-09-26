@@ -12,10 +12,9 @@ import { tap } from 'rxjs/operators';
   }
 })
 export class AuthState {
+  
   @Selector()
-  static token(state: User) {
-    return state.token;
-  }
+  static token(state: User) { return state.token; }
 
   constructor(private authService: AuthService) {}
 

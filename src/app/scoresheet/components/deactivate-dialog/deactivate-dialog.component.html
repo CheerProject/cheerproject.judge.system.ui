@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>¿Está seguro que deseas salir?</h2>
+<mat-dialog-content>
+  <div>Tus datos se perderan a menos que lo dejes como pendiente</div>
+</mat-dialog-content>
+<mat-dialog-actions class="actions">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-button (click)="pending()" color="primary">Pendiente</button>
+  <button mat-button (click)="quit()" color="primary">Salir</button>
+</mat-dialog-actions>

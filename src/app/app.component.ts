@@ -27,7 +27,7 @@ export class AppComponent {
   }
 
   isAuthenticated(): boolean {
-    const token = this.store.selectSnapshot(AuthState.token);
+    const token = this.auth.getToken();
     return token ? true : false;
   }
 
