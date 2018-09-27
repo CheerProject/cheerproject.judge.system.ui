@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
-import { tap } from 'rxjs/operators';
+
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { Login, Logout } from '../../actions/auth.actions';
+import { Login, Logout } from '../../store/actions/auth.actions';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,11 +24,9 @@ export class LoginComponent implements OnInit {
         Validators.minLength(this.MIN_LENGTH)
       ])
     });
-    this.logout();
   }
 
   ngOnInit() {
-    this.logout();
   }
 
   getErrorMessage() {
@@ -51,12 +49,12 @@ export class LoginComponent implements OnInit {
     if (this.userForm.valid) {
       const user = this.userForm.value as User;
       this.store.dispatch(new Login(user))
-        .subscribe(() => this.router.navigateByUrl('/'));
+        .subscribe(() => this.router.navigateByUrl('/dashboard'));
     }
 
   }
 
   logout() {
-    this.store.dispatch(new Logout())
+    this.store.dispatch(new Logout());
   }
 }

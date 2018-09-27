@@ -6,11 +6,18 @@ import { RegistrationsRoutingModule } from './registrations-routing.module';
 import { HistoryComponent } from './components/history/history.component';
 
 import { MatTabsModule } from '@angular/material/tabs';
+import { RegistrationState } from './store/state/registration.state';
+import { NgxsModule } from '@ngxs/store';
 
 @NgModule({
-  imports: [RegistrationsRoutingModule, SharedModule, MatTabsModule],
+  imports: [
+    RegistrationsRoutingModule,
+    SharedModule,
+    MatTabsModule,
+    NgxsModule.forFeature([RegistrationState])
+  ],
   declarations: [HistoryComponent],
   exports: [HistoryComponent],
   providers: [RegistrationsService]
 })
-export class RegistrationsModule {}
+export class RegistrationsModule { }

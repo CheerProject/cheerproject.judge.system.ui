@@ -60,7 +60,7 @@ textarea {
 .accordion-container .mat-expansion-panel-header-description {
   flex-basis: 50%;
   font-weight: bold;
-  color: #878787 !important;
+  color: #757575 !important;
 }
 
 .accordion-container .mat-expansion-panel-header-description {
@@ -72,14 +72,15 @@ textarea {
 
 
 .mat-expansion-panel-header.mat-expanded {
-  background: #3f51b5 !important;
+  background: #f8f8f8f5 !important;
   background-color: white;
   margin-bottom: 15px;
 }
 
 .mat-expansion-panel-header.mat-expanded .mat-expansion-panel-header-title,
 .mat-expansion-panel-header.mat-expanded .mat-expansion-panel-header-description {
-  color: white !important;
+  color: #757575 !important;
+
 }
 
 .slider-margin {
@@ -118,9 +119,6 @@ textarea {
   border-radius: 50px;
 }
 
-.stepper-container {
-  margin-top: 20px;
-}
 
 table.stats {
   border-collapse: collapse;
@@ -188,14 +186,216 @@ table.final-stats{
 }
 
 .btn-go{
-  margin-left: 30px !important;
+  margin-left: 15px !important;
 }
 
 .btn-pending{
-  margin-right: 30px !important;
+  margin-right: 15px !important;
 }
 
 .mat-card-title{
-  font-weight: bold;
+  font-weight: bolder;
+  color: #757575 !important;
   font-size: 1.1em;
 }
+
+.team-profile{
+  max-width: 700px;
+  margin:auto;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.team-info{
+  flex-grow: 1;  
+  padding: 45px 5px 45px 35px;
+}
+
+.team-category{
+  flex-grow: 1;  
+
+  padding: 45px 0px 45px 0px;
+}
+
+.team-level{
+  flex-grow: 1;  
+  padding: 45px 0px 45px 0px;
+  text-align: center;
+}
+
+
+.name{
+  font-weight: bold;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.coach{
+  font-weight: bolder;
+  font-size: 1.5em;
+  color: #757575;
+  margin-bottom: 10px;
+}
+
+.division{
+  font-size: 2em;
+  font-weight: bolder;
+  color: #757575;
+  margin-bottom: 10px;
+}
+.gender{
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #757575;
+}
+
+.level{
+  font-weight: bolder;
+  color: #757575;
+  font-size: 3em;
+}
+
+.levelLabel{
+  font-weight: bolder;
+  color: #757575;
+}
+
+.location{
+  color: #757575;
+  font-weight: bold;
+}
+
+.dialog-result{
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+
+@media only screen and (max-width:700px) {
+  .team-info{
+    flex-grow: 1;  
+    padding: 35px 5px 35px 35px;
+  }
+  
+  .team-category{
+    flex-grow: 1;  
+  
+    padding: 35px 0px 35px 0px;
+  }
+  
+  .team-level{
+    flex-grow: 1;  
+    padding: 35px 0px 35px 0px;
+    text-align: center;
+  }
+  
+  
+  .name{
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+  }
+  
+  .coach{
+    font-weight: bolder;
+    font-size: 1em;
+    color: #757575;
+    margin-bottom: 5px;
+  }
+  
+  .division{
+    font-size: 1.5em;
+    font-weight: bolder;
+    color: #757575;
+    margin-bottom: 5px;
+  }
+  .gender{
+    font-size: 1em;
+    font-weight: bold;
+    color: #757575;
+  }
+  
+  .level{
+    font-weight: bolder;
+    color: #757575;
+    font-size: 2em;
+  }
+  
+  .levelLabel{
+    font-weight: bolder;
+    color: #757575;
+  }
+
+  .location{
+    color: #757575;
+    font-weight: bold;
+  }
+}
+
+
+@media only screen and (max-width:375px) {
+ 
+  
+  .team-info{
+    flex-grow: 1;  
+    padding: 25px 5px 25px 25px;
+  }
+  
+  .team-category{
+    flex-grow: 1;  
+  
+    padding: 25px 0px 25px 0px;
+  }
+  
+  .team-level{
+    flex-grow: 1;  
+    padding: 25px 0px 25px 0px;
+    text-align: center;
+  }
+  
+  
+  .name{
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 5px;
+  }
+  
+  .coach{
+    font-weight: bolder;
+    font-size: 0.8em;
+    color: #757575;
+    margin-bottom: 5px;
+  }
+  
+  .division{
+    font-size: 1em;
+    font-weight: bolder;
+    color: #757575;
+    margin-bottom: 5px;
+  }
+  .gender{
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #757575;
+  }
+  
+  .level{
+    font-weight: bolder;
+    color: #757575;
+    font-size: 1.5em;
+  }
+  
+  .levelLabel{
+    font-weight: bolder;
+    color: #757575;
+  }
+
+  .location{
+    color: #757575;
+    font-weight: bolder;
+    font-size: 0.7em;
+  }
+}
+
+

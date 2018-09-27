@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Store } from '@ngxs/store';
-import { AuthState } from '../state/auth.state';
+import { AuthState } from '../store/state/auth.state';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
@@ -13,7 +13,7 @@ export class AuthGuardService implements CanActivate {
   constructor(public auth: AuthService, public router: Router, private _store: Store) {}
   canActivate(): boolean {
 
-    const token = this._store.selectSnapshot(AuthState.token);
+    const token = this.auth.getToken();
 
     if (token) {
       return true;

@@ -11,17 +11,17 @@ import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Store } from '@ngxs/store';
-import { AuthState } from '../state/auth.state';
+import { AuthState } from '../store/state/auth.state';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private injector: Injector, private _store: Store) {}
+  constructor(public auth: AuthService, private _store: Store) {}
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = this._store.selectSnapshot(AuthState.token);
+    const token = this.auth.getToken();
     request = request.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,

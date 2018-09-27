@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Guardar datos</h2>
+<mat-dialog-content>
+    <div>¿Está seguro que desea guardar estos resultados?</div>
+    <div class="dialog-result">
+        <table class="stats">
+            <tr *ngFor="let item of result; last as lastRow" class="total-review" [ngClass]="(lastRow)?'last-row-stat':'row-stat'">
+                <td class="td-left">
+                    <span>{{item.name}} </span>
+                </td>
+                <td class="td-right">
+                    <span> {{item.subTotal}} / {{item.total}}</span>
+                </td>
+                <br>
+            </tr>
+        </table>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions class="actions">
+    <button mat-button (click)="close()">No</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button (click)="save()" color="primary">Si</button>
+</mat-dialog-actions>

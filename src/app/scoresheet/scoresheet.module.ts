@@ -7,9 +7,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ScoresheetService } from './services/scoresheet.service';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSliderModule } from '@angular/material/slider';
+import { NgxsModule } from '@ngxs/store';
+import { ScoresheetState } from './store/state/scoresheet.state';
+import { StatState } from './store/state/stats.state';
+import { ScoresheetDialog } from './components/dialogs/scoresheet.dialog';
+import { DeactivateDialogComponent } from './components/deactivate-dialog/deactivate-dialog.component';
 
 @NgModule({
   imports: [
@@ -19,10 +24,12 @@ import {MatSliderModule} from '@angular/material/slider';
     MatInputModule,
     MatStepperModule,
     MatExpansionModule,
-    MatSliderModule
+    MatSliderModule,
+    NgxsModule.forFeature([StatState, ScoresheetState])
   ],
-  declarations: [ScoresheetComponent],
+  declarations: [ScoresheetComponent, ScoresheetDialog, DeactivateDialogComponent],
   exports: [ScoresheetComponent],
-  providers: [ScoresheetService]
+  providers: [ScoresheetService],
+  entryComponents: [ScoresheetDialog, DeactivateDialogComponent]
 })
 export class ScoresheetModule {}

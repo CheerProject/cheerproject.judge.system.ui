@@ -15,6 +15,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatBadgeModule } from '@angular/material/badge';
 import {MatTableModule} from '@angular/material/table';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -31,7 +33,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatGridListModule,
     MatBadgeModule,
     MatTableModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressBarModule,
+    MatDialogModule
   ],
   declarations: [GetMapValuesPipe, MessagesComponent],
   exports: [
@@ -50,7 +54,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MessagesComponent,
     MatBadgeModule,
     MatTableModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressBarModule,
+    MatDialogModule
   ]
 })
 export class SharedModule {}

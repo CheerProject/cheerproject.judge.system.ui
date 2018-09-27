@@ -4,7 +4,7 @@
       <mat-icon class="tab-icon">list</mat-icon>
     </ng-template>
 
-    <mat-card *ngFor="let registration of actual " class="registration" (click)="getScoresheet(registration)">
+    <mat-card *ngFor="let registration of ontime$ | async " class="registration" (click)="getScoresheet(registration)">
       <button mat-button class="bookmark-label" (click)="setPending(registration)">
         <mat-icon [inline]="true">bookmark_border</mat-icon>
       </button>
@@ -60,7 +60,19 @@
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">bookmarks</mat-icon>
     </ng-template>
-    <mat-card *ngFor="let registration of pendiente" class="registration" (click)="getScoresheet(registration)">
+    <div *ngIf=" (pending$ | async)?.length == 0">
+      <div class="not-found-container">
+        <span>
+          <mat-icon [inline]="true">error_outline</mat-icon>
+        </span>
+        <div>
+          No hay registros pendientes
+        </div>
+      </div>
+
+
+    </div>
+    <mat-card *ngFor="let registration of pending$ | async" class="registration" (click)="fromPendingToOntime(registration)">
       <button mat-button class="bookmark-label" (click)="setCurrent(registration)">
         <mat-icon [inline]="true">bookmark</mat-icon>
       </button>
@@ -89,7 +101,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="points">
-              <span class="team-points">{{registration.points}}</span>
+              <span class="team-points">{{registrationsStat[registration.id]}}</span>
               <span>Pts</span>
             </div>
           </mat-grid-tile>
@@ -116,7 +128,19 @@
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">check_circle_outline</mat-icon>
     </ng-template>
-    <mat-card *ngFor="let registration of historial" class="registration">
+
+    <div *ngIf=" (completed$ | async)?.length == 0">
+      <div class="not-found-container">
+        <span>
+          <mat-icon [inline]="true">error_outline</mat-icon>
+        </span>
+        <div>
+          No hay registros completados
+        </div>
+      </div>
+    </div>
+
+    <mat-card *ngFor="let registration of completed$ | async" class="registration">
       <mat-card-header class="card-header">
         <div mat-card-avatar class="icon">
           <mat-icon [inline]="true">face</mat-icon>
@@ -142,7 +166,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="points">
-              <span class="team-points">{{registration.points}}</span>
+              <span class="team-points">{{registrationsStat[registration.id]}}</span>
               <span>Pts</span>
             </div>
           </mat-grid-tile>

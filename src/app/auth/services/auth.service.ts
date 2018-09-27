@@ -1,8 +1,6 @@
 import { BaseService } from './../../core/services/base-service';
 import {
   HttpClient,
-  HttpHeaders,
-  HttpErrorResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -11,7 +9,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { MessageService } from '../../core/services/message.service';
 import { Store } from '@ngxs/store';
-import { AuthState } from '../state/auth.state';
+import { AuthState } from '../store/state/auth.state';
 
 @Injectable()
 export class AuthService extends BaseService {
@@ -21,6 +19,9 @@ export class AuthService extends BaseService {
     super(messageService);
   }
 
+  getToken(){
+    return this._store.selectSnapshot((state)=>state.auth.token);
+  }
  
   login(payload: User): Observable<User> {
     return this.http.get<User[]>(this.BASE_URL).pipe(
@@ -62,4 +63,7 @@ export class AuthService extends BaseService {
   getStatus(isAuth: boolean): Observable<any> {
     return this.http.get<User>('api/status');
   }
+
+
+
 }

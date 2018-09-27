@@ -1,8 +1,10 @@
-import { DIVISIONS } from '../../models/mock-divisions';
 import { Division } from '../../models/division';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DashboardService } from '../../services/dashboard.service';
+import { Observable } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
+import { DivisionState } from '../../store/state/dashboard.state';
+import { GetDivision } from '../../store/actions/dashboard.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,17 +12,17 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  divisions: Division[];
+
+  @Select(DivisionState.divisions)
+  divisions$: Observable<Division[]>;
 
   constructor(
     private router: Router,
-    private dashBoardService: DashboardService
-  ) {}
+    private store: Store
+  ) { }
 
   ngOnInit() {
-    this.dashBoardService
-      .getDashBoard()
-      .subscribe(divisions => (this.divisions = divisions));
+    this.store.dispatch(new GetDivision());
   }
 
   getRegistrations(division: Division): void {

@@ -114,157 +114,195 @@ export const SCORESHEETS: UserScoresheetElement[] = [
   // Building skills
   {
     id: 1,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: difficulty,
-    scoreCategory: stunts
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: difficulty,
+      scoreCategory: stunts
+    }
   },
   {
     id: 2,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: technique,
-    scoreCategory: stunts
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: technique,
+      scoreCategory: stunts
+    }
   },
   {
     id: 3,
-    minScore: 1,
-    maxScore: 2.5,
     value: '',
-    scoreMetric: creativity,
-    scoreCategory: stunts
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 2.5,
+      scoreMetric: creativity,
+      scoreCategory: stunts
+    }
   },
   {
     id: 4,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: difficulty,
-    scoreCategory: pyramids
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: difficulty,
+      scoreCategory: pyramids
+    }
   },
   {
     id: 5,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: technique,
-    scoreCategory: pyramids
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: technique,
+      scoreCategory: pyramids
+    }
   },
   {
     id: 6,
-    minScore: 1,
-    maxScore: 2.5,
     value: '',
-    scoreMetric: creativity,
-    scoreCategory: pyramids
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 2.5,
+      scoreMetric: creativity,
+      scoreCategory: pyramids
+    }
   },
   {
     id: 7,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: difficulty,
-    scoreCategory: tosses
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: difficulty,
+      scoreCategory: tosses
+    }
   },
   {
     id: 8,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: technique,
-    scoreCategory: tosses
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: technique,
+      scoreCategory: tosses
+    }
   },
   {
     id: 9,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: difficulty,
-    scoreCategory: quantityCoed
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: difficulty,
+      scoreCategory: quantityCoed
+    }
   },
   // Tumbling skills
   {
     id: 10,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: difficulty,
-    scoreCategory: standingTumbling
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: difficulty,
+      scoreCategory: standingTumbling
+    }
   },
   {
     id: 11,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: technique,
-    scoreCategory: standingTumbling
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: technique,
+      scoreCategory: standingTumbling
+    }
   },
   {
     id: 12,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: difficulty,
-    scoreCategory: runningTumbling
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: difficulty,
+      scoreCategory: runningTumbling
+    }
   },
   {
     id: 13,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: technique,
-    scoreCategory: runningTumbling
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: technique,
+      scoreCategory: runningTumbling
+    }
   },
   {
     id: 14,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: difficulty,
-    scoreCategory: jumps
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: difficulty,
+      scoreCategory: jumps
+    }
   },
   {
     id: 15,
-    minScore: 1,
-    maxScore: 5,
     value: '',
-    scoreMetric: technique,
-    scoreCategory: jumps
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 5,
+      scoreMetric: technique,
+      scoreCategory: jumps
+    }
   },
   // Overall routine
   {
     id: 16,
-    minScore: 1,
-    maxScore: 10,
     value: '',
-    scoreMetric: difficulty,
-    scoreCategory: routineComposition
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 10,
+      scoreMetric: difficulty,
+      scoreCategory: routineComposition
+    }
   },
   {
     id: 17,
-    minScore: 1,
-    maxScore: 10,
     value: '',
-    scoreMetric: difficulty,
-    scoreCategory: performance
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 10,
+      scoreMetric: difficulty,
+      scoreCategory: performance
+    }
   },
   {
     id: 18,
-    minScore: 1,
-    maxScore: 10,
     value: '',
-    scoreMetric: difficulty,
-    scoreCategory: dance
+    scoresheetElement: {
+      minScore: 1,
+      maxScore: 10,
+      scoreMetric: difficulty,
+      scoreCategory: dance
+    }
   },
   // Comments
   {
     id: 19,
-    minScore: 0,
-    maxScore: 0,
     value: '',
-    scoreMetric: text,
-    scoreCategory: comments
+    scoresheetElement: {
+      minScore: 0,
+      maxScore: 0,
+      scoreMetric: text,
+      scoreCategory: comments
+    }
   }
 ];

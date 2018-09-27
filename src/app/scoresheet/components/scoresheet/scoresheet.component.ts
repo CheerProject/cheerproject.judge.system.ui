@@ -1,7 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ScoresheetService } from '../../services/scoresheet.service';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { Stat } from '../../models/stat';
+import { Observable } from 'rxjs';
+import { Store, Select } from '@ngxs/store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ScoresheetModel } from '../../models/scoresheet-model';
+import {
+  GetScoresheet,
+  AddScoresheet
+} from '../../store/actions/scoresheet.actions';
+import { Registration } from '../../../registrations/models/registration';
+import {
+  AddCompleted,
+  AddPending
+} from '../../../registrations/store/actions/registration.actions';
+import { AddStats } from '../../store/actions/stats.actions';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogConfig
+} from '@angular/material';
+import { ScoresheetDialog } from '../dialogs/scoresheet.dialog';
 
 @Component({
   selector: 'app-scoresheet',
@@ -9,27 +30,56 @@ import { Stat } from '../../models/stat';
   styleUrls: ['./scoresheet.component.css']
 })
 export class ScoresheetComponent implements OnInit {
-  scoreSheet = new Map();
   TEXT_SCORE_METRIC = 'text';
   OTHERS = 'Others';
   GLOBAL_TOTAL = 'Total';
   FINALIZAR = 'Finalizar';
-  constructor(private scoresheetService: ScoresheetService) {}
-  parentAccordion: number[] = [];
-  result: Stat[] = [];
+  PENDING = 'PENDING';
+  CANCEL = 'CANCEL';
+  QUIT = 'QUIT';
+  id: any;
 
-  ngOnInit() {
+  parentAccordion: number[] = [];
+  result: Stat[];
+
+  scoreSheet: ScoresheetModel;
+  registration: Registration;
+
+  constructor(
+    private scoresheetService: ScoresheetService,
+    private store: Store,
+    private route: ActivatedRoute,
+    private router: Router,
+    public dialog: MatDialog
+  ) {
+    this.id = this.route.snapshot.paramMap.get('registrationId');
+
     this.processScoreSheet();
+
+    this.store
+      .select(state => state.registrations.registrations)
+      .pipe(map(result => this.findRegistration(result)))
+      .subscribe(reg => {
+        this.registration = reg;
+      });
+
+    this.store
+      .select(state => state.scoresheets.scoresheets)
+      .pipe(map(result => this.findScoresheet(result)))
+      .subscribe(score => {
+        this.scoreSheet = score;
+        this.getTotal(this.scoreSheet);
+      });
   }
 
+  ngOnInit() {}
+
   processScoreSheet(): void {
-    this.scoresheetService
-      .getScoresheet()
-      .pipe(tap(data => this.initSteps(data.size)))
-      .subscribe(scoreSheet => {
-        this.scoreSheet = scoreSheet;
-        this.getTotal();
-      });
+    this.store.dispatch(new GetScoresheet(this.id));
+  }
+
+  getTotal(scoreSheet: ScoresheetModel) {
+    this.result = this.scoresheetService.getTotal(scoreSheet);
   }
 
   initSteps(size: number) {
@@ -50,91 +100,94 @@ export class ScoresheetComponent implements OnInit {
     this.parentAccordion[parent]--;
   }
 
-  getSubTotal(scoreCategory): Stat {
-    let subTotal = 0;
-    let total = 0;
-
-    for (const scoreMetric of scoreCategory.scoreMetrics) {
-      subTotal +=
-        scoreMetric.element.value === ''
-          ? 0
-          : Number(scoreMetric.element.value);
-
-      total +=
-        scoreMetric.element.maxScore === ''
-          ? 0
-          : Number(scoreMetric.element.maxScore);
+  findScoresheet(scoresheets: ScoresheetModel[]): ScoresheetModel {
+    for (const scoresheet of scoresheets) {
+      if (scoresheet.registrationId === this.id) {
+        this.initSteps(scoresheet.parentCategory.length);
+        return scoresheet;
+      }
     }
-
-    if (subTotal > total) {
-      subTotal = 0;
-    }
-
-    const stat: Stat = {
-      id: scoreCategory.id,
-      name: scoreCategory.name,
-      total: total,
-      subTotal: subTotal
-    };
-
-    return stat;
+    return new ScoresheetModel();
   }
 
-  getTotal() {
-    const last = this.scoreSheet.size - 1;
-    let index = 0;
-    let statIndex = 0;
-    let finalTotal = 0;
-    let finalSubTotal = 0;
-
-    this.scoreSheet.forEach((val, key) => {
-      let globalSubTotal = 0;
-      let globalTotal = 0;
-      const parentName = val.name;
-      let categoryTotal = 0;
-      let categorySubTotal = 0;
-
-      const stat: Stat = {
-        id: val.id,
-        name: parentName,
-        total: 0,
-        subTotal: 0,
-        childStat: []
-      };
-
-      for (const scoreCategory of val.scoreCategories) {
-        const childStat = this.getSubTotal(scoreCategory);
-        categoryTotal += childStat.total;
-        categorySubTotal += childStat.subTotal;
-        stat.childStat.push(childStat);
+  findRegistration(result: any): Registration {
+    for (const registrations of Object.values<Registration[]>(result)) {
+      const found = registrations.find(element => element.id === +this.id);
+      if (found) {
+        return found;
       }
+    }
+    return new Registration();
+  }
 
-      globalSubTotal += categorySubTotal;
-      globalTotal += categoryTotal;
+  save(scoreSheet: ScoresheetModel) {
+    if (this.verify(this.result)) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '400px';
+      dialogConfig.data = this.result;
 
-      finalTotal += globalTotal;
-      finalSubTotal += globalSubTotal;
+      const dialogRef = this.dialog.open(ScoresheetDialog, dialogConfig);
 
-      if (parentName !== this.OTHERS) {
-        stat.total = globalTotal;
-        stat.subTotal = globalSubTotal;
-        this.result[statIndex] = stat;
-        statIndex++;
+      dialogRef.afterClosed().subscribe(data => {
+        if (data) {
+          this.store
+            .dispatch([
+              new AddScoresheet(scoreSheet),
+              new AddCompleted(this.registration),
+              new AddStats({ registrationId: this.id, stats: this.result })
+            ])
+            .subscribe(() =>
+              this.router.navigate([
+                '/registrations',
+                this.registration.divisionGroup.division.id
+              ])
+            );
+        } else {
+          console.log('no se guardo');
+        }
+      });
+    }
+  }
+
+  pending(scoreSheet: ScoresheetModel) {
+    this.store
+      .dispatch([
+        new AddScoresheet(scoreSheet),
+        new AddStats({ registrationId: this.id, stats: this.result }),
+        new AddPending(this.registration)
+      ])
+      .subscribe(() =>
+        this.router.navigate([
+          '/registrations',
+          this.registration.divisionGroup.division.id
+        ])
+      );
+  }
+
+  public verify(result: Stat[]) {
+    let category = 0;
+    for (const item of result) {
+      if (item.subTotal === 0) {
+        category++;
       }
-      if (last === index) {
-        // execute last item logic
+    }
 
-        const finalStats: Stat = {
-          id: 'total',
-          name: this.GLOBAL_TOTAL,
-          total: finalTotal,
-          subTotal: finalSubTotal
-        };
+    if (category === result.length) {
+      return true;
+    }
 
-        this.result[statIndex] = finalStats;
-      }
+    return category > 0 ? false : true;
+  }
 
-      index++;
+  public reset(scoreSheet: ScoresheetModel) {
+    this.scoreSheet.parentCategory.forEach((element, index) => {
+      element.scoreCategories.forEach(category => {
+        category.scoreMetrics.forEach(metric => {
+          metric.element.value = '';
+        });
+      });
     });
   }
 }

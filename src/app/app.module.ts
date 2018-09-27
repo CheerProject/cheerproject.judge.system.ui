@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgxsModule } from '@ngxs/store';
+import { NgxsModule, NGXS_PLUGINS } from '@ngxs/store';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
@@ -14,10 +14,17 @@ import { GestureConfig } from '@angular/material';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor, ErrorInterceptor } from './auth/interceptors/token.interceptor';
-import {AuthGuardService as AuthGuard} from './auth/guards/auth-guard.service';
-import { AuthState } from './auth/state/auth.state';
+import {
+  TokenInterceptor,
+  ErrorInterceptor
+} from './auth/interceptors/token.interceptor';
+import { AuthGuardService as AuthGuard } from './auth/guards/auth-guard.service';
+import { AuthState } from './auth/store/state/auth.state';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { logoutPlugin } from './auth/plugins/logout.plugin';
+import { ResultsModule } from './results/results.module';
+import { ConfirmDeactivateGuard } from './scoresheet/guards/spreadsheet-deactivate-guard.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,10 +32,16 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
     SharedModule,
     CoreModule,
     AppRoutingModule,
+    NgxsModule.forRoot([AuthState]),
+    NgxsStoragePluginModule.forRoot({
+      key: ['auth', 'divisions', 'registrations', 'scoresheets', 'stats']
+    }),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
     AuthModule,
     DashboardModule,
     RegistrationsModule,
     ScoresheetModule,
+    ResultsModule,
     HttpClientModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
@@ -36,15 +49,12 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false
-    }),
-    NgxsModule.forRoot([AuthState]),
-    NgxsStoragePluginModule.forRoot({
-      key: ['auth.email','auth.token']
     })
   ],
   providers: [
     AuthService,
     AuthGuard,
+    ConfirmDeactivateGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -54,6 +64,11 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: NGXS_PLUGINS,
+      useValue: logoutPlugin,
       multi: true
     },
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
