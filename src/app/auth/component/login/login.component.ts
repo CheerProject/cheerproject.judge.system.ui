@@ -55,6 +55,6 @@ export class LoginComponent implements OnInit {
   }
 
   logout() {
-    this.store.dispatch(new Logout())
+    this.store.dispatch(new Logout());
   }
 }

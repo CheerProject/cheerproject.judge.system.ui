@@ -16,7 +16,12 @@ import {
   AddPending
 } from '../../../registrations/store/actions/registration.actions';
 import { AddStats } from '../../store/actions/stats.actions';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogConfig
+} from '@angular/material';
 import { ScoresheetDialog } from '../dialogs/scoresheet.dialog';
 
 @Component({
@@ -67,7 +72,7 @@ export class ScoresheetComponent implements OnInit {
       });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   processScoreSheet(): void {
     this.store.dispatch(new GetScoresheet(this.id));
@@ -117,7 +122,6 @@ export class ScoresheetComponent implements OnInit {
 
   save(scoreSheet: ScoresheetModel) {
     if (this.verify(this.result)) {
-
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
@@ -126,7 +130,7 @@ export class ScoresheetComponent implements OnInit {
 
       const dialogRef = this.dialog.open(ScoresheetDialog, dialogConfig);
 
-      dialogRef.afterClosed().subscribe((data) => {
+      dialogRef.afterClosed().subscribe(data => {
         if (data) {
           this.store
             .dispatch([
@@ -144,11 +148,6 @@ export class ScoresheetComponent implements OnInit {
           console.log('no se guardo');
         }
       });
-
-
-
-
-
     }
   }
 
@@ -168,24 +167,27 @@ export class ScoresheetComponent implements OnInit {
   }
 
   public verify(result: Stat[]) {
+    let category = 0;
     for (const item of result) {
       if (item.subTotal === 0) {
-        return false;
+        category++;
       }
     }
 
-    return true;
+    if (category === result.length) {
+      return true;
+    }
+
+    return category > 0 ? false : true;
   }
 
   public reset(scoreSheet: ScoresheetModel) {
     this.scoreSheet.parentCategory.forEach((element, index) => {
-      element.scoreCategories.forEach((category) => {
-        category.scoreMetrics.forEach((metric) => {
+      element.scoreCategories.forEach(category => {
+        category.scoreMetrics.forEach(metric => {
           metric.element.value = '';
         });
       });
     });
   }
 }
-
-

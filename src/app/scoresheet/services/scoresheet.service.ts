@@ -207,7 +207,6 @@ export class ScoresheetService extends BaseService {
       parentCategory.scoreCategories.forEach(scoreCategorie => {
         scoreCategorie.scoreMetrics.forEach(scoreMetric => {
           payload.push({
-            registration: scoreSheet.registrationId,
             scoresheetelement: scoreMetric.element.id,
             value: scoreMetric.element.value
           });
