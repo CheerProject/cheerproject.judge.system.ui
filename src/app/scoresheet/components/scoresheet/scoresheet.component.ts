@@ -31,7 +31,7 @@ export class ScoresheetComponent implements OnInit {
   FINALIZAR = 'Finalizar';
   PENDING = 'PENDING';
   CANCEL = 'CANCEL';
-  QUIT = 'QUIT'
+  QUIT = 'QUIT';
   id: any;
 
   parentAccordion: number[] = [];
@@ -141,7 +141,7 @@ export class ScoresheetComponent implements OnInit {
               ])
             );
         } else {
-          console.log('no se guardo')
+          console.log('no se guardo');
         }
       });
 
@@ -179,10 +179,10 @@ export class ScoresheetComponent implements OnInit {
 
   public reset(scoreSheet: ScoresheetModel) {
     this.scoreSheet.parentCategory.forEach((element, index) => {
-      element.scoreCategories.forEach((category, index) => {
-        category.scoreMetrics.forEach((metric, index) => {
+      element.scoreCategories.forEach((category) => {
+        category.scoreMetrics.forEach((metric) => {
           metric.element.value = '';
-        })
+        });
       });
     });
   }

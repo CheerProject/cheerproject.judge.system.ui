@@ -13,7 +13,6 @@ export class InMemoryDataService implements InMemoryDbService {
     const save: UserScoreSheetPayload[] = [
       {
         id: 1,
-        registration: 1,
         scoresheetelement: 1,
         value: '1'
       }
