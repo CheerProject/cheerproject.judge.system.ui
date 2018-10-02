@@ -17,6 +17,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTableModule,
     MatSnackBarModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSidenavModule
   ],
   declarations: [GetMapValuesPipe, MessagesComponent],
   exports: [
@@ -56,7 +58,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTableModule,
     MatSnackBarModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSidenavModule
   ]
 })
 export class SharedModule {}
