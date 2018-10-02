@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Stat } from '../../models/stat';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ScoresheetDialog } from '../dialogs/scoresheet.dialog';
+import { ScoresheetDialogComponent } from '../dialogs/scoresheet.dialog';
 
 @Component({
   selector: 'app-deactivate-dialog',
@@ -9,16 +9,16 @@ import { ScoresheetDialog } from '../dialogs/scoresheet.dialog';
   styleUrls: ['./deactivate-dialog.component.css']
 })
 export class DeactivateDialogComponent {
-
-  PENDING= 'PENDING';
+  PENDING = 'PENDING';
   CANCEL = 'CANCEL';
-  QUIT = 'QUIT'
+  QUIT = 'QUIT';
   result: string;
 
   constructor(
-    public dialogRef: MatDialogRef<ScoresheetDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: string) {
-    this.result = data
+    public dialogRef: MatDialogRef<ScoresheetDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: string
+  ) {
+    this.result = data;
   }
 
   pending(): void {

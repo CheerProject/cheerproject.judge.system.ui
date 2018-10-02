@@ -13,8 +13,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { NgxsModule } from '@ngxs/store';
 import { ScoresheetState } from './store/state/scoresheet.state';
 import { StatState } from './store/state/stats.state';
-import { ScoresheetDialog } from './components/dialogs/scoresheet.dialog';
+import { ScoresheetDialogComponent } from './components/dialogs/scoresheet.dialog';
 import { DeactivateDialogComponent } from './components/deactivate-dialog/deactivate-dialog.component';
+import { ReviewDialogComponent } from './components/review-dialog/review.dialog';
 
 @NgModule({
   imports: [
@@ -27,9 +28,18 @@ import { DeactivateDialogComponent } from './components/deactivate-dialog/deacti
     MatSliderModule,
     NgxsModule.forFeature([StatState, ScoresheetState])
   ],
-  declarations: [ScoresheetComponent, ScoresheetDialog, DeactivateDialogComponent],
+  declarations: [
+    ScoresheetComponent,
+    ScoresheetDialogComponent,
+    DeactivateDialogComponent,
+    ReviewDialogComponent
+  ],
   exports: [ScoresheetComponent],
   providers: [ScoresheetService],
-  entryComponents: [ScoresheetDialog, DeactivateDialogComponent]
+  entryComponents: [
+    ScoresheetDialogComponent,
+    DeactivateDialogComponent,
+    ReviewDialogComponent
+  ]
 })
 export class ScoresheetModule {}

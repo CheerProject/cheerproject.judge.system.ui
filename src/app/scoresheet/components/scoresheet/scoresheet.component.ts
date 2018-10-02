@@ -1,3 +1,4 @@
+import { ReviewDialogComponent } from './../review-dialog/review.dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ScoresheetService } from '../../services/scoresheet.service';
 import { tap, map } from 'rxjs/operators';
@@ -22,7 +23,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogConfig
 } from '@angular/material';
-import { ScoresheetDialog } from '../dialogs/scoresheet.dialog';
+import { ScoresheetDialogComponent } from '../dialogs/scoresheet.dialog';
 
 @Component({
   selector: 'app-scoresheet',
@@ -121,14 +122,17 @@ export class ScoresheetComponent implements OnInit {
   }
 
   save(scoreSheet: ScoresheetModel) {
-    if (this.verify(this.result)) {
+    if (this.isCompleted(this.result)) {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
       dialogConfig.width = '400px';
       dialogConfig.data = this.result;
 
-      const dialogRef = this.dialog.open(ScoresheetDialog, dialogConfig);
+      const dialogRef = this.dialog.open(
+        ScoresheetDialogComponent,
+        dialogConfig
+      );
 
       dialogRef.afterClosed().subscribe(data => {
         if (data) {
@@ -148,6 +152,16 @@ export class ScoresheetComponent implements OnInit {
           console.log('no se guardo');
         }
       });
+    } else {
+      const reviewDialogConfig = new MatDialogConfig();
+      reviewDialogConfig.disableClose = true;
+      reviewDialogConfig.autoFocus = true;
+      reviewDialogConfig.width = '400px';
+      reviewDialogConfig.data = this.result;
+      const reviewDialogRef = this.dialog.open(
+        ReviewDialogComponent,
+        reviewDialogConfig
+      );
     }
   }
 
@@ -166,7 +180,7 @@ export class ScoresheetComponent implements OnInit {
       );
   }
 
-  public verify(result: Stat[]) {
+  public isCompleted(result: Stat[]) {
     let category = 0;
     for (const item of result) {
       if (item.subTotal === 0) {
@@ -174,11 +188,18 @@ export class ScoresheetComponent implements OnInit {
       }
     }
 
-    if (category === result.length) {
-      return true;
+    return category === 0 ? true : false;
+  }
+
+  public canLoseData(result: Stat[]) {
+    let category = 0;
+    for (const item of result) {
+      if (item.subTotal > 0) {
+        category++;
+      }
     }
 
-    return category > 0 ? false : true;
+    return category > 0 ? true : false;
   }
 
   public reset(scoreSheet: ScoresheetModel) {
