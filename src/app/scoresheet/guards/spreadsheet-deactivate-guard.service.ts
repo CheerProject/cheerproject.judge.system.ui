@@ -1,5 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
-import { CanDeactivate } from '@angular/router';
+import {
+  CanDeactivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot
+} from '@angular/router';
 import { ScoresheetComponent } from '../components/scoresheet/scoresheet.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { DeactivateDialogComponent } from '../components/deactivate-dialog/deactivate-dialog.component';
@@ -14,8 +18,12 @@ export class ConfirmDeactivateGuard
   implements CanDeactivate<ScoresheetComponent> {
   constructor(public dialog: MatDialog, private store: Store) {}
 
-  canDeactivate(target: ScoresheetComponent): Observable<boolean> | boolean {
-    if (target.canLoseData(target.result)) {
+  canDeactivate(
+    target: ScoresheetComponent
+  ): Observable<boolean> | boolean {
+
+
+    if (!target.isClean && target.canLoseData(target.result)) {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;

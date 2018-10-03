@@ -1,3 +1,4 @@
+import { ConfirmDeactivateGuard } from './guards/spreadsheet-deactivate-guard.service';
 import { NgModule } from '@angular/core';
 
 import { ScoresheetRoutingModule } from './scoresheet-routing.module';
@@ -31,14 +32,12 @@ import { ReviewDialogComponent } from './components/review-dialog/review.dialog'
   declarations: [
     ScoresheetComponent,
     ScoresheetDialogComponent,
-    DeactivateDialogComponent,
     ReviewDialogComponent
   ],
   exports: [ScoresheetComponent],
   providers: [ScoresheetService],
   entryComponents: [
     ScoresheetDialogComponent,
-    DeactivateDialogComponent,
     ReviewDialogComponent
   ]
 })

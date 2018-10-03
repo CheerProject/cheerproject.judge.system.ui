@@ -9,7 +9,10 @@ import { RegistrationsModule } from './registrations/registrations.module';
 import { ScoresheetModule } from './scoresheet/scoresheet.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './core/services/in-memory-data.service';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import {
+  HAMMER_GESTURE_CONFIG,
+  BrowserModule
+} from '@angular/platform-browser';
 import { GestureConfig } from '@angular/material';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/services/auth.service';
@@ -25,23 +28,26 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { logoutPlugin } from './auth/plugins/logout.plugin';
 import { ResultsModule } from './results/results.module';
 import { ConfirmDeactivateGuard } from './scoresheet/guards/spreadsheet-deactivate-guard.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DeactivateDialogComponent } from './scoresheet/components/deactivate-dialog/deactivate-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DeactivateDialogComponent],
   imports: [
     SharedModule,
     CoreModule,
-    AppRoutingModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     NgxsModule.forRoot([AuthState]),
     NgxsStoragePluginModule.forRoot({
       key: ['auth', 'divisions', 'registrations', 'scoresheets', 'stats']
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    AuthModule,
-    DashboardModule,
-    RegistrationsModule,
-    ScoresheetModule,
-    ResultsModule,
+    // AuthModule,
+    // DashboardModule,
+    // RegistrationsModule,
+    // ScoresheetModule,
+    // ResultsModule,
     HttpClientModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
@@ -49,7 +55,8 @@ import { ConfirmDeactivateGuard } from './scoresheet/guards/spreadsheet-deactiva
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false
-    })
+    }),
+    AppRoutingModule
   ],
   providers: [
     AuthService,
@@ -73,6 +80,7 @@ import { ConfirmDeactivateGuard } from './scoresheet/guards/spreadsheet-deactiva
     },
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
   ],
+  entryComponents: [DeactivateDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

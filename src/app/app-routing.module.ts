@@ -1,8 +1,40 @@
+import { DashboardModule } from './dashboard/dashboard.module';
+import { AuthModule } from './auth/auth.module';
+import { MainWrapperComponent } from './shared/components/main-wrapper/main-wrapper.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RegistrationsModule } from './registrations/registrations.module';
+import { ResultsModule } from './results/results.module';
+import { ScoresheetModule } from './scoresheet/scoresheet.module';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/results', pathMatch: 'full' }
+  {
+    path: '',
+    component: MainWrapperComponent,
+    children: [
+      {
+        path: 'dashboard',
+        loadChildren: () => DashboardModule
+      },
+      {
+        path: 'registrations/:divisionId',
+        loadChildren: () => RegistrationsModule
+      },
+      {
+        path: 'results',
+        loadChildren: () => ResultsModule
+      },
+      {
+        path: 'scoresheets/:registrationId',
+        loadChildren: () => ScoresheetModule
+      },
+      { path: '', redirectTo: '/results', pathMatch: 'full' }
+    ]
+  },
+  {
+    path: 'login',
+    loadChildren: () => AuthModule
+  }
 ];
 
 @NgModule({

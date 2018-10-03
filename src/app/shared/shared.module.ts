@@ -1,3 +1,4 @@
+import { MainWrapperComponent } from './components/main-wrapper/main-wrapper.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,19 +14,16 @@ import { GetMapValuesPipe } from './pipes/get-map-values.pipe';
 import { MessagesComponent } from './components/messages/messages.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatBadgeModule } from '@angular/material/badge';
-import {MatTableModule} from '@angular/material/table';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatSidenavModule} from '@angular/material/sidenav';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
 @NgModule({
   imports: [
-    BrowserModule,
     CommonModule,
     FormsModule,
     RouterModule,
-    BrowserAnimationsModule,
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
@@ -39,12 +37,11 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatDialogModule,
     MatSidenavModule
   ],
-  declarations: [GetMapValuesPipe, MessagesComponent],
+  declarations: [GetMapValuesPipe, MessagesComponent, MainWrapperComponent],
   exports: [
-    BrowserModule,
     CommonModule,
     FormsModule,
-    BrowserAnimationsModule,
+
     RouterModule,
     MatIconModule,
     MatToolbarModule,
@@ -59,7 +56,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatSnackBarModule,
     MatProgressBarModule,
     MatDialogModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MainWrapperComponent
   ]
 })
 export class SharedModule {}

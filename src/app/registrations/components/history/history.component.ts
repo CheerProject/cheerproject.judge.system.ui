@@ -30,11 +30,15 @@ export class HistoryComponent implements OnInit {
 
   registrationsStat: Object = {};
 
-  constructor(private route: ActivatedRoute,private router: Router, private store: Store) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store
+  ) {
     this.store
       .select(state => state.stats)
       .subscribe((stats: RegistrationStatsModel) => {
-        if (stats.stats) {
+        if (stats && stats.stats) {
           for (const item of stats.stats) {
             this.registrationsStat[item.registrationId] =
               item.stats[item.stats.length - 1].subTotal;

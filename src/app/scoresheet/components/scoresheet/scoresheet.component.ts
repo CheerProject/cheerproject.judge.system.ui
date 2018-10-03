@@ -31,6 +31,8 @@ import { ScoresheetDialogComponent } from '../dialogs/scoresheet.dialog';
   styleUrls: ['./scoresheet.component.css']
 })
 export class ScoresheetComponent implements OnInit {
+  public isClean = false;
+
   TEXT_SCORE_METRIC = 'text';
   OTHERS = 'Others';
   GLOBAL_TOTAL = 'Total';
@@ -53,6 +55,7 @@ export class ScoresheetComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog
   ) {
+    this.isClean = false;
     this.id = this.route.snapshot.paramMap.get('registrationId');
 
     this.processScoreSheet();
@@ -136,6 +139,7 @@ export class ScoresheetComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(data => {
         if (data) {
+          this.isClean = true;
           this.store
             .dispatch([
               new AddScoresheet(scoreSheet),
@@ -166,6 +170,7 @@ export class ScoresheetComponent implements OnInit {
   }
 
   pending(scoreSheet: ScoresheetModel) {
+    this.isClean = true;
     this.store
       .dispatch([
         new AddScoresheet(scoreSheet),
@@ -175,7 +180,8 @@ export class ScoresheetComponent implements OnInit {
       .subscribe(() =>
         this.router.navigate([
           '/registrations',
-          this.registration.divisionGroup.division.id
+          this.registration.divisionGroup.division.id,
+          { pending: true }
         ])
       );
   }

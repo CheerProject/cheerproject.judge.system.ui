@@ -1,27 +1,2 @@
-<!--The content below is only a placeholder and can be replaced.-->
-
-<mat-sidenav-container class="example-container">
-  <mat-sidenav mode="side" opened>Sidenav content</mat-sidenav>
-  <mat-sidenav-content>
-    <!-- <mat-toolbar class="toolbar" color="primary" *ngIf="isAuthenticated()">
-
-      <mat-icon class="icon" (click)="goBack()">arrow_back</mat-icon>
-      <span>
-        <a mat-button routerLink="/dashboard">
-          <mat-icon>home</mat-icon>
-        </a>
-      </span>
-      <span class="example-spacer"></span>
-
-      <mat-icon class="icon" (click)="logout()">power_settings_new</mat-icon>
-
-      <span class="user-name">{{username$ | async}}</span>
-
-    </mat-toolbar> -->
-
-    <div class="container">
-      <router-outlet></router-outlet>
-      <app-messages></app-messages>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<router-outlet></router-outlet>
+<app-messages></app-messages>
