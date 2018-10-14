@@ -1,3 +1,4 @@
+import { DeductionsModule } from './deductions/deductions.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthModule } from './auth/auth.module';
 import { MainWrapperComponent } from './shared/components/main-wrapper/main-wrapper.component';
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'scoresheets/:registrationId',
         loadChildren: () => ScoresheetModule
+      },
+      {
+        path: 'deductions/:registrationId',
+        loadChildren: () => DeductionsModule
       },
       { path: '', redirectTo: '/results', pathMatch: 'full' }
     ]

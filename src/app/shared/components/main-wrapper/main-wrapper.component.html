@@ -1,23 +1,42 @@
 <mat-sidenav-container class="example-container">
-  <mat-sidenav mode="side" opened>Sidenav content</mat-sidenav>
+  <mat-sidenav mode="side" opened>
+    <div class="left-panel">
+
+
+      <div class="app-header">
+        <div class="championship secondary-text-color">
+          <div>Campeonato Nacional</div>
+          <div>ANAP</div>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="menu-container">
+        <mat-nav-list>
+          <mat-list-item routerLink="/dashboard" (click)="setTitle('Grupos')">
+            <mat-icon matListIcon class="nav-icon ">group_work</mat-icon>
+            <a matLine> Grupos </a>
+          </mat-list-item>
+          <mat-list-item routerLink="/results" (click)="setTitle('Resultados')">
+            <mat-icon matListIcon class="nav-icon ">insert_chart</mat-icon>
+            <a matLine> Resultados </a>
+          </mat-list-item>
+        </mat-nav-list>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="side-footer">
+        <mat-icon class="logout-icon" (click)="logout()">power_settings_new</mat-icon>
+      </div>
+
+    </div>
+  </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar class="toolbar" color="primary" *ngIf="isAuthenticated()">
-
-      <mat-icon class="icon" (click)="goBack()">arrow_back</mat-icon>
-      <span>
-        <a mat-button routerLink="/dashboard">
-          <mat-icon>home</mat-icon>
-        </a>
-      </span>
-      <span class="example-spacer"></span>
-
-      <mat-icon class="icon" (click)="logout()">power_settings_new</mat-icon>
-
-      <span class="user-name">{{username$ | async}}</span>
-
-    </mat-toolbar> 
-
     <div class="container">
+      <mat-toolbar>
+        <mat-icon class="back-icon" (click)="goBack()">arrow_back</mat-icon>
+        {{title}}
+      </mat-toolbar>
       <router-outlet></router-outlet>
       <app-messages></app-messages>
     </div>

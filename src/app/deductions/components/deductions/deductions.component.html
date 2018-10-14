@@ -1,0 +1,36 @@
+<div id="app">
+  <div><video #video id="video" width="320" height="240" autoplay></video></div>
+  <canvas #canvas id="canvas" width="320" height="240"></canvas>
+</div>
+
+<h2>Recording</h2>
+<video #recording id="recording" width="320" height="240" controls></video>
+<div>
+  <a #downloadButton id="downloadButton" class="button" >
+    Download
+  </a>
+</div>
+
+
+<div><button id="snap" (click)="capture()">Snap Photo</button></div>
+
+<div class="container">
+  <h1>{{ formatTime(time) }}</h1>
+  <div class="btn-group">
+    <button (click)="toggle()">
+      <span *ngIf="!started">Start</span>
+      <span *ngIf="started">Pause</span>
+    </button>
+    <button (click)="stop()">Stop</button>
+    <button (click)="reset()">Reset</button>
+  </div>
+</div>
+
+
+<div>
+  <ul>
+    <li *ngFor="let c of captures">
+      <img src="{{ c }}" height="50" />
+    </li>
+  </ul>
+</div>

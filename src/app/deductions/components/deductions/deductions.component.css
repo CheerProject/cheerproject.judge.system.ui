@@ -1,0 +1,29 @@
+#app {
+    color: #2c3e50;
+
+}
+#video {
+    background-color: #000000;
+}
+#canvas {
+    display: none;
+}
+li {
+    display: inline;
+    padding: 5px;
+}
+
+
+.button {
+    cursor: pointer;
+    display: block;
+    width: 160px;
+    border: 1px solid black;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 2px;
+    padding-bottom: 4px;
+    color: white;
+    background-color: darkgreen;
+    text-decoration: none;
+  }

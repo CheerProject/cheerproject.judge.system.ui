@@ -1,3 +1,9 @@
+/*Main Container*/
+.stepper-container{
+  margin: 0 auto 30px auto;
+  max-width: 900px;
+}
+
 .parent-category {
   margin: 10px 20px;
   min-width: 220px;
@@ -200,7 +206,7 @@ table.final-stats{
 }
 
 .team-profile{
-  max-width: 700px;
+  max-width: 900px;
   margin:auto;
   display: flex;
   flex-direction: row;
@@ -272,7 +278,19 @@ table.final-stats{
 }
 
 
-@media only screen and (max-width:700px) {
+@media only screen and (max-width:1100px) {
+  .stepper-container{
+    margin: auto;
+    max-width: 650px;
+  }
+
+  .team-profile{
+    max-width: 700px;
+    margin:auto;
+    display: flex;
+    flex-direction: row;
+  }
+
   .team-info{
     flex-grow: 1;  
     padding: 35px 5px 35px 35px;
@@ -333,6 +351,73 @@ table.final-stats{
   }
 }
 
+
+
+@media only screen and (max-width:900px) {
+  .stepper-container{
+    margin: auto;
+    max-width: 500px;
+  }
+
+  .team-info{
+    flex-grow: 1;  
+    padding: 35px 5px 35px 35px;
+  }
+  
+  .team-category{
+    flex-grow: 1;  
+  
+    padding: 35px 0px 35px 0px;
+  }
+  
+  .team-level{
+    flex-grow: 1;  
+    padding: 35px 0px 35px 0px;
+    text-align: center;
+  }
+  
+  
+  .name{
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+  }
+  
+  .coach{
+    font-weight: bolder;
+    font-size: 1em;
+    color: #757575;
+    margin-bottom: 5px;
+  }
+  
+  .division{
+    font-size: 1.5em;
+    font-weight: bolder;
+    color: #757575;
+    margin-bottom: 5px;
+  }
+  .gender{
+    font-size: 1em;
+    font-weight: bold;
+    color: #757575;
+  }
+  
+  .level{
+    font-weight: bolder;
+    color: #757575;
+    font-size: 2em;
+  }
+  
+  .levelLabel{
+    font-weight: bolder;
+    color: #757575;
+  }
+
+  .location{
+    color: #757575;
+    font-weight: bold;
+  }
+}
 
 @media only screen and (max-width:375px) {
  

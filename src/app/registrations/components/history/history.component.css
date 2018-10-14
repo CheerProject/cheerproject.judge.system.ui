@@ -1,7 +1,7 @@
 .registration {
   margin: 20px auto;
   cursor: pointer;
-  max-width: 400px;
+  max-width: 700px;
 }
 
 mat-tab {
@@ -80,10 +80,18 @@ mat-tab {
   font-size: 5em;
 }
 
-@media only screen and (max-width:480px) {
+@media only screen and (max-width:1024px) {
   .registration {
-    margin: 20px;
+    margin: 20px auto;
     cursor: pointer;
-    max-width: 400px;
+    max-width: 500px;
+  }
+}
+
+@media only screen and (max-width:850px) {
+  .registration {
+    margin: 20px auto;
+    cursor: pointer;
+    max-width: 300px;
   }
 }

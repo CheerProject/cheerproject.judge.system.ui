@@ -16,7 +16,7 @@ import { Logout } from '../../../auth/store/actions/auth.actions';
   styleUrls: ['./main-wrapper.component.css']
 })
 export class MainWrapperComponent implements OnInit {
-  title = 'Cheer app';
+  title = 'Grupos';
 
   username$: Observable<string>;
 
@@ -45,5 +45,9 @@ export class MainWrapperComponent implements OnInit {
     this.store
       .dispatch(new Logout())
       .subscribe(() => this.router.navigateByUrl('/login'));
+  }
+
+  setTitle(title) {
+    this.title = title;
   }
 }

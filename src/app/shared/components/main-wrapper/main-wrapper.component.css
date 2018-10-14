@@ -1,54 +1,135 @@
 .example-icon {
-    padding: 0 14px;
-  }
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.user-name {
+  font-size: 0.7em;
+}
+
+.app-name {
+  font-size: 1em;
+}
+
+a.home {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.container {
+  margin: auto;
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.logout-icon {
+  margin: 15px;
+  cursor: pointer;
+}
+
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+
+
+
+
+.dark-primary-color {
+  background: #303F9F;
+}
+
+.default-primary-color {
+  background: #3F51B5;
+}
+
+.light-primary-color {
+  background: #C5CAE9;
+}
+
+.text-primary-color {
+  color: #FFFFFF;
+}
+
+.accent-color {
+  background: #FF4081;
+}
+
+.primary-text-color {
+  color: #212121;
+}
+
+.secondary-text-color {
+  color: #757575;
+}
+
+.divider-color {
+  border-color: #BDBDBD;
+}
+
+/*
+  side panel style
+*/
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 100%;
+}
+
+.user-header {
+  align-self: flex-start;
+  font-size: 0.9em;
+}
+
+.menu-container {
+  height: 100%;
   
-  .example-spacer {
-    flex: 1 1 auto;
-  }
+}
+
+.menu-container mat-list-item{
+  color: #879394;
+}
+
+.side-footer {
+
+  align-self: flex-end;
+}
+
+.app-header {
   
-  .user-name{
-      font-size: 0.7em;
-  }
-  
-  .app-name{
-    font-size: 1em;
-  }
-  
-  a.home{
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .container {
-    max-width: 830px;
-    margin: auto;
-  }
-  
-  .auth-container{
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .icon{
-    margin-right: 5px;
-    cursor: pointer;
-  }
-  
-  .example-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #eee;
-  }
-  
-  
-  .dark-primary-color    { background: #303F9F; }
-  .default-primary-color { background: #3F51B5; }
-  .light-primary-color   { background: #C5CAE9; }
-  .text-primary-color    { color: #FFFFFF; }
-  .accent-color          { background: #FF4081; }
-  .primary-text-color    { color: #212121; }
-  .secondary-text-color  { color: #757575; }
-  .divider-color         { border-color: #BDBDBD; }
+  margin: 14px 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.header-image {
+  background-size: cover;
+  margin-left: 20px;
+  width: 35px;
+  height: 35px;
+}
+
+.championship {
+  font-size: 0.9em;
+  font-weight: bolder;
+  margin: auto;
+  text-align: center;
+}
+
+
+.back-icon{
+  margin-right: 15px;
+  cursor: pointer;
+}
