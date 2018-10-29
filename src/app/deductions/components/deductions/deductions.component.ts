@@ -36,6 +36,8 @@ export class DeductionsComponent implements OnInit, AfterViewInit {
 
   videoStream: Promise<any>;
 
+  videoDevices = [];
+
   public constructor(
     public stopwatchService: StopWatchService,
     public recordingService: RecordingService
