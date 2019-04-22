@@ -1,10 +1,23 @@
 .division{
-    margin: 30px auto ;
+    margin: 30px 50px ;
     cursor: pointer;
-    max-width: 600px;
+    
     min-width: 200px;
+    height: 200px;
+    font-size: 2em;
 }
 
+.title{
+    font-size: 38px;
+}
+
+.subtitle{
+    font-size: 30px;
+}
+
+.progress-bar{
+    margin-top: 30px
+}
 @media only screen and (max-width:990px) {
     .division{
         margin: 30px auto;

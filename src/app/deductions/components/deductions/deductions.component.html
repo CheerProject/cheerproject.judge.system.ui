@@ -1,14 +1,17 @@
 <div id="app">
   <div><video #video id="video" width="320" height="240" autoplay></video></div>
-  <canvas #canvas id="canvas" width="320" height="240"></canvas>
 </div>
 
-<h2>Recording</h2>
-<video #recording id="recording" width="320" height="240" controls></video>
 <div>
-  <a #downloadButton id="downloadButton" class="button" >
-    Download
-  </a>
+  <h2>Recording</h2>
+  <div><video #recording id="recording" width="320" height="240" controls></video></div>
+  <canvas #canvas id="canvas" width="320" height="240"></canvas>
+  <div>
+    <a #downloadButton id="downloadButton" class="button">
+      Download
+    </a>
+  </div>
+
 </div>
 
 
@@ -30,7 +33,7 @@
 <div>
   <ul>
     <li *ngFor="let c of captures">
-      <img src="{{ c }}" height="50" />
+      <img src="{{ c.screenShot }}" height="50" (click)="setCurrentTime(c.time)" />
     </li>
   </ul>
 </div>

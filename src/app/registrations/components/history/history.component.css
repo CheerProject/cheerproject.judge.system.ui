@@ -1,7 +1,8 @@
 .registration {
-  margin: 20px auto;
+  margin: 50px auto;
+  max-width: 800px;
+  height: 200px;
   cursor: pointer;
-  max-width: 700px;
 }
 
 mat-tab {
