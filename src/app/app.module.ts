@@ -67,7 +67,6 @@ import { DeactivateDialogComponent } from './scoresheet/components/deactivate-di
             useClass: TokenInterceptor,
             multi: true
         },
-        ,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ErrorInterceptor,
