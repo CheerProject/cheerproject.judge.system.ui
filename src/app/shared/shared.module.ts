@@ -1,4 +1,4 @@
-import { MainWrapperComponent } from './components/main-wrapper/main-wrapper.component';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,49 +17,50 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
+import { MainWrapperComponent } from '../main-wrapper/main-wrapper.component';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatCardModule,
-    MatGridListModule,
-    MatBadgeModule,
-    MatTableModule,
-    MatSnackBarModule,
-    MatProgressBarModule,
-    MatDialogModule,
-    MatSidenavModule,
-    MatListModule
-  ],
-  declarations: [GetMapValuesPipe, MessagesComponent, MainWrapperComponent],
-  exports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatCardModule,
-    MatGridListModule,
-    GetMapValuesPipe,
-    MessagesComponent,
-    MatBadgeModule,
-    MatTableModule,
-    MatSnackBarModule,
-    MatProgressBarModule,
-    MatDialogModule,
-    MatSidenavModule,
-    MainWrapperComponent,
-    MatListModule
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatCardModule,
+        MatGridListModule,
+        MatBadgeModule,
+        MatTableModule,
+        MatSnackBarModule,
+        MatProgressBarModule,
+        MatDialogModule,
+        MatSidenavModule,
+        MatListModule
+    ],
+    declarations: [GetMapValuesPipe, MessagesComponent, MainWrapperComponent],
+    exports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatCardModule,
+        MatGridListModule,
+        GetMapValuesPipe,
+        MessagesComponent,
+        MatBadgeModule,
+        MatTableModule,
+        MatSnackBarModule,
+        MatProgressBarModule,
+        MatDialogModule,
+        MatSidenavModule,
+        MainWrapperComponent,
+        MatListModule
+    ]
 })
-export class SharedModule {}
+export class SharedModule { }

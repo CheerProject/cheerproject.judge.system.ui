@@ -83,7 +83,7 @@ a.home {
 .left-panel {
   display: flex;
   flex-direction: column;
-  width: 280px;
+  width: auto;
   height: 100%;
 }
 
@@ -103,7 +103,7 @@ a.home {
 
 .side-footer {
 
-  align-self: flex-end;
+  margin: auto;
 }
 
 .app-header {

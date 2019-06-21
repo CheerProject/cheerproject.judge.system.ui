@@ -1,4 +1,4 @@
-import { ScoresheetModel } from "../../models/scoresheet-model";
+import { ScoresheetModel } from '../../models/scoresheet-model';
 
 export class AddScoresheet {
     static readonly type = '[Scoresheet] Add';

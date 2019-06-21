@@ -1,4 +1,4 @@
-import { Stat } from "../../models/stat";
+import { Stat } from '../../models/stat';
 
 export class StatsModel {
     registrationId: number;
