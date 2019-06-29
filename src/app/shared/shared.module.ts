@@ -18,7 +18,7 @@ import { MatProgressBarModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { MainWrapperComponent } from '../main-wrapper/main-wrapper.component';
+import { MainWrapperComponent } from '../main-wrapper/components/main/main-wrapper.component';
 
 
 @NgModule({
@@ -40,7 +40,7 @@ import { MainWrapperComponent } from '../main-wrapper/main-wrapper.component';
         MatSidenavModule,
         MatListModule
     ],
-    declarations: [GetMapValuesPipe, MessagesComponent, MainWrapperComponent],
+    declarations: [GetMapValuesPipe, MessagesComponent],
     exports: [
         CommonModule,
         FormsModule,
@@ -59,7 +59,6 @@ import { MainWrapperComponent } from '../main-wrapper/main-wrapper.component';
         MatProgressBarModule,
         MatDialogModule,
         MatSidenavModule,
-        MainWrapperComponent,
         MatListModule
     ]
 })

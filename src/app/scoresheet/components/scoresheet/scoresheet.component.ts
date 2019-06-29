@@ -12,10 +12,7 @@ import {
     AddScoresheet
 } from '../../store/actions/scoresheet.actions';
 import { Registration } from '../../../registrations/models/registration';
-import {
-    AddCompleted,
-    AddPending
-} from '../../../registrations/store/actions/registration.actions';
+import { UpdateRegistration, CompletedRegistration, PendingRegistration } from '../../../registrations/store/actions/registration.actions';
 import { AddStats } from '../../store/actions/stats.actions';
 import {
     MatDialog,
@@ -114,9 +111,9 @@ export class ScoresheetComponent implements OnInit {
         return new ScoresheetModel();
     }
 
-    findRegistration(result: any): Registration {
-        for (const registrations of Object.values<Registration[]>(result)) {
-            const found = registrations.find(element => element.id === +this.id);
+    findRegistration(result: Registration[]): Registration {
+        if (result) {
+            const found = result.find(element => element.id === +this.id);
             if (found) {
                 return found;
             }
@@ -143,12 +140,12 @@ export class ScoresheetComponent implements OnInit {
                     this.store
                         .dispatch([
                             new AddScoresheet(scoreSheet),
-                            new AddCompleted(this.registration),
+                            new CompletedRegistration(this.registration),
                             new AddStats({ registrationId: this.id, stats: this.result })
                         ])
                         .subscribe(() =>
                             this.router.navigate([
-                                '/registrations',
+                                '/groups',
                                 this.registration.divisionGroup.division.id
                             ])
                         );
@@ -174,12 +171,12 @@ export class ScoresheetComponent implements OnInit {
         this.store
             .dispatch([
                 new AddScoresheet(scoreSheet),
-                new AddStats({ registrationId: this.id, stats: this.result }),
-                new AddPending(this.registration)
+                new PendingRegistration(this.registration),
+                new AddStats({ registrationId: this.id, stats: this.result })
             ])
             .subscribe(() =>
                 this.router.navigate([
-                    '/registrations',
+                    '/groups',
                     this.registration.divisionGroup.division.id,
                     { pending: true }
                 ])

@@ -1,26 +1,18 @@
 import { DeductionsModule } from './deductions/deductions.module';
-import { DashboardModule } from './dashboard/dashboard.module';
+import { MainWrapper } from './main-wrapper/main-wrapper.module';
 import { AuthModule } from './auth/auth.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, ExtraOptions } from '@angular/router';
 import { RegistrationsModule } from './registrations/registrations.module';
 import { ResultsModule } from './results/results.module';
 import { ScoresheetModule } from './scoresheet/scoresheet.module';
-import { MainWrapperComponent } from './main-wrapper/main-wrapper.component';
+import { MainWrapperComponent } from './main-wrapper/components/main/main-wrapper.component';
 
 const routes: Routes = [
     {
         path: '',
         component: MainWrapperComponent,
         children: [
-            {
-                path: 'dashboard',
-                loadChildren: './dashboard/dashboard.module#DashboardModule'
-            },
-            {
-                path: 'registrations/:divisionId',
-                loadChildren: './registrations/registrations.module#RegistrationsModule'
-            },
             {
                 path: 'results',
                 loadChildren: './results/results.module#ResultsModule'
@@ -33,7 +25,11 @@ const routes: Routes = [
                 path: 'deductions/:registrationId',
                 loadChildren: './deductions/deductions.module#DeductionsModule'
             },
-            { path: '', redirectTo: '/results', pathMatch: 'full' }
+            {
+                path: 'groups',
+                loadChildren: './groups/groups.module#GroupsModule'
+            },
+            { path: '', redirectTo: '/groups', pathMatch: 'full' }
         ]
     },
     {

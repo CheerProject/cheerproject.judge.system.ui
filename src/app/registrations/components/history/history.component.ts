@@ -1,71 +1,103 @@
 import { Registration } from '../../models/registration';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
 import {
-  GetRegistrations,
-  AddPending,
-  AddOntime
+    GetRegistrations,
+    UpdateRegistration,
+    PendingRegistration,
+    CompletedRegistration,
+    OnTimeRegistration
 } from '../../store/actions/registration.actions';
 import { Observable } from 'rxjs';
 import { Stat } from '../../../scoresheet/models/stat';
 import { map } from 'rxjs/operators';
 import { RegistrationStatsModel } from '../../../scoresheet/store/state/stats.state';
 import { StatsModel } from '../../../scoresheet/store/actions/stats.actions';
+import { RegistrationStatus } from '../../enums/registration-status.enum';
+import { RegistrationState } from '../../store/state/registration.state';
+import { MatSort } from '@angular/material';
 @Component({
-  selector: 'app-history',
-  templateUrl: './history.component.html',
-  styleUrls: ['./history.component.css']
+    selector: 'app-history',
+    templateUrl: './history.component.html',
+    styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit {
-  @Select(state => state.registrations.registrations.ontime)
-  ontime$: Observable<Registration[]>;
+    @Select(state => state.registrations.registrations)
+    registratons$: Observable<Registration[]>;
 
-  @Select(state => state.registrations.registrations.pending)
-  pending$: Observable<Registration[]>;
+    status: any = RegistrationStatus;
 
-  @Select(state => state.registrations.registrations.completed)
-  completed$: Observable<Registration[]>;
+    displayedColumns: string[] = ['Posicion', 'Nombre', 'Entrenador', 'Nivel', 'Division', 'Categoría', 'Genero', 'Estado', 'Puntos'];
 
-  registrationsStat: Object = {};
+    registrationsStat: Object = {};
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private store: Store
-  ) {
-    this.store
-      .select(state => state.stats)
-      .subscribe((stats: RegistrationStatsModel) => {
-        if (stats && stats.stats) {
-          for (const item of stats.stats) {
-            this.registrationsStat[item.registrationId] =
-              item.stats[item.stats.length - 1].subTotal;
-          }
+
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private store: Store
+    ) {
+        this.store
+            .select(state => state.stats)
+            .subscribe((stats: RegistrationStatsModel) => {
+                if (stats && stats.stats) {
+                    for (const item of stats.stats) {
+                        const st = item.stats[item.stats.length - 1].subTotal;
+                        this.registrationsStat[item.registrationId] = st;
+                    }
+                }
+            });
+    }
+
+    ngOnInit() {
+        this.store.dispatch(new GetRegistrations());
+    }
+
+
+    update(registration: Registration): void {
+        this.store.dispatch(new UpdateRegistration(registration));
+        console.log(registration);
+    }
+
+    getScoresheet(registration: Registration): void {
+        console.log(registration);
+        if (registration.status.name === RegistrationStatus.Finished) {
+
+        } else {
+            this.setOk(registration);
+            this.router.navigate(['/scoresheets', registration.id]);
         }
-      });
-  }
 
-  ngOnInit() {
-    this.store.dispatch(new GetRegistrations());
-  }
+    }
+    onRowClicked(row) {
+        console.log('Row clicked: ', row);
+    }
 
-  setPending(registration: Registration): void {
-    this.store.dispatch(new AddPending(registration));
-  }
+    setPending(registration: Registration) {
+        this.store.dispatch(new PendingRegistration(registration));
+    }
 
-  setCurrent(registration: Registration): void {
-    this.store.dispatch(new AddOntime(registration));
-  }
+    setOk(registration: Registration) {
+        this.store.dispatch(new OnTimeRegistration(registration));
+    }
 
-  getScoresheet(registration: Registration): void {
-    this.router.navigate(['/scoresheets', registration.id]);
-  }
+    setCompleted(registration: Registration) {
+        this.store.dispatch(new CompletedRegistration(registration));
+    }
 
-  fromPendingToOntime(registration: Registration): void {
-    this.store
-      .dispatch(new AddOntime(registration))
-      .subscribe(() => this.router.navigate(['/scoresheets', registration.id]));
-  }
+
+    getRowStatus(row: Registration) {
+        if (row.status.name === this.status.Finished) {
+            return 'completed';
+        } else if (row.status.name === this.status.Pending) {
+            return 'pending';
+        }
+    }
+
+    getSubTotal(registrationId: number) {
+        const sub = this.registrationsStat[registrationId];
+        return sub ? sub : 0;
+    }
 }

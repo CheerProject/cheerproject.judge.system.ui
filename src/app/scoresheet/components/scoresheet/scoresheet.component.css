@@ -1,7 +1,15 @@
+.scoresheet-container{
+    display: flex;
+    flex-direction: row;
+}
+
 /*Main Container*/
 .stepper-container{
-  margin: 0 auto 30px auto;
-  max-width: 900px;
+  width: 100%;
+    margin: 30px 30px 0px -35px;
+    overflow: scroll;
+    padding: 25px;
+
 }
 
 .parent-category {
@@ -26,10 +34,7 @@
 }
 
 
-.metric {
-  width: 100%;
-  min-width: 150px;
-}
+
 
 .align-right {
   text-align: right;
@@ -78,24 +83,22 @@ textarea {
 
 
 .mat-expansion-panel-header.mat-expanded {
-  background: #f8f8f8f5 !important;
+  background: #5f749ef5 !important;
   background-color: white;
   margin-bottom: 15px;
 }
 
 .mat-expansion-panel-header.mat-expanded .mat-expansion-panel-header-title,
 .mat-expansion-panel-header.mat-expanded .mat-expansion-panel-header-description {
-  color: #757575 !important;
+  color: #ffffff !important;
 
 }
 
-.slider-margin {
-  width: 100%;
-  margin: 10px 0px;
-}
+
+
 
 ::ng-deep .mat-stepper-vertical .mat-step-header{
-  background-color: #f8f8f8f5 !important;
+  background-color: #5f749ef5 !important;
 }
 ::ng-deep .mat-step-label {
   width: 100% !important;
@@ -105,10 +108,9 @@ textarea {
   padding: 24px !important;
 }
 .step-title {
-  font-size: 1.3em;
+  font-size: 0.9em;
   font-weight: bold;
   float: left;
-  margin-top: 5px
 }
 
 
@@ -123,6 +125,7 @@ textarea {
   font-weight: 800;
   display: block;
   border-radius: 50px;
+  width: 45px;
 }
 
 
@@ -205,53 +208,37 @@ table.final-stats{
   font-size: 1.1em;
 }
 
+
+/*
+    Team information
+*/
 .team-profile{
-  max-width: 900px;
-  margin:auto;
+  width: 300px;
+  height: 100%;
   display: flex;
-  flex-direction: row;
-}
-
-
-.team-info{
-  flex-grow: 1;  
-  padding: 45px 5px 45px 35px;
-}
-
-.team-category{
-  flex-grow: 1;  
-
-  padding: 45px 0px 45px 0px;
+  flex-direction: column;
 }
 
 .team-level{
-  flex-grow: 1;  
-  padding: 45px 0px 45px 0px;
   text-align: center;
 }
-
-
 .name{
   font-weight: bold;
   font-size: 2em;
-  margin-bottom: 10px;
 }
-
 .coach{
   font-weight: bolder;
   font-size: 1.5em;
   color: #757575;
-  margin-bottom: 10px;
 }
 
 .division{
-  font-size: 2em;
+  font-size: 1.2em;
   font-weight: bolder;
   color: #757575;
-  margin-bottom: 10px;
 }
 .gender{
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: bold;
   color: #757575;
 }
@@ -259,7 +246,6 @@ table.final-stats{
 .level{
   font-weight: bolder;
   color: #757575;
-  font-size: 3em;
 }
 
 .levelLabel{
@@ -278,209 +264,40 @@ table.final-stats{
 }
 
 
-@media only screen and (max-width:1100px) {
-  .stepper-container{
-    margin: auto;
-    max-width: 650px;
+/*
+    slider bar
+*/
+  ::ng-deep.mat-slider-thumb-label {
+    transform: rotate(45deg) !important;
+    border-radius: 50% 50% 0 !important;
+  }
+  
+  ::ng-deep.mat-slider-thumb {
+    transform: scale(0) !important;
+  }
+  
+  ::ng-deep.mat-slider-thumb-label-text {
+    opacity: 3 !important;
   }
 
-  .team-profile{
-    max-width: 700px;
-    margin:auto;
-    display: flex;
-    flex-direction: row;
-  }
 
-  .team-info{
-    flex-grow: 1;  
-    padding: 35px 5px 35px 35px;
-  }
-  
-  .team-category{
-    flex-grow: 1;  
-  
-    padding: 35px 0px 35px 0px;
-  }
-  
-  .team-level{
-    flex-grow: 1;  
-    padding: 35px 0px 35px 0px;
-    text-align: center;
-  }
-  
-  
-  .name{
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-bottom: 5px;
-  }
-  
-  .coach{
-    font-weight: bolder;
-    font-size: 1em;
-    color: #757575;
-    margin-bottom: 5px;
-  }
-  
-  .division{
-    font-size: 1.5em;
-    font-weight: bolder;
-    color: #757575;
-    margin-bottom: 5px;
-  }
-  .gender{
-    font-size: 1em;
-    font-weight: bold;
-    color: #757575;
-  }
-  
-  .level{
-    font-weight: bolder;
-    color: #757575;
-    font-size: 2em;
-  }
-  
-  .levelLabel{
-    font-weight: bolder;
-    color: #757575;
-  }
+  /*
+    Metric
+  */
 
-  .location{
-    color: #757575;
-    font-weight: bold;
-  }
+.metric {
+  width: 100%;
+  min-width: 150px;
+  display: flex;
+}
+.metric-label{
+    flex-grow: 1;
+    width: 120px;
+    padding-top: 27px;
 }
 
-
-
-@media only screen and (max-width:900px) {
-  .stepper-container{
-    margin: auto;
-    max-width: 500px;
-  }
-
-  .team-info{
-    flex-grow: 1;  
-    padding: 35px 5px 35px 35px;
-  }
-  
-  .team-category{
-    flex-grow: 1;  
-  
-    padding: 35px 0px 35px 0px;
-  }
-  
-  .team-level{
-    flex-grow: 1;  
-    padding: 35px 0px 35px 0px;
-    text-align: center;
-  }
-  
-  
-  .name{
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-bottom: 5px;
-  }
-  
-  .coach{
-    font-weight: bolder;
-    font-size: 1em;
-    color: #757575;
-    margin-bottom: 5px;
-  }
-  
-  .division{
-    font-size: 1.5em;
-    font-weight: bolder;
-    color: #757575;
-    margin-bottom: 5px;
-  }
-  .gender{
-    font-size: 1em;
-    font-weight: bold;
-    color: #757575;
-  }
-  
-  .level{
-    font-weight: bolder;
-    color: #757575;
-    font-size: 2em;
-  }
-  
-  .levelLabel{
-    font-weight: bolder;
-    color: #757575;
-  }
-
-  .location{
-    color: #757575;
-    font-weight: bold;
-  }
+.slider-margin {
+  width: 100%;
+  margin: 10px 50px 0px 0px;
+  flex-grow: 2;
 }
-
-@media only screen and (max-width:375px) {
- 
-  
-  .team-info{
-    flex-grow: 1;  
-    padding: 25px 5px 25px 25px;
-  }
-  
-  .team-category{
-    flex-grow: 1;  
-  
-    padding: 25px 0px 25px 0px;
-  }
-  
-  .team-level{
-    flex-grow: 1;  
-    padding: 25px 0px 25px 0px;
-    text-align: center;
-  }
-  
-  
-  .name{
-    font-weight: bold;
-    font-size: 1em;
-    margin-bottom: 5px;
-  }
-  
-  .coach{
-    font-weight: bolder;
-    font-size: 0.8em;
-    color: #757575;
-    margin-bottom: 5px;
-  }
-  
-  .division{
-    font-size: 1em;
-    font-weight: bolder;
-    color: #757575;
-    margin-bottom: 5px;
-  }
-  .gender{
-    font-size: 0.8em;
-    font-weight: bold;
-    color: #757575;
-  }
-  
-  .level{
-    font-weight: bolder;
-    color: #757575;
-    font-size: 1.5em;
-  }
-  
-  .levelLabel{
-    font-weight: bolder;
-    color: #757575;
-  }
-
-  .location{
-    color: #757575;
-    font-weight: bolder;
-    font-size: 0.7em;
-  }
-}
-
-

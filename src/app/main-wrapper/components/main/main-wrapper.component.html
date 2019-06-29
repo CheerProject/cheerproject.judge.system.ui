@@ -13,7 +13,7 @@
 
             <div class="menu-container">
                 <mat-nav-list>
-                    <mat-list-item routerLink="/dashboard" (click)="setTitle('Grupos')">
+                    <mat-list-item routerLink="/" (click)="setTitle('Grupos')">
                         <mat-icon matListIcon class="nav-icon ">group_work</mat-icon>
 
                     </mat-list-item>
@@ -32,7 +32,6 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <div class="container">
-
             <router-outlet></router-outlet>
             <app-messages></app-messages>
         </div>

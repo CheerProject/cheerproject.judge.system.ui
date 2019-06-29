@@ -1,3 +1,8 @@
+table {
+  width: 100%;
+  
+}
+
 .registration {
   margin: 50px auto;
   max-width: 800px;
@@ -81,18 +86,10 @@ mat-tab {
   font-size: 5em;
 }
 
-@media only screen and (max-width:1024px) {
-  .registration {
-    margin: 20px auto;
-    cursor: pointer;
-    max-width: 500px;
-  }
+.completed{
+    background-color: #dff6df;
 }
 
-@media only screen and (max-width:850px) {
-  .registration {
-    margin: 20px auto;
-    cursor: pointer;
-    max-width: 300px;
-  }
+.pending{
+    background-color: #ffffdd;
 }

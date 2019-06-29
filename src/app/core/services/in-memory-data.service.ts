@@ -1,7 +1,7 @@
 import { UserScoreSheetPayload } from './../../scoresheet/models/user-scoresheet-payload';
 import { SCORESHEETS } from './../../scoresheet/models/mock-scoresheet';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { DIVISIONS } from '../../dashboard/models/mock-divisions';
+import { DIVISIONS } from '../../groups/models/mock-divisions';
 import { REGISTRATIONS } from '../../registrations/models/mock-registrations';
 import { User } from '../../auth/models/user';
 

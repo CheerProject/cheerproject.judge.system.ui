@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { AuthService } from '../auth/services/auth.service';
-import { Logout } from '../auth/store/actions/auth.actions';
+import { AuthService } from '../../../auth/services/auth.service';
+import { Logout } from '../../../auth/store/actions/auth.actions';
 
 @Component({
     selector: 'app-main-wrapper',

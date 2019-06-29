@@ -1,0 +1,18 @@
+<div class="group-container">
+    <div class="groups">
+        <div class="group-border" *ngFor="let division of divisions$ | async ; let first = first">
+            <mat-card (click)="getRegistrations(division)" [ngClass]="divisionStatus(division)">
+                <mat-card-title class="title">
+                    {{division.name}}
+                </mat-card-title>
+                <mat-card-subtitle class="subtitle">
+                    Equipos: {{division.teams}}
+                </mat-card-subtitle>
+            </mat-card>
+        </div>
+
+    </div>
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

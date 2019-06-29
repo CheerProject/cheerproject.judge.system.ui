@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
-import { DashboardModule } from './dashboard/dashboard.module';
+import { MainWrapper } from './main-wrapper/main-wrapper.module';
 import { RegistrationsModule } from './registrations/registrations.module';
 import { ScoresheetModule } from './scoresheet/scoresheet.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -42,6 +42,7 @@ import { DeactivateDialogComponent } from './scoresheet/components/deactivate-di
         NgxsStoragePluginModule.forRoot({
             key: ['auth', 'divisions', 'registrations', 'scoresheets', 'stats']
         }),
+        MainWrapper,
         NgxsReduxDevtoolsPluginModule.forRoot(),
         // AuthModule,
         // DashboardModule,

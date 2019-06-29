@@ -1,9 +1,8 @@
-<div>
+<div class="scoresheet-container">
     <div class="team-profile">
         <div class="team-info">
             <div class="name">{{ registration.team.name}}</div>
             <div class="coach">{{ registration.team.coach}}</div>
-            <div class="location">Ciudad</div>
         </div>
         <div class="team-category">
             <div class="division">{{ registration.divisionGroup.division.name}}</div>
@@ -14,155 +13,159 @@
             <div class="levelLabel">Nivel</div>
         </div>
 
+
     </div>
-</div>
 
-<div class="stepper-container">
 
-    <mat-vertical-stepper [linear]="false" #stepper>
+    <div class="stepper-container">
 
-        <div *ngFor="let parent of scoreSheet.parentCategory ; index as parentIndex; last as parentLast ">
-            <mat-step>
-                <ng-template matStepLabel *ngIf="parent.name !== OTHERS">
-                    <div class="label-template">
-                        <div class="step-title">{{parent.name}}</div>
-                        <div class="step-description">{{result[parentIndex].subTotal}} / {{result[parentIndex].total}}
+        <mat-horizontal-stepper [linear]="false" #stepper>
+
+            <div *ngFor="let parent of scoreSheet.parentCategory ; index as parentIndex; last as parentLast ">
+                <mat-step>
+                    <ng-template matStepLabel *ngIf="parent.name !== OTHERS">
+                        <div class="label-template">
+                            <div class="step-title">{{parent.name}}</div>
+                            <!-- <div class="step-description">{{result[parentIndex].subTotal}} / {{result[parentIndex].total}}
+                        </div> -->
                         </div>
-                    </div>
-                </ng-template>
-                <ng-template matStepLabel *ngIf="parent.name == OTHERS">
-                    <div class="step-title">{{parent.name}}</div>
-                </ng-template>
-                <mat-accordion class="accordion-container">
-                    <mat-expansion-panel (opened)="setStep(parentIndex, i)"
-                        [expanded]="parentAccordion[parentIndex] === i" hideToggle
-                        *ngFor="let scoreCategory of parent.scoreCategories; index as i; first as isFirst; last as isLast"
-                        class="expansion-container">
+                    </ng-template>
+                    <ng-template matStepLabel *ngIf="parent.name == OTHERS">
+                        <div class="step-title">{{parent.name}}</div>
+                    </ng-template>
+                    <mat-accordion class="accordion-container">
+                        <mat-expansion-panel (opened)="setStep(parentIndex, i)"
+                            [expanded]="parentAccordion[parentIndex] === i"
+                            *ngFor="let scoreCategory of parent.scoreCategories; index as i; first as isFirst; last as isLast"
+                            class="expansion-container">
 
-                        <mat-expansion-panel-header class="light-primary-color">
-                            <mat-panel-title class="panel-header-title">
-                                {{scoreCategory.name}}
-                            </mat-panel-title>
-                            <mat-panel-description *ngIf="parent.name !== OTHERS">
-                                {{result[parentIndex]["childStat"][i].subTotal}} /
-                                {{result[parentIndex]["childStat"][i].total}}
-                            </mat-panel-description>
-                        </mat-expansion-panel-header>
+                            <mat-expansion-panel-header class="light-primary-color">
+                                <mat-panel-title class="panel-header-title">
+                                    {{scoreCategory.name}}
+                                </mat-panel-title>
+                                <mat-panel-description *ngIf="parent.name !== OTHERS">
+                                    {{result[parentIndex]["childStat"][i].subTotal}} /
+                                    {{result[parentIndex]["childStat"][i].total}}
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
 
-                        <div div *ngFor="let metric of scoreCategory.scoreMetrics" class="metric-container">
-                            <div *ngIf="metric.name !== TEXT_SCORE_METRIC" class="metric">
+                            <div div *ngFor="let metric of scoreCategory.scoreMetrics" class="metric-container">
+                                <div *ngIf="metric.name !== TEXT_SCORE_METRIC" class="metric">
 
-                                <div *ngIf="metric.element.value">
-                                    <div>{{metric.name}}: {{ metric.element.value }} / {{metric.element.maxScore}}</div>
-                                </div>
-                                <div *ngIf="!metric.element.value">
-                                    <div>{{metric.name}}: {{ metric.element.minScore }} / {{metric.element.maxScore}}
+                                    <div class="metric-label">
+                                        <span *ngIf="metric.element.value">{{metric.name}}
+                                        </span>
+                                        <span *ngIf="!metric.element.value">{{metric.name}}
+                                        </span>
                                     </div>
-                                </div>
-                                <div class="slider-margin">
-                                    <mat-slider class="slider-margin" max="{{metric.element.maxScore}}"
-                                        min="{{metric.element.minScore}}" step="0.5" thumbLabel tickInterval="1"
-                                        [(ngModel)]="metric.element.value" (change)="getTotal(scoreSheet)"
-                                        color="primary">
-                                    </mat-slider>
+                                    <div class="slider-margin">
+
+                                        <mat-slider class="slider-margin" max="{{metric.element.maxScore}}"
+                                            min="{{metric.element.minScore}}" step="0.5" thumbLabel tickInterval="1"
+                                            [(ngModel)]="metric.element.value" (change)="getTotal(scoreSheet)"
+                                            color="primary">
+                                        </mat-slider>
+
+                                    </div>
+
                                 </div>
 
+                                <mat-form-field *ngIf="metric.name === TEXT_SCORE_METRIC" class="metric text"
+                                    appearance="outline">
+                                    <textarea [(ngModel)]="metric.element.value" matInput> </textarea>
+                                </mat-form-field>
                             </div>
 
-                            <mat-form-field *ngIf="metric.name === TEXT_SCORE_METRIC" class="metric text"
-                                appearance="outline">
-                                <textarea [(ngModel)]="metric.element.value" matInput> </textarea>
-                            </mat-form-field>
-                        </div>
+                            <mat-action-row *ngIf="isFirst && !isLast">
+                                <button mat-button mat-stroked-button color="primary"
+                                    (click)="nextStep(parentIndex, i)">
+                                    <mat-icon>chevron_right</mat-icon>
+                                </button>
+                            </mat-action-row>
 
-                        <mat-action-row *ngIf="isFirst && !isLast">
-                            <button mat-button mat-stroked-button color="primary" (click)="nextStep(parentIndex, i)">
-                                <mat-icon>chevron_right</mat-icon>
-                            </button>
-                        </mat-action-row>
+                            <mat-action-row *ngIf="!isFirst && !isLast">
+                                <button mat-button mat-stroked-button color="warn" (click)="prevStep(parentIndex, i)">
+                                    <mat-icon>chevron_left</mat-icon>
+                                </button>
+                                <button mat-button mat-stroked-button color="primary"
+                                    (click)="nextStep(parentIndex, i)">
+                                    <mat-icon>chevron_right</mat-icon>
+                                </button>
+                            </mat-action-row>
 
-                        <mat-action-row *ngIf="!isFirst && !isLast">
-                            <button mat-button mat-stroked-button color="warn" (click)="prevStep(parentIndex, i)">
-                                <mat-icon>chevron_left</mat-icon>
-                            </button>
-                            <button mat-button mat-stroked-button color="primary" (click)="nextStep(parentIndex, i)">
-                                <mat-icon>chevron_right</mat-icon>
-                            </button>
-                        </mat-action-row>
+                            <mat-action-row *ngIf="isLast && !isFirst">
+                                <button mat-button mat-stroked-button color="warn" (click)="prevStep(parentIndex, i)">
+                                    <mat-icon>chevron_left</mat-icon>
+                                </button>
+                                <button mat-button mat-stroked-button color="primary" (click)="nextStep(parentIndex, i)"
+                                    matStepperNext>
+                                    <mat-icon>check_circle_outline</mat-icon>
+                                </button>
+                            </mat-action-row>
 
-                        <mat-action-row *ngIf="isLast && !isFirst">
-                            <button mat-button mat-stroked-button color="warn" (click)="prevStep(parentIndex, i)">
-                                <mat-icon>chevron_left</mat-icon>
-                            </button>
-                            <button mat-button mat-stroked-button color="primary" (click)="nextStep(parentIndex, i)"
-                                matStepperNext>
-                                <mat-icon>check_circle_outline</mat-icon>
-                            </button>
-                        </mat-action-row>
-
-                        <mat-action-row *ngIf="isLast && isFirst">
-                            <button mat-button mat-stroked-button color="primary" (click)="nextStep(parentIndex, i)"
-                                matStepperNext>
-                                <mat-icon>check_circle_outline</mat-icon>
-                            </button>
-                        </mat-action-row>
+                            <mat-action-row *ngIf="isLast && isFirst">
+                                <button mat-button mat-stroked-button color="primary" (click)="nextStep(parentIndex, i)"
+                                    matStepperNext>
+                                    <mat-icon>check_circle_outline</mat-icon>
+                                </button>
+                            </mat-action-row>
 
 
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
 
 
-                </mat-accordion>
-            </mat-step>
+                    </mat-accordion>
+                </mat-step>
 
-            <mat-step *ngIf="parentLast">
-                <ng-template matStepLabel class="label-template">
-                    <span class="step-title">Finalizar</span>
-                </ng-template>
+                <mat-step *ngIf="parentLast">
+                    <ng-template matStepLabel class="label-template">
+                        <span class="step-title">Finalizar</span>
+                    </ng-template>
 
-                <mat-card class="stats-container">
-                    <mat-card-header class="card-header">
-                        <mat-card-title>Verificacion final</mat-card-title>
-                    </mat-card-header>
-                    <mat-divider></mat-divider>
-                    <mat-card-content class="card-content">
-                        <table class="stats">
-                            <tr *ngFor="let item of result; last as lastRow" class="total-review"
-                                [ngClass]="(lastRow)?'last-row-stat':'row-stat'">
-                                <td class="td-left">
-                                    <span>{{item.name}} </span>
-                                </td>
-                                <td class="td-right">
-                                    <span> {{item.subTotal}} / {{item.total}}</span>
-                                </td>
-                                <br>
-                            </tr>
-                        </table>
-                    </mat-card-content>
-                    <mat-divider></mat-divider>
-                    <mat-card-actions class="card-footer">
-                        <mat-grid-list cols="2" rowHeight="40px">
-                            <mat-grid-tile>
-                                <div class="wrapper-finish">
-                                    <a color="primary" mat-button class="btn-go" (click)="save(scoreSheet)">
-                                        <mat-icon>check_circle_outline</mat-icon>
-                                    </a>
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile>
-                                <div class="wrapper-pending">
-                                    <button mat-button color="warn" class="btn-pending" (click)="pending(scoreSheet)">
-                                        <mat-icon>bookmark_border</mat-icon>
-                                    </button>
-                                </div>
-                            </mat-grid-tile>
-                        </mat-grid-list>
-                    </mat-card-actions>
-                </mat-card>
-            </mat-step>
-        </div>
-    </mat-vertical-stepper>
-</div>
-<div>
+                    <mat-card class="stats-container">
+                        <mat-card-header class="card-header">
+                            <mat-card-title>Verificacion final</mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content class="card-content">
+                            <table class="stats">
+                                <tr *ngFor="let item of result; last as lastRow" class="total-review"
+                                    [ngClass]="(lastRow)?'last-row-stat':'row-stat'">
+                                    <td class="td-left">
+                                        <span>{{item.name}} </span>
+                                    </td>
+                                    <td class="td-right">
+                                        <span> {{item.subTotal}} / {{item.total}}</span>
+                                    </td>
+                                    <br>
+                                </tr>
+                            </table>
+                        </mat-card-content>
+                        <mat-divider></mat-divider>
+                        <mat-card-actions class="card-footer">
+                            <mat-grid-list cols="2" rowHeight="40px">
+                                <mat-grid-tile>
+                                    <div class="wrapper-finish">
+                                        <a color="primary" mat-button class="btn-go" (click)="save(scoreSheet)">
+                                            <mat-icon>check_circle_outline</mat-icon>
+                                        </a>
+                                    </div>
+                                </mat-grid-tile>
+                                <mat-grid-tile>
+                                    <div class="wrapper-pending">
+                                        <button mat-button color="warn" class="btn-pending"
+                                            (click)="pending(scoreSheet)">
+                                            <mat-icon>bookmark_border</mat-icon>
+                                        </button>
+                                    </div>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </mat-card-actions>
+                    </mat-card>
+                </mat-step>
+            </div>
+        </mat-horizontal-stepper>
+    </div>
 
 
 </div>
