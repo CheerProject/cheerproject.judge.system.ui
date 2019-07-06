@@ -79,6 +79,7 @@ a.home {
   flex-direction: column;
   width: auto;
   height: 100%;
+  background-color: #697ca3;
 }
 
 .user-header {
@@ -92,7 +93,7 @@ a.home {
 }
 
 .menu-container mat-list-item{
-  color: #5f749ef5;
+  color: white;
 }
 
 .side-footer {

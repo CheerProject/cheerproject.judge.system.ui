@@ -2,6 +2,7 @@ import { RegistrationView } from './../../registrations/models/registration-view
 import { RegistrationModel } from './../../registrations/store/state/registration.state';
 import { getActionTypeFromInstance } from '@ngxs/store';
 import { Logout } from '../store/actions/auth.actions';
+import { Division } from 'src/app/registrations/models/division';
 
 export function logoutPlugin(state, action, next) {
     // Use the get action type helper to determine the type
@@ -13,7 +14,8 @@ export function logoutPlugin(state, action, next) {
             divisions: { divisions: [] },
             registrations: { registrations: [] },
             stats: { stats: [] },
-            scoresheets: { scoresheets: [] }
+            scoresheets: { scoresheets: [] },
+            currentDivision: { currentDivision: undefined }
         };
     }
 

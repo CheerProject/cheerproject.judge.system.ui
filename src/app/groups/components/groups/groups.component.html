@@ -1,16 +1,18 @@
 <div class="group-container">
     <div class="groups">
-        <div class="group-border" *ngFor="let division of divisions$ | async ; let first = first">
-            <mat-card (click)="getRegistrations(division)" [ngClass]="divisionStatus(division)">
-                <mat-card-title class="title">
-                    {{division.name}}
-                </mat-card-title>
-                <mat-card-subtitle class="subtitle">
-                    Equipos: {{division.teams}}
-                </mat-card-subtitle>
-            </mat-card>
-        </div>
+        <div class="groups-title">Groups</div>
+        <mat-divider></mat-divider>
 
+        <div class="group-border" *ngFor="let division of divisions$ | async ; let first = first"
+            (click)="getRegistrations(division)" [ngClass]="divisionStatus(division)">
+
+            <div class="title">
+                {{division.name}}
+            </div>
+            <div class="subtitle">
+                Equipos: {{division.teams}}
+            </div>
+        </div>
     </div>
     <div class="content">
         <router-outlet></router-outlet>

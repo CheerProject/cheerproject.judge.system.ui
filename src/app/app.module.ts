@@ -40,7 +40,7 @@ import { DeactivateDialogComponent } from './scoresheet/components/deactivate-di
         BrowserAnimationsModule,
         NgxsModule.forRoot([AuthState]),
         NgxsStoragePluginModule.forRoot({
-            key: ['auth', 'divisions', 'registrations', 'scoresheets', 'stats']
+            key: ['auth', 'divisions', 'registrations', 'scoresheets', 'stats', 'currentDivision']
         }),
         MainWrapper,
         NgxsReduxDevtoolsPluginModule.forRoot(),

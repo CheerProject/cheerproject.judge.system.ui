@@ -4,7 +4,7 @@
 
 
             <div class="app-header">
-                <div class="championship secondary-text-color">
+                <div class="championship text-primary-color">
                     <mat-icon class="nav-icon">verified_user</mat-icon>
                 </div>
             </div>
@@ -13,7 +13,7 @@
 
             <div class="menu-container">
                 <mat-nav-list>
-                    <mat-list-item routerLink="/" (click)="setTitle('Grupos')">
+                    <mat-list-item (click)="goToGroups()">
                         <mat-icon matListIcon class="nav-icon ">group_work</mat-icon>
 
                     </mat-list-item>
@@ -24,7 +24,7 @@
                 </mat-nav-list>
             </div>
             <mat-divider></mat-divider>
-            <div class="side-footer">
+            <div class="side-footer text-primary-color">
                 <mat-icon class="logout-icon" (click)="logout()">power_settings_new</mat-icon>
             </div>
 

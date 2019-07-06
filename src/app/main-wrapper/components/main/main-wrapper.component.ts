@@ -29,6 +29,8 @@ export class MainWrapperComponent implements OnInit {
         this.username$ = this.store
             .selectOnce(state => state.auth.email)
             .pipe(map((email: string) => (email ? email.split('@')[0] : '')));
+
+
     }
 
     ngOnInit(): void { }
@@ -49,5 +51,18 @@ export class MainWrapperComponent implements OnInit {
 
     setTitle(title) {
         this.title = title;
+    }
+
+    goToGroups() {
+
+        this.store.select(state => state.currentDivision.currentDivision)
+            .subscribe(currentDivision => {
+
+                if (currentDivision) {
+                    this.router.navigate(['/groups', currentDivision.id]);
+                } else {
+                    this.router.navigate(['/groups']);
+                }
+            });
     }
 }

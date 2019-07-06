@@ -1,12 +1,13 @@
 .scoresheet-container{
     display: flex;
     flex-direction: row;
+    height: 100%;
 }
 
 /*Main Container*/
 .stepper-container{
   width: 100%;
-    margin: 30px 30px 0px -35px;
+    margin: 30px 30px 0px 0px;
     overflow: scroll;
     padding: 25px;
 
@@ -97,16 +98,6 @@ textarea {
 
 
 
-::ng-deep .mat-stepper-vertical .mat-step-header{
-  background-color: #5f749ef5 !important;
-}
-::ng-deep .mat-step-label {
-  width: 100% !important;
-}
-
-::ng-deep .mat-vertical-content{
-  padding: 24px !important;
-}
 .step-title {
   font-size: 0.9em;
   font-weight: bold;
@@ -191,11 +182,13 @@ table.final-stats{
 
 .wrapper-finish {
   width: 100%;
-  text-align: left;
+  text-align: right;
 }
 
 .btn-go{
   margin-left: 15px !important;
+  background-color: #697ca3;
+  color: white;
 }
 
 .btn-pending{
@@ -213,27 +206,41 @@ table.final-stats{
     Team information
 */
 .team-profile{
-  width: 300px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+    width: 324px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 30px 0px 30px;
+    background-color: white;
+    border-right-style: inset;
+    border-right-width: 1px;
 }
 
-.team-level{
-  text-align: center;
+.team-info{
+    margin-bottom: 10px;
+    color: #697ca3;
 }
+
+.team-category{
+    margin-bottom: 10px;
+    color: #697ca3;
+}
+
+/* .team-level{
+  text-align: center;
+} */
 .name{
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 .coach{
   font-weight: bolder;
-  font-size: 1.5em;
+  font-size: 1em;
   color: #757575;
 }
 
 .division{
-  font-size: 1.2em;
+  font-size: 0.9em;
   font-weight: bolder;
   color: #757575;
 }
@@ -246,6 +253,7 @@ table.final-stats{
 .level{
   font-weight: bolder;
   color: #757575;
+
 }
 
 .levelLabel{
@@ -265,8 +273,25 @@ table.final-stats{
 
 
 /*
+    stepper
+*/
+::ng-deep .mat-stepper-vertical .mat-step-header{
+  background-color: #5f749ef5 !important;
+}
+::ng-deep .mat-step-label {
+  width: 100% !important;
+}
+
+::ng-deep .mat-vertical-content{
+  padding: 24px !important;
+}
+/*
     slider bar
 */
+mat-slider:hover{
+    cursor: pointer;
+}
+
   ::ng-deep.mat-slider-thumb-label {
     transform: rotate(45deg) !important;
     border-radius: 50% 50% 0 !important;
@@ -280,6 +305,24 @@ table.final-stats{
     opacity: 3 !important;
   }
 
+::ng-deep .mat-slider-track-fill {
+    background-color:#5f749ef5 !important;
+}
+::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: #5f749ef5 !important;
+    color: #fff;
+}
+
+::ng-deep  .mat-step-header .mat-step-icon-state-edit {
+    background-color: #5f749ef5 !important;
+    color: #fff;
+}
+
+
+
+::ng-deep .mat-primary .mat-slider-thumb-label{
+    background-color:#5f749ef5 !important;
+}
 
   /*
     Metric
@@ -290,6 +333,11 @@ table.final-stats{
   min-width: 150px;
   display: flex;
 }
+.metric-text{
+      width: 100%;
+  min-width: 150px;
+}
+
 .metric-label{
     flex-grow: 1;
     width: 120px;
@@ -297,7 +345,56 @@ table.final-stats{
 }
 
 .slider-margin {
-  width: 100%;
-  margin: 10px 50px 0px 0px;
-  flex-grow: 2;
+    width: 100%;
+    margin: 10px 50px 10px 0px;
+    flex-grow: 2;
+}
+
+
+.tic-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 8px 0px 8px;
+    margin-top: -23px;
+}
+.slider-tic{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 1px;
+    /* background: #989393; */
+    /* height: 10px; */
+    /* line-height: 25px; */
+    /* margin-bottom: 27px; */
+    color: #848484;
+    font-size: 0.7em;
+    margin-top: -3px;
+    /* margin-left: 1px; */
+}
+
+mat-divider.team-divider{
+    margin: 20px 0px;
+}
+
+.back-to-groups{
+    padding: 14px 0px;
+    cursor: pointer;
+    color: #e43535;
+}
+
+
+.back-to-gropus-divider{
+    margin-bottom: 15px;
+}
+
+
+
+.card-footer{
+    display: flex;
+    flex-direction: row;
+    -ms-flex-align: end;
+}
+
+.deduction-score{
+    margin-left: 25px;
 }

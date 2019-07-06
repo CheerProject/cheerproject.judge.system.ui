@@ -12,15 +12,14 @@ import {
     AddScoresheet
 } from '../../store/actions/scoresheet.actions';
 import { Registration } from '../../../registrations/models/registration';
-import { UpdateRegistration, CompletedRegistration, PendingRegistration } from '../../../registrations/store/actions/registration.actions';
+import { CompletedRegistration, PendingRegistration } from '../../../registrations/store/actions/registration.actions';
 import { AddStats } from '../../store/actions/stats.actions';
 import {
     MatDialog,
-    MatDialogRef,
-    MAT_DIALOG_DATA,
     MatDialogConfig
 } from '@angular/material';
 import { ScoresheetDialogComponent } from '../dialogs/scoresheet.dialog';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-scoresheet',
@@ -50,7 +49,8 @@ export class ScoresheetComponent implements OnInit {
         private store: Store,
         private route: ActivatedRoute,
         private router: Router,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private location: Location
     ) {
         this.isClean = false;
         this.id = this.route.snapshot.paramMap.get('registrationId');
@@ -213,5 +213,16 @@ export class ScoresheetComponent implements OnInit {
                 });
             });
         });
+    }
+
+    backClicked() {
+        this.location.back();
+    }
+
+    teamDeductions() {
+        this.router.navigate([
+            '/deductions',
+            this.id
+        ]);
     }
 }

@@ -1,5 +1,14 @@
 <div class="scoresheet-container">
     <div class="team-profile">
+        <div class="back-to-groups">
+            <button mat-stroked-button color="warn" (click)="backClicked()">
+                <mat-icon>chevron_left</mat-icon>Regresar
+            </button>
+            <button mat-stroked-button color="primary" (click)="pending(scoreSheet)">
+                <mat-icon>restore</mat-icon>Pendiente
+            </button>
+        </div>
+        <mat-divider class="back-to-gropus-divider"></mat-divider>
         <div class="team-info">
             <div class="name">{{ registration.team.name}}</div>
             <div class="coach">{{ registration.team.coach}}</div>
@@ -9,10 +18,19 @@
             <div class="gender">{{ registration.divisionGroup.gender.name}}</div>
         </div>
         <div class="team-level">
-            <div class="level">{{ registration.divisionGroup.level.name}}</div>
-            <div class="levelLabel">Nivel</div>
-        </div>
+            <div class="levelLabel">Nivel {{ registration.divisionGroup.level.name}}</div>
 
+
+        </div>
+        <mat-divider class="team-divider"></mat-divider>
+        <div>
+
+            <button mat-stroked-button color="primary" (click)="teamDeductions()">
+                Deducciones<mat-icon>chevron_right</mat-icon>
+            </button>
+            <span class="deduction-score">0</span>
+        </div>
+        <mat-divider class="team-divider"></mat-divider>
 
     </div>
 
@@ -37,7 +55,7 @@
                         <mat-expansion-panel (opened)="setStep(parentIndex, i)"
                             [expanded]="parentAccordion[parentIndex] === i"
                             *ngFor="let scoreCategory of parent.scoreCategories; index as i; first as isFirst; last as isLast"
-                            class="expansion-container">
+                            class="expansion-container" hideToggle>
 
                             <mat-expansion-panel-header class="light-primary-color">
                                 <mat-panel-title class="panel-header-title">
@@ -49,7 +67,7 @@
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
 
-                            <div div *ngFor="let metric of scoreCategory.scoreMetrics" class="metric-container">
+                            <div *ngFor="let metric of scoreCategory.scoreMetrics" class="metric-container">
                                 <div *ngIf="metric.name !== TEXT_SCORE_METRIC" class="metric">
 
                                     <div class="metric-label">
@@ -60,17 +78,22 @@
                                     </div>
                                     <div class="slider-margin">
 
-                                        <mat-slider class="slider-margin" max="{{metric.element.maxScore}}"
-                                            min="{{metric.element.minScore}}" step="0.5" thumbLabel tickInterval="1"
-                                            [(ngModel)]="metric.element.value" (change)="getTotal(scoreSheet)"
-                                            color="primary">
+                                        <mat-slider class="slider-margin" max="{{metric.element.maxScore}}" min="0.5"
+                                            step="0.5" thumbLabel tickInterval="1" [(ngModel)]="metric.element.value"
+                                            (change)="getTotal(scoreSheet)" color="primary">
                                         </mat-slider>
+                                        <div class="tic-container">
+                                            <div *ngFor="let tic of [].constructor(+metric.element.maxScore/0.5); let i = index"
+                                                class="slider-tic">
+                                                {{ (i+1) * 0.5 }}
+                                            </div>
+                                        </div>
 
                                     </div>
 
                                 </div>
 
-                                <mat-form-field *ngIf="metric.name === TEXT_SCORE_METRIC" class="metric text"
+                                <mat-form-field *ngIf="metric.name === TEXT_SCORE_METRIC" class="metric-text"
                                     appearance="outline">
                                     <textarea [(ngModel)]="metric.element.value" matInput> </textarea>
                                 </mat-form-field>
@@ -143,23 +166,11 @@
                         </mat-card-content>
                         <mat-divider></mat-divider>
                         <mat-card-actions class="card-footer">
-                            <mat-grid-list cols="2" rowHeight="40px">
-                                <mat-grid-tile>
-                                    <div class="wrapper-finish">
-                                        <a color="primary" mat-button class="btn-go" (click)="save(scoreSheet)">
-                                            <mat-icon>check_circle_outline</mat-icon>
-                                        </a>
-                                    </div>
-                                </mat-grid-tile>
-                                <mat-grid-tile>
-                                    <div class="wrapper-pending">
-                                        <button mat-button color="warn" class="btn-pending"
-                                            (click)="pending(scoreSheet)">
-                                            <mat-icon>bookmark_border</mat-icon>
-                                        </button>
-                                    </div>
-                                </mat-grid-tile>
-                            </mat-grid-list>
+                            <div class="wrapper-finish">
+                                <a mat-raised-button class="btn-go" (click)="save(scoreSheet)">
+                                    <mat-icon>check_circle_outline</mat-icon>
+                                </a>
+                            </div>
                         </mat-card-actions>
                     </mat-card>
                 </mat-step>
