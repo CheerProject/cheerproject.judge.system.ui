@@ -19,7 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MainWrapperComponent } from '../main-wrapper/components/main/main-wrapper.component';
-
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
     imports: [
@@ -38,7 +38,8 @@ import { MainWrapperComponent } from '../main-wrapper/components/main/main-wrapp
         MatProgressBarModule,
         MatDialogModule,
         MatSidenavModule,
-        MatListModule
+        MatListModule,
+        MatInputModule
     ],
     declarations: [GetMapValuesPipe, MessagesComponent],
     exports: [
@@ -59,7 +60,8 @@ import { MainWrapperComponent } from '../main-wrapper/components/main/main-wrapp
         MatProgressBarModule,
         MatDialogModule,
         MatSidenavModule,
-        MatListModule
+        MatListModule,
+        MatInputModule
     ]
 })
 export class SharedModule { }

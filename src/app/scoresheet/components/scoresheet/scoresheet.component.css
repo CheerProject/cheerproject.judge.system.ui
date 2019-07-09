@@ -115,8 +115,8 @@ textarea {
   text-decoration: none;
   font-weight: 800;
   display: block;
-  border-radius: 50px;
-  width: 45px;
+  border-radius: 5px;
+  
 }
 
 
@@ -155,7 +155,7 @@ table.stats tr:last-child td{
 /*
 table.stats tr:nth-child(even) {
   background-color: #eee;
-}*/
+}
 
 table.stats .td-right{
   text-align: left;
@@ -276,7 +276,8 @@ table.final-stats{
     stepper
 */
 ::ng-deep .mat-stepper-vertical .mat-step-header{
-  background-color: #5f749ef5 !important;
+  background-color: white !important;
+  
 }
 ::ng-deep .mat-step-label {
   width: 100% !important;
@@ -329,10 +330,10 @@ mat-slider:hover{
   */
 
 .metric {
-  width: 100%;
-  min-width: 150px;
-  display: flex;
+  margin-right: 30px;
 }
+
+
 .metric-text{
       width: 100%;
   min-width: 150px;
@@ -397,4 +398,29 @@ mat-divider.team-divider{
 
 .deduction-score{
     margin-left: 25px;
+}
+
+
+.category-container{
+    margin-bottom: 10px;
+    background-color: #6679a1;
+    color: white;
+ 
+    padding: 10px;
+}
+
+.metric-container{
+    display: flex;
+    margin-bottom: 15px;
+    padding: 0px 0px 15px 5px;
+}
+
+
+::ng-deep .metric .mat-form-field-wrapper {
+    padding-bottom: 1.25em !important;
+    width: 120px !important;
+}
+
+.metric-wrapper-text {
+    width: 100%;
 }

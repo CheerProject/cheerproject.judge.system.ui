@@ -37,15 +37,104 @@
 
     <div class="stepper-container">
 
-        <mat-horizontal-stepper [linear]="false" #stepper>
+        <mat-vertical-stepper [linear]="false" #stepper>
 
             <div *ngFor="let parent of scoreSheet.parentCategory ; index as parentIndex; last as parentLast ">
                 <mat-step>
                     <ng-template matStepLabel *ngIf="parent.name !== OTHERS">
                         <div class="label-template">
                             <div class="step-title">{{parent.name}}</div>
-                            <!-- <div class="step-description">{{result[parentIndex].subTotal}} / {{result[parentIndex].total}}
-                        </div> -->
+                            <div class="step-description">{{result[parentIndex].subTotal}} /
+                                {{result[parentIndex].total}}
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template matStepLabel *ngIf="parent.name == OTHERS">
+                        <div class="step-title">{{parent.name}}</div>
+                    </ng-template>
+                    <div>
+                        <div
+                            *ngFor="let category of parent.scoreCategories; index as i; first as isFirst; last as isLast">
+                            <div class="category-container" *ngIf="parent.name !== OTHERS">{{category.name}}:
+                                {{result[parentIndex]["childStat"][i].subTotal}} /
+                                {{result[parentIndex]["childStat"][i].total}}
+                            </div>
+                            <div class="category-container" *ngIf="parent.name === OTHERS">{{category.name}}
+                            </div>
+                            <div class="metric-container">
+                                <div *ngFor="let metric of category.scoreMetrics"
+                                    [ngClass]="{'metric-wrapper': metric.name !== TEXT_SCORE_METRIC , 'metric-wrapper-text': metric.name === TEXT_SCORE_METRIC}">
+                                    <mat-form-field *ngIf="metric.name !== TEXT_SCORE_METRIC" class="metric"
+                                        hintLabel="min: {{metric.element.minScore || 0}}">
+                                        <input matInput placeholder="{{metric.name}}" [(ngModel)]="metric.element.value"
+                                            type="number" max="{{metric.element.maxScore}}" min="0" step="0.01"
+                                            inputmode="numeric" pattern="[0-9]*.[0-9]{0,2}"
+                                            (input)="validateKey(metric.element, $event, scoreSheet)">
+                                        <mat-hint align="end">max: {{metric.element.maxScore}}</mat-hint>
+                                    </mat-form-field>
+                                    <mat-form-field *ngIf="metric.name === TEXT_SCORE_METRIC" class="metric-text"
+                                        appearance="outline">
+                                        <textarea [(ngModel)]="metric.element.value" matInput> </textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </mat-step>
+
+
+                <mat-step *ngIf="parentLast">
+                    <ng-template matStepLabel class="label-template">
+                        <span class="step-title">Finalizar</span>
+                    </ng-template>
+
+                    <mat-card class="stats-container">
+                        <mat-card-header class="card-header">
+                            <mat-card-title>Verificacion final</mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content class="card-content">
+                            <table class="stats">
+                                <tr *ngFor="let item of result; last as lastRow" class="total-review"
+                                    [ngClass]="(lastRow)?'last-row-stat':'row-stat'">
+                                    <td class="td-left">
+                                        <span>{{item.name}} </span>
+                                    </td>
+                                    <td class="td-right">
+                                        <span> {{item.subTotal}} / {{item.total}}</span>
+                                    </td>
+                                    <br>
+                                </tr>
+                            </table>
+                        </mat-card-content>
+                        <mat-divider></mat-divider>
+                        <mat-card-actions class="card-footer">
+                            <div class="wrapper-finish">
+                                <a mat-raised-button class="btn-go" (click)="save(scoreSheet)">
+                                    <mat-icon>check_circle_outline</mat-icon>
+                                </a>
+                            </div>
+                        </mat-card-actions>
+                    </mat-card>
+                </mat-step>
+            </div>
+        </mat-vertical-stepper>
+    </div>
+
+
+    <!-- <div class="stepper-container">
+
+        <mat-vertical-stepper [linear]="false" #stepper>
+
+            <div *ngFor="let parent of scoreSheet.parentCategory ; index as parentIndex; last as parentLast ">
+                <mat-step>
+                    <ng-template matStepLabel *ngIf="parent.name !== OTHERS">
+                        <div class="label-template">
+                            <div class="step-title">{{parent.name}}</div>
+                             <div class="step-description">{{result[parentIndex].subTotal}} / {{result[parentIndex].total}}
+                        </div> 
                         </div>
                     </ng-template>
                     <ng-template matStepLabel *ngIf="parent.name == OTHERS">
@@ -175,8 +264,8 @@
                     </mat-card>
                 </mat-step>
             </div>
-        </mat-horizontal-stepper>
-    </div>
+        </mat-vertical-stepper>
+    </div> -->
 
 
 </div>

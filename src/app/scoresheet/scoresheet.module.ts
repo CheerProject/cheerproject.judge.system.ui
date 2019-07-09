@@ -19,26 +19,27 @@ import { DeactivateDialogComponent } from './components/deactivate-dialog/deacti
 import { ReviewDialogComponent } from './components/review-dialog/review.dialog';
 
 @NgModule({
-  imports: [
-    ScoresheetRoutingModule,
-    SharedModule,
-    MatTableModule,
-    MatInputModule,
-    MatStepperModule,
-    MatExpansionModule,
-    MatSliderModule,
-    NgxsModule.forFeature([StatState, ScoresheetState])
-  ],
-  declarations: [
-    ScoresheetComponent,
-    ScoresheetDialogComponent,
-    ReviewDialogComponent
-  ],
-  exports: [ScoresheetComponent],
-  providers: [ScoresheetService],
-  entryComponents: [
-    ScoresheetDialogComponent,
-    ReviewDialogComponent
-  ]
+    imports: [
+        ScoresheetRoutingModule,
+        SharedModule,
+        MatTableModule,
+        MatInputModule,
+        MatStepperModule,
+        MatExpansionModule,
+        MatSliderModule,
+        MatFormFieldModule,
+        NgxsModule.forFeature([StatState, ScoresheetState])
+    ],
+    declarations: [
+        ScoresheetComponent,
+        ScoresheetDialogComponent,
+        ReviewDialogComponent
+    ],
+    exports: [ScoresheetComponent],
+    providers: [ScoresheetService],
+    entryComponents: [
+        ScoresheetDialogComponent,
+        ReviewDialogComponent
+    ]
 })
-export class ScoresheetModule {}
+export class ScoresheetModule { }

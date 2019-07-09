@@ -225,4 +225,26 @@ export class ScoresheetComponent implements OnInit {
             this.id
         ]);
     }
+
+    validateKey(element, event, scoresheet) {
+        // console.log(element);
+        this.getTotal(scoresheet);
+        const val = element.value;
+
+        console.log(val);
+        if (val === null) {
+            console.log('null value ' + val);
+            event.target.value = null;
+            return;
+        }
+
+        if (val >= element.minScore && val <= element.maxScore) {
+            console.log(val + ' - ' + element.minScore + ' - ' + element.maxScore);
+            element.value = val;
+        } else if (val < element.minScore) {
+            event.target.value = element.minScore;
+        } else if (val > element.maxScore) {
+            event.target.value = element.maxScore;
+        }
+    }
 }
