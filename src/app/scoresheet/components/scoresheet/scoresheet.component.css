@@ -6,8 +6,8 @@
 
 /*Main Container*/
 .stepper-container{
-  width: 100%;
-    margin: 30px 30px 0px 0px;
+    width: 100%;
+    /* margin: 30px auto; */
     overflow: scroll;
     padding: 25px;
 
@@ -17,6 +17,7 @@
   margin: 10px 20px;
   min-width: 220px;
 }
+
 
 .card-content {
   margin-top: 20px;
@@ -102,30 +103,37 @@ textarea {
   font-size: 0.9em;
   font-weight: bold;
   float: left;
+  margin-top: 10px;
 }
 
 
 .step-description {
-  float: right;
-  background-color: #BDBDBD;
-  border: none;
-  color: white;
-  padding: 8px 12px;
-  text-align: center;
-  text-decoration: none;
-  font-weight: 800;
-  display: block;
-  border-radius: 5px;
-  
+    float: left;
+    background-color: #BDBDBD;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 800;
+    display: block;
+    border-radius: 5px;
+    margin-left: 25px;  
 }
 
 
-table.stats {
-  border-collapse: collapse;
-  border-spacing: 0;
-  border-color: grey;
-  width: 100%;
-}
+ table.stats {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: grey;
+    width: 100%;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: rgba(0,0,0,.12);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: rgba(0,0,0,.12);
+} 
 
 table.stats td, th {
   border-bottom-color: rgba(0,0,0,.12);
@@ -140,7 +148,7 @@ table.stats td, th {
 }
 
 table.stats tr{
-  height: 48px;
+  height: 35px;
 }
 
 table.stats tr:last-child { 
@@ -150,12 +158,9 @@ table.stats tr:last-child {
 table.stats tr:last-child td{
   border-bottom-width: 0; 
   border-bottom-style: none;
-}
+} 
 
-/*
-table.stats tr:nth-child(even) {
-  background-color: #eee;
-}
+
 
 table.stats .td-right{
   text-align: left;
@@ -172,7 +177,7 @@ table.final-stats{
 }
 
 .stats-container{
-  margin-top: 15px;
+    margin: 0px auto 50px auto;
 }
 
 .wrapper-pending {
@@ -279,12 +284,18 @@ table.final-stats{
   background-color: white !important;
   
 }
+
+::ng-deep .mat-stepper-vertical{
+    width: 800px !important;
+    margin: auto;
+    padding: 0px 20px 0px 0px !important;
+}
 ::ng-deep .mat-step-label {
   width: 100% !important;
 }
 
 ::ng-deep .mat-vertical-content{
-  padding: 24px !important;
+    padding: 0px 15px 0px 0px !important;
 }
 /*
     slider bar
@@ -411,8 +422,8 @@ mat-divider.team-divider{
 
 .metric-container{
     display: flex;
-    margin-bottom: 15px;
-    padding: 0px 0px 15px 5px;
+    margin-bottom: 25px;
+    padding: 15px 0px 15px 25px;
 }
 
 
@@ -424,3 +435,4 @@ mat-divider.team-divider{
 .metric-wrapper-text {
     width: 100%;
 }
+

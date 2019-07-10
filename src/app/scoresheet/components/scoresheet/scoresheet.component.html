@@ -90,12 +90,12 @@
                         <span class="step-title">Finalizar</span>
                     </ng-template>
 
-                    <mat-card class="stats-container">
-                        <mat-card-header class="card-header">
-                            <mat-card-title>Verificacion final</mat-card-title>
-                        </mat-card-header>
+                    <div class="stats-container">
+                        <div class="category-container">
+                            Verificacion final
+                        </div>
                         <mat-divider></mat-divider>
-                        <mat-card-content class="card-content">
+                        <div>
                             <table class="stats">
                                 <tr *ngFor="let item of result; last as lastRow" class="total-review"
                                     [ngClass]="(lastRow)?'last-row-stat':'row-stat'">
@@ -108,16 +108,16 @@
                                     <br>
                                 </tr>
                             </table>
-                        </mat-card-content>
+                        </div>
                         <mat-divider></mat-divider>
-                        <mat-card-actions class="card-footer">
+                        <div>
                             <div class="wrapper-finish">
                                 <a mat-raised-button class="btn-go" (click)="save(scoreSheet)">
                                     <mat-icon>check_circle_outline</mat-icon>
                                 </a>
                             </div>
-                        </mat-card-actions>
-                    </mat-card>
+                        </div>
+                    </div>
                 </mat-step>
             </div>
         </mat-vertical-stepper>
