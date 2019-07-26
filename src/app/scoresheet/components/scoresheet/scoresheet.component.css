@@ -2,15 +2,21 @@
     display: flex;
     flex-direction: row;
     height: 100%;
+    background-color: white
 }
 
 /*Main Container*/
 .stepper-container{
-    width: 100%;
+    /* width: 100%; */
     /* margin: 30px auto; */
     overflow: scroll;
-    padding: 25px;
+    padding:50px;
+    background-color: white;
 
+}
+
+.stepper-container::-webkit-scrollbar { 
+  display: none;  
 }
 
 .parent-category {
@@ -82,6 +88,10 @@ textarea {
   font-size: 1.5;
 }
 
+.accordion-container{
+  margin: 20px;
+  width: 800px;
+}
 
 
 .mat-expansion-panel-header.mat-expanded {
@@ -100,15 +110,15 @@ textarea {
 
 
 .step-title {
-  font-size: 0.9em;
+  font-size: 1.7em;
   font-weight: bold;
   float: left;
-  margin-top: 10px;
+  margin-top: 2px;
 }
 
 
 .step-description {
-    float: left;
+    float: right;
     background-color: #BDBDBD;
     border: none;
     color: white;
@@ -286,8 +296,8 @@ table.final-stats{
 }
 
 ::ng-deep .mat-stepper-vertical{
-    width: 800px !important;
-    margin: auto;
+
+    margin: auto 0;
     padding: 0px 20px 0px 0px !important;
 }
 ::ng-deep .mat-step-label {
@@ -427,10 +437,10 @@ mat-divider.team-divider{
 }
 
 
-::ng-deep .metric .mat-form-field-wrapper {
+/* ::ng-deep .metric .mat-form-field-wrapper {
     padding-bottom: 1.25em !important;
     width: 120px !important;
-}
+} */
 
 .metric-wrapper-text {
     width: 100%;

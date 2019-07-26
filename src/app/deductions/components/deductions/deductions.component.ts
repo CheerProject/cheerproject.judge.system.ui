@@ -42,7 +42,7 @@ export class DeductionsComponent implements OnInit, AfterViewInit {
     public constructor(
         public stopwatchService: StopWatchService,
         public recordingService: RecordingService
-    ) {
+    ){
         this.time = 0;
         this.started = false;
         if (this.autoStart) {

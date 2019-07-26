@@ -1,11 +1,15 @@
 <div id="app">
-  <div><video #video id="video" width="320" height="240" autoplay></video></div>
+  <div>
+    <video #video id="video" width="320" height="240" autoplay ></video>
+    <video #recording id="recording" width="320" height="240" controls></video>
+  </div>
+  <canvas #canvas id="canvas" width="320" height="240"></canvas>
 </div>
 
 <div>
   <h2>Recording</h2>
-  <div><video #recording id="recording" width="320" height="240" controls></video></div>
-  <canvas #canvas id="canvas" width="320" height="240"></canvas>
+  <div></div>
+
   <div>
     <a #downloadButton id="downloadButton" class="button">
       Download

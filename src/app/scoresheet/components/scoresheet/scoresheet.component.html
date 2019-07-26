@@ -2,10 +2,10 @@
     <div class="team-profile">
         <div class="back-to-groups">
             <button mat-stroked-button color="warn" (click)="backClicked()">
-                <mat-icon>chevron_left</mat-icon>Regresar
+                <mat-icon>chevron_left</mat-icon>Back
             </button>
             <button mat-stroked-button color="primary" (click)="pending(scoreSheet)">
-                <mat-icon>restore</mat-icon>Pendiente
+                <mat-icon>restore</mat-icon>Pending
             </button>
         </div>
         <mat-divider class="back-to-gropus-divider"></mat-divider>
@@ -52,34 +52,85 @@
                     <ng-template matStepLabel *ngIf="parent.name == OTHERS">
                         <div class="step-title">{{parent.name}}</div>
                     </ng-template>
-                    <div>
-                        <div
-                            *ngFor="let category of parent.scoreCategories; index as i; first as isFirst; last as isLast">
-                            <div class="category-container" *ngIf="parent.name !== OTHERS">{{category.name}}:
-                                {{result[parentIndex]["childStat"][i].subTotal}} /
-                                {{result[parentIndex]["childStat"][i].total}}
-                            </div>
-                            <div class="category-container" *ngIf="parent.name === OTHERS">{{category.name}}
-                            </div>
-                            <div class="metric-container">
-                                <div *ngFor="let metric of category.scoreMetrics"
-                                    [ngClass]="{'metric-wrapper': metric.name !== TEXT_SCORE_METRIC , 'metric-wrapper-text': metric.name === TEXT_SCORE_METRIC}">
-                                    <mat-form-field *ngIf="metric.name !== TEXT_SCORE_METRIC" class="metric"
-                                        hintLabel="min: {{metric.element.minScore || 0}}">
-                                        <input matInput placeholder="{{metric.name}}" [(ngModel)]="metric.element.value"
-                                            type="number" max="{{metric.element.maxScore}}" min="0" step="0.01"
-                                            inputmode="numeric" pattern="[0-9]*.[0-9]{0,2}"
-                                            (input)="validateKey(metric.element, $event, scoreSheet)">
-                                        <mat-hint align="end">max: {{metric.element.maxScore}}</mat-hint>
-                                    </mat-form-field>
-                                    <mat-form-field *ngIf="metric.name === TEXT_SCORE_METRIC" class="metric-text"
-                                        appearance="outline">
-                                        <textarea [(ngModel)]="metric.element.value" matInput> </textarea>
-                                    </mat-form-field>
-                                </div>
-                            </div>
+                    <div  class="accordion-container">
+                        <mat-accordion>
+                            <mat-expansion-panel (opened)="setStep(parentIndex, i)"
+                                [expanded]="parentAccordion[parentIndex] === i"
+                                *ngFor="let scoreCategory of parent.scoreCategories; index as i; first as isFirst; last as isLast"
+                                class="expansion-container" hideToggle>
 
-                        </div>
+                                <mat-expansion-panel-header class="light-primary-color">
+                                    <mat-panel-title class="panel-header-title">
+                                        {{scoreCategory.name}}
+                                    </mat-panel-title>
+                                    <mat-panel-description *ngIf="parent.name !== OTHERS">
+                                        {{result[parentIndex]["childStat"][i].subTotal}} /
+                                        {{result[parentIndex]["childStat"][i].total}}
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <div class="metric-container">
+                                    <div *ngFor="let metric of scoreCategory.scoreMetrics"
+                                        [ngClass]="{'metric-wrapper': metric.name !== TEXT_SCORE_METRIC , 'metric-wrapper-text': metric.name === TEXT_SCORE_METRIC}">
+
+                                        <mat-form-field *ngIf="metric.name !== TEXT_SCORE_METRIC" class="metric"
+                                            hintLabel="min: {{metric.element.minScore || 0}}">
+                                            <input matInput placeholder="{{metric.name}}"
+                                                [(ngModel)]="metric.element.value" type="number"
+                                                max="{{metric.element.maxScore}}" min="0" step="0.01"
+                                                inputmode="numeric" pattern="[0-9]*.[0-9]{0,2}"
+                                                (input)="validateKey(metric.element, $event, scoreSheet)">
+                                            <mat-hint align="end">max: {{metric.element.maxScore}}</mat-hint>
+                                        </mat-form-field>
+
+                                        <mat-form-field *ngIf="metric.name === TEXT_SCORE_METRIC" class="metric-text"
+                                            appearance="outline">
+                                            <textarea [(ngModel)]="metric.element.value" matInput> </textarea>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+
+                                <mat-action-row *ngIf="isFirst && !isLast">
+                                    <button mat-button mat-stroked-button color="primary"
+                                        (click)="nextStep(parentIndex, i)">
+                                        <mat-icon>chevron_right</mat-icon>
+                                    </button>
+                                </mat-action-row>
+
+                                <mat-action-row *ngIf="!isFirst && !isLast">
+                                    <button mat-button mat-stroked-button color="warn"
+                                        (click)="prevStep(parentIndex, i)">
+                                        <mat-icon>chevron_left</mat-icon>
+                                    </button>
+                                    <button mat-button mat-stroked-button color="primary"
+                                        (click)="nextStep(parentIndex, i)">
+                                        <mat-icon>chevron_right</mat-icon>
+                                    </button>
+                                </mat-action-row>
+
+                                <mat-action-row *ngIf="isLast && !isFirst">
+                                    <button mat-button mat-stroked-button color="warn"
+                                        (click)="prevStep(parentIndex, i)">
+                                        <mat-icon>chevron_left</mat-icon>
+                                    </button>
+                                    <button mat-button mat-stroked-button color="primary"
+                                        (click)="nextStep(parentIndex, i)" matStepperNext>
+                                        <mat-icon>check_circle_outline</mat-icon>
+                                    </button>
+                                </mat-action-row>
+
+                                <mat-action-row *ngIf="isLast && isFirst">
+                                    <button mat-button mat-stroked-button color="primary"
+                                        (click)="nextStep(parentIndex, i)" matStepperNext>
+                                        <mat-icon>check_circle_outline</mat-icon>
+                                    </button>
+                                </mat-action-row>
+
+
+                            </mat-expansion-panel>
+
+
+                        </mat-accordion>
                     </div>
 
                 </mat-step>
