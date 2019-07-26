@@ -15,14 +15,14 @@ import { RecordingService } from './services/recording.service';
 })
 export class DeductionsComponent implements OnInit, AfterViewInit {
 
-    @ViewChild('video')
+    @ViewChild('video', { static: true })
     public videoContainer: ElementRef;
-    @ViewChild('recording')
+    @ViewChild('recording', { static: true })
     public videoRecordingContainer: ElementRef;
-    @ViewChild('canvas')
+    @ViewChild('canvas', { static: true })
     public canvasContainer: ElementRef;
 
-    @ViewChild('downloadButton')
+    @ViewChild('downloadButton', { static: true })
     public downloadButton: ElementRef;
 
     public captures: Array<any>;
