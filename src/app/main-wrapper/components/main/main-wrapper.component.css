@@ -1,0 +1,136 @@
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.user-name {
+  font-size: 0.7em;
+}
+
+.app-name {
+  font-size: 1em;
+}
+
+a.home {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+
+.logout-icon {
+  margin: 15px;
+  cursor: pointer;
+}
+
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+
+
+
+
+.dark-primary-color {
+  background: #5f749ef5;
+}
+
+.default-primary-color {
+  background: #3F51B5;
+}
+
+.light-primary-color {
+  background: #C5CAE9;
+}
+
+.text-primary-color {
+  color: #FFFFFF;
+}
+
+.accent-color {
+  background: #FF4081;
+}
+
+.primary-text-color {
+  color: #212121;
+}
+
+.secondary-text-color {
+  color: #5f749ef5;
+}
+
+.divider-color {
+  border-color: #BDBDBD;
+}
+
+/*
+  side panel style
+*/
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  height: 100%;
+  background-color: #697ca3;
+}
+
+.user-header {
+  align-self: flex-start;
+  font-size: 0.9em;
+}
+
+.menu-container {
+  height: 100%;
+  
+}
+
+.menu-container mat-list-item{
+  color: white;
+}
+
+.side-footer {
+
+  margin: auto;
+}
+
+.app-header {
+  
+  margin: 14px 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.header-image {
+  background-size: cover;
+  margin-left: 20px;
+  width: 35px;
+  height: 35px;
+}
+
+.championship {
+  font-size: 0.9em;
+  font-weight: bolder;
+  margin: auto;
+  text-align: center;
+}
+
+
+.back-icon{
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+
+.container{
+    height: 100%;
+    width: 100%;
+}

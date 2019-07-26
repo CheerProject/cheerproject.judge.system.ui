@@ -1,3 +1,4 @@
+import { ReviewDialogComponent } from './../review-dialog/review.dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ScoresheetService } from '../../services/scoresheet.service';
 import { tap, map } from 'rxjs/operators';
@@ -7,187 +8,243 @@ import { Store, Select } from '@ngxs/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScoresheetModel } from '../../models/scoresheet-model';
 import {
-  GetScoresheet,
-  AddScoresheet
+    GetScoresheet,
+    AddScoresheet
 } from '../../store/actions/scoresheet.actions';
 import { Registration } from '../../../registrations/models/registration';
-import {
-  AddCompleted,
-  AddPending
-} from '../../../registrations/store/actions/registration.actions';
+import { CompletedRegistration, PendingRegistration } from '../../../registrations/store/actions/registration.actions';
 import { AddStats } from '../../store/actions/stats.actions';
 import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatDialogConfig
+    MatDialog,
+    MatDialogConfig
 } from '@angular/material';
-import { ScoresheetDialog } from '../dialogs/scoresheet.dialog';
+import { ScoresheetDialogComponent } from '../dialogs/scoresheet.dialog';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-scoresheet',
-  templateUrl: './scoresheet.component.html',
-  styleUrls: ['./scoresheet.component.css']
+    selector: 'app-scoresheet',
+    templateUrl: './scoresheet.component.html',
+    styleUrls: ['./scoresheet.component.css']
 })
 export class ScoresheetComponent implements OnInit {
-  TEXT_SCORE_METRIC = 'text';
-  OTHERS = 'Others';
-  GLOBAL_TOTAL = 'Total';
-  FINALIZAR = 'Finalizar';
-  PENDING = 'PENDING';
-  CANCEL = 'CANCEL';
-  QUIT = 'QUIT';
-  id: any;
+    public isClean = false;
 
-  parentAccordion: number[] = [];
-  result: Stat[];
+    TEXT_SCORE_METRIC = 'text';
+    OTHERS = 'Others';
+    GLOBAL_TOTAL = 'Total';
+    FINALIZAR = 'Finalizar';
+    PENDING = 'PENDING';
+    CANCEL = 'CANCEL';
+    QUIT = 'QUIT';
+    id: any;
 
-  scoreSheet: ScoresheetModel;
-  registration: Registration;
+    parentAccordion: number[] = [];
+    result: Stat[];
 
-  constructor(
-    private scoresheetService: ScoresheetService,
-    private store: Store,
-    private route: ActivatedRoute,
-    private router: Router,
-    public dialog: MatDialog
-  ) {
-    this.id = this.route.snapshot.paramMap.get('registrationId');
+    scoreSheet: ScoresheetModel;
+    registration: Registration;
 
-    this.processScoreSheet();
+    constructor(
+        private scoresheetService: ScoresheetService,
+        private store: Store,
+        private route: ActivatedRoute,
+        private router: Router,
+        public dialog: MatDialog,
+        private location: Location
+    ) {
+        this.isClean = false;
+        this.id = this.route.snapshot.paramMap.get('registrationId');
 
-    this.store
-      .select(state => state.registrations.registrations)
-      .pipe(map(result => this.findRegistration(result)))
-      .subscribe(reg => {
-        this.registration = reg;
-      });
+        this.processScoreSheet();
 
-    this.store
-      .select(state => state.scoresheets.scoresheets)
-      .pipe(map(result => this.findScoresheet(result)))
-      .subscribe(score => {
-        this.scoreSheet = score;
-        this.getTotal(this.scoreSheet);
-      });
-  }
+        this.store
+            .select(state => state.registrations.registrations)
+            .pipe(map(result => this.findRegistration(result)))
+            .subscribe(reg => {
+                this.registration = reg;
+            });
 
-  ngOnInit() {}
-
-  processScoreSheet(): void {
-    this.store.dispatch(new GetScoresheet(this.id));
-  }
-
-  getTotal(scoreSheet: ScoresheetModel) {
-    this.result = this.scoresheetService.getTotal(scoreSheet);
-  }
-
-  initSteps(size: number) {
-    for (let x = 0; x < size; x++) {
-      this.setStep(x, 0);
+        this.store
+            .select(state => state.scoresheets.scoresheets)
+            .pipe(map(result => this.findScoresheet(result)))
+            .subscribe(score => {
+                this.scoreSheet = score;
+                this.getTotal(this.scoreSheet);
+            });
     }
-  }
 
-  setStep(parent: number, index: number) {
-    this.parentAccordion[parent] = index;
-  }
+    ngOnInit() { }
 
-  nextStep(parent: number) {
-    this.parentAccordion[parent]++;
-  }
-
-  prevStep(parent: number, index: number) {
-    this.parentAccordion[parent]--;
-  }
-
-  findScoresheet(scoresheets: ScoresheetModel[]): ScoresheetModel {
-    for (const scoresheet of scoresheets) {
-      if (scoresheet.registrationId === this.id) {
-        this.initSteps(scoresheet.parentCategory.length);
-        return scoresheet;
-      }
+    processScoreSheet(): void {
+        this.store.dispatch(new GetScoresheet(this.id));
     }
-    return new ScoresheetModel();
-  }
 
-  findRegistration(result: any): Registration {
-    for (const registrations of Object.values<Registration[]>(result)) {
-      const found = registrations.find(element => element.id === +this.id);
-      if (found) {
-        return found;
-      }
+    getTotal(scoreSheet: ScoresheetModel) {
+        this.result = this.scoresheetService.getTotal(scoreSheet);
     }
-    return new Registration();
-  }
 
-  save(scoreSheet: ScoresheetModel) {
-    if (this.verify(this.result)) {
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      dialogConfig.width = '400px';
-      dialogConfig.data = this.result;
+    initSteps(size: number) {
+        for (let x = 0; x < size; x++) {
+            this.setStep(x, 0);
+        }
+    }
 
-      const dialogRef = this.dialog.open(ScoresheetDialog, dialogConfig);
+    setStep(parent: number, index: number) {
+        this.parentAccordion[parent] = index;
+    }
 
-      dialogRef.afterClosed().subscribe(data => {
-        if (data) {
-          this.store
+    nextStep(parent: number) {
+        this.parentAccordion[parent]++;
+    }
+
+    prevStep(parent: number, index: number) {
+        this.parentAccordion[parent]--;
+    }
+
+    findScoresheet(scoresheets: ScoresheetModel[]): ScoresheetModel {
+        for (const scoresheet of scoresheets) {
+            if (scoresheet.registrationId === this.id) {
+                this.initSteps(scoresheet.parentCategory.length);
+                return scoresheet;
+            }
+        }
+        return new ScoresheetModel();
+    }
+
+    findRegistration(result: Registration[]): Registration {
+        if (result) {
+            const found = result.find(element => element.id === +this.id);
+            if (found) {
+                return found;
+            }
+        }
+        return new Registration();
+    }
+
+    save(scoreSheet: ScoresheetModel) {
+        if (this.isCompleted(this.result)) {
+            const dialogConfig = new MatDialogConfig();
+            dialogConfig.disableClose = true;
+            dialogConfig.autoFocus = true;
+            dialogConfig.width = '400px';
+            dialogConfig.data = this.result;
+
+            const dialogRef = this.dialog.open(
+                ScoresheetDialogComponent,
+                dialogConfig
+            );
+
+            dialogRef.afterClosed().subscribe(data => {
+                if (data) {
+                    this.isClean = true;
+                    this.store
+                        .dispatch([
+                            new AddScoresheet(scoreSheet),
+                            new CompletedRegistration(this.registration),
+                            new AddStats({ registrationId: this.id, stats: this.result })
+                        ])
+                        .subscribe(() =>
+                            this.router.navigate([
+                                '/groups',
+                                this.registration.divisionGroup.division.id
+                            ])
+                        );
+                } else {
+                    console.log('no se guardo');
+                }
+            });
+        } else {
+            const reviewDialogConfig = new MatDialogConfig();
+            reviewDialogConfig.disableClose = true;
+            reviewDialogConfig.autoFocus = true;
+            reviewDialogConfig.width = '400px';
+            reviewDialogConfig.data = this.result;
+            const reviewDialogRef = this.dialog.open(
+                ReviewDialogComponent,
+                reviewDialogConfig
+            );
+        }
+    }
+
+    pending(scoreSheet: ScoresheetModel) {
+        this.isClean = true;
+        this.store
             .dispatch([
-              new AddScoresheet(scoreSheet),
-              new AddCompleted(this.registration),
-              new AddStats({ registrationId: this.id, stats: this.result })
+                new AddScoresheet(scoreSheet),
+                new PendingRegistration(this.registration),
+                new AddStats({ registrationId: this.id, stats: this.result })
             ])
             .subscribe(() =>
-              this.router.navigate([
-                '/registrations',
-                this.registration.divisionGroup.division.id
-              ])
+                this.router.navigate([
+                    '/groups',
+                    this.registration.divisionGroup.division.id,
+                    { pending: true }
+                ])
             );
-        } else {
-          console.log('no se guardo');
+    }
+
+    public isCompleted(result: Stat[]) {
+        let category = 0;
+        for (const item of result) {
+            if (item.subTotal === 0) {
+                category++;
+            }
         }
-      });
-    }
-  }
 
-  pending(scoreSheet: ScoresheetModel) {
-    this.store
-      .dispatch([
-        new AddScoresheet(scoreSheet),
-        new AddStats({ registrationId: this.id, stats: this.result }),
-        new AddPending(this.registration)
-      ])
-      .subscribe(() =>
-        this.router.navigate([
-          '/registrations',
-          this.registration.divisionGroup.division.id
-        ])
-      );
-  }
-
-  public verify(result: Stat[]) {
-    let category = 0;
-    for (const item of result) {
-      if (item.subTotal === 0) {
-        category++;
-      }
+        return category === 0 ? true : false;
     }
 
-    if (category === result.length) {
-      return true;
+    public canLoseData(result: Stat[]) {
+        let category = 0;
+        for (const item of result) {
+            if (item.subTotal > 0) {
+                category++;
+            }
+        }
+
+        return category > 0 ? true : false;
     }
 
-    return category > 0 ? false : true;
-  }
-
-  public reset(scoreSheet: ScoresheetModel) {
-    this.scoreSheet.parentCategory.forEach((element, index) => {
-      element.scoreCategories.forEach(category => {
-        category.scoreMetrics.forEach(metric => {
-          metric.element.value = '';
+    public reset(scoreSheet: ScoresheetModel) {
+        this.scoreSheet.parentCategory.forEach((element, index) => {
+            element.scoreCategories.forEach(category => {
+                category.scoreMetrics.forEach(metric => {
+                    metric.element.value = '';
+                });
+            });
         });
-      });
-    });
-  }
+    }
+
+    backClicked() {
+        this.location.back();
+    }
+
+    teamDeductions() {
+        this.router.navigate([
+            '/deductions',
+            this.id
+        ]);
+    }
+
+    validateKey(element, event, scoresheet) {
+        // console.log(element);
+        this.getTotal(scoresheet);
+        const val = element.value;
+
+        console.log(val);
+        if (val === null) {
+            console.log('null value ' + val);
+            event.target.value = null;
+            return;
+        }
+
+        if (val >= element.minScore && val <= element.maxScore) {
+            console.log(val + ' - ' + element.minScore + ' - ' + element.maxScore);
+            element.value = val;
+        } else if (val < element.minScore) {
+            event.target.value = element.minScore;
+        } else if (val > element.maxScore) {
+            event.target.value = element.maxScore;
+        }
+    }
 }

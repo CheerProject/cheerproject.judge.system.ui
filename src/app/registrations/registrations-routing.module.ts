@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService as AuthGuard } from '../auth/guards/auth-guard.service';
 
 const routes: Routes = [
-  { path: 'registrations/:divisionId', component: HistoryComponent, canActivate: [AuthGuard] }
+  { path: '', component: HistoryComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

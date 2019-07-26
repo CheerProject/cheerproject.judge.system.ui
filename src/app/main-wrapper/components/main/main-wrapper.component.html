@@ -1,0 +1,39 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" opened>
+        <div class="left-panel">
+
+
+            <div class="app-header">
+                <div class="championship text-primary-color">
+                    <mat-icon class="nav-icon">verified_user</mat-icon>
+                </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="menu-container">
+                <mat-nav-list>
+                    <mat-list-item (click)="goToGroups()">
+                        <mat-icon matListIcon class="nav-icon ">group_work</mat-icon>
+
+                    </mat-list-item>
+                    <mat-list-item routerLink="/results" (click)="setTitle('Resultados')">
+                        <mat-icon matListIcon class="nav-icon ">insert_chart</mat-icon>
+
+                    </mat-list-item>
+                </mat-nav-list>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="side-footer text-primary-color">
+                <mat-icon class="logout-icon" (click)="logout()">power_settings_new</mat-icon>
+            </div>
+
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="container">
+            <router-outlet></router-outlet>
+            <app-messages></app-messages>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

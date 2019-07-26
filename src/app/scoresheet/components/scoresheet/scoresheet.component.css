@@ -1,7 +1,29 @@
+.scoresheet-container{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    background-color: white
+}
+
+/*Main Container*/
+.stepper-container{
+    /* width: 100%; */
+    /* margin: 30px auto; */
+    overflow: scroll;
+    padding:50px;
+    background-color: white;
+
+}
+
+.stepper-container::-webkit-scrollbar { 
+  display: none;  
+}
+
 .parent-category {
   margin: 10px 20px;
   min-width: 220px;
 }
+
 
 .card-content {
   margin-top: 20px;
@@ -20,10 +42,7 @@
 }
 
 
-.metric {
-  width: 100%;
-  min-width: 150px;
-}
+
 
 .align-right {
   text-align: right;
@@ -69,63 +88,62 @@ textarea {
   font-size: 1.5;
 }
 
+.accordion-container{
+  margin: 20px;
+  width: 800px;
+}
 
 
 .mat-expansion-panel-header.mat-expanded {
-  background: #f8f8f8f5 !important;
+  background: #5f749ef5 !important;
   background-color: white;
   margin-bottom: 15px;
 }
 
 .mat-expansion-panel-header.mat-expanded .mat-expansion-panel-header-title,
 .mat-expansion-panel-header.mat-expanded .mat-expansion-panel-header-description {
-  color: #757575 !important;
+  color: #ffffff !important;
 
 }
 
-.slider-margin {
-  width: 100%;
-  margin: 10px 0px;
-}
 
-::ng-deep .mat-stepper-vertical .mat-step-header{
-  background-color: #f8f8f8f5 !important;
-}
-::ng-deep .mat-step-label {
-  width: 100% !important;
-}
 
-::ng-deep .mat-vertical-content{
-  padding: 24px !important;
-}
+
 .step-title {
-  font-size: 1.3em;
+  font-size: 1.7em;
   font-weight: bold;
   float: left;
-  margin-top: 5px
+  margin-top: 2px;
 }
 
 
 .step-description {
-  float: right;
-  background-color: #BDBDBD;
-  border: none;
-  color: white;
-  padding: 8px 12px;
-  text-align: center;
-  text-decoration: none;
-  font-weight: 800;
-  display: block;
-  border-radius: 50px;
+    float: right;
+    background-color: #BDBDBD;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 800;
+    display: block;
+    border-radius: 5px;
+    margin-left: 25px;  
 }
 
 
-table.stats {
-  border-collapse: collapse;
-  border-spacing: 0;
-  border-color: grey;
-  width: 100%;
-}
+ table.stats {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: grey;
+    width: 100%;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: rgba(0,0,0,.12);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: rgba(0,0,0,.12);
+} 
 
 table.stats td, th {
   border-bottom-color: rgba(0,0,0,.12);
@@ -140,7 +158,7 @@ table.stats td, th {
 }
 
 table.stats tr{
-  height: 48px;
+  height: 35px;
 }
 
 table.stats tr:last-child { 
@@ -150,12 +168,9 @@ table.stats tr:last-child {
 table.stats tr:last-child td{
   border-bottom-width: 0; 
   border-bottom-style: none;
-}
+} 
 
-/*
-table.stats tr:nth-child(even) {
-  background-color: #eee;
-}*/
+
 
 table.stats .td-right{
   text-align: left;
@@ -172,7 +187,7 @@ table.final-stats{
 }
 
 .stats-container{
-  margin-top: 15px;
+    margin: 0px auto 50px auto;
 }
 
 .wrapper-pending {
@@ -182,11 +197,13 @@ table.final-stats{
 
 .wrapper-finish {
   width: 100%;
-  text-align: left;
+  text-align: right;
 }
 
 .btn-go{
   margin-left: 15px !important;
+  background-color: #697ca3;
+  color: white;
 }
 
 .btn-pending{
@@ -199,53 +216,51 @@ table.final-stats{
   font-size: 1.1em;
 }
 
+
+/*
+    Team information
+*/
 .team-profile{
-  max-width: 700px;
-  margin:auto;
-  display: flex;
-  flex-direction: row;
+    width: 324px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 30px 0px 30px;
+    background-color: white;
+    border-right-style: inset;
+    border-right-width: 1px;
 }
 
-
 .team-info{
-  flex-grow: 1;  
-  padding: 45px 5px 45px 35px;
+    margin-bottom: 10px;
+    color: #697ca3;
 }
 
 .team-category{
-  flex-grow: 1;  
-
-  padding: 45px 0px 45px 0px;
+    margin-bottom: 10px;
+    color: #697ca3;
 }
 
-.team-level{
-  flex-grow: 1;  
-  padding: 45px 0px 45px 0px;
+/* .team-level{
   text-align: center;
-}
-
-
+} */
 .name{
   font-weight: bold;
-  font-size: 2em;
-  margin-bottom: 10px;
+  font-size: 1.5em;
 }
-
 .coach{
   font-weight: bolder;
-  font-size: 1.5em;
+  font-size: 1em;
   color: #757575;
-  margin-bottom: 10px;
 }
 
 .division{
-  font-size: 2em;
+  font-size: 0.9em;
   font-weight: bolder;
   color: #757575;
-  margin-bottom: 10px;
 }
 .gender{
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: bold;
   color: #757575;
 }
@@ -253,7 +268,7 @@ table.final-stats{
 .level{
   font-weight: bolder;
   color: #757575;
-  font-size: 3em;
+
 }
 
 .levelLabel{
@@ -272,130 +287,162 @@ table.final-stats{
 }
 
 
-@media only screen and (max-width:700px) {
-  .team-info{
-    flex-grow: 1;  
-    padding: 35px 5px 35px 35px;
+/*
+    stepper
+*/
+::ng-deep .mat-stepper-vertical .mat-step-header{
+  background-color: white !important;
+  
+}
+
+::ng-deep .mat-stepper-vertical{
+
+    margin: auto 0;
+    padding: 0px 20px 0px 0px !important;
+}
+::ng-deep .mat-step-label {
+  width: 100% !important;
+}
+
+::ng-deep .mat-vertical-content{
+    padding: 0px 15px 0px 0px !important;
+}
+/*
+    slider bar
+*/
+mat-slider:hover{
+    cursor: pointer;
+}
+
+  ::ng-deep.mat-slider-thumb-label {
+    transform: rotate(45deg) !important;
+    border-radius: 50% 50% 0 !important;
   }
   
-  .team-category{
-    flex-grow: 1;  
-  
-    padding: 35px 0px 35px 0px;
+  ::ng-deep.mat-slider-thumb {
+    transform: scale(0) !important;
   }
   
-  .team-level{
-    flex-grow: 1;  
-    padding: 35px 0px 35px 0px;
-    text-align: center;
-  }
-  
-  
-  .name{
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-bottom: 5px;
-  }
-  
-  .coach{
-    font-weight: bolder;
-    font-size: 1em;
-    color: #757575;
-    margin-bottom: 5px;
-  }
-  
-  .division{
-    font-size: 1.5em;
-    font-weight: bolder;
-    color: #757575;
-    margin-bottom: 5px;
-  }
-  .gender{
-    font-size: 1em;
-    font-weight: bold;
-    color: #757575;
-  }
-  
-  .level{
-    font-weight: bolder;
-    color: #757575;
-    font-size: 2em;
-  }
-  
-  .levelLabel{
-    font-weight: bolder;
-    color: #757575;
+  ::ng-deep.mat-slider-thumb-label-text {
+    opacity: 3 !important;
   }
 
-  .location{
-    color: #757575;
-    font-weight: bold;
-  }
+::ng-deep .mat-slider-track-fill {
+    background-color:#5f749ef5 !important;
+}
+::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: #5f749ef5 !important;
+    color: #fff;
+}
+
+::ng-deep  .mat-step-header .mat-step-icon-state-edit {
+    background-color: #5f749ef5 !important;
+    color: #fff;
 }
 
 
-@media only screen and (max-width:375px) {
- 
-  
-  .team-info{
-    flex-grow: 1;  
-    padding: 25px 5px 25px 25px;
-  }
-  
-  .team-category{
-    flex-grow: 1;  
-  
-    padding: 25px 0px 25px 0px;
-  }
-  
-  .team-level{
-    flex-grow: 1;  
-    padding: 25px 0px 25px 0px;
-    text-align: center;
-  }
-  
-  
-  .name{
-    font-weight: bold;
-    font-size: 1em;
-    margin-bottom: 5px;
-  }
-  
-  .coach{
-    font-weight: bolder;
-    font-size: 0.8em;
-    color: #757575;
-    margin-bottom: 5px;
-  }
-  
-  .division{
-    font-size: 1em;
-    font-weight: bolder;
-    color: #757575;
-    margin-bottom: 5px;
-  }
-  .gender{
-    font-size: 0.8em;
-    font-weight: bold;
-    color: #757575;
-  }
-  
-  .level{
-    font-weight: bolder;
-    color: #757575;
-    font-size: 1.5em;
-  }
-  
-  .levelLabel{
-    font-weight: bolder;
-    color: #757575;
-  }
 
-  .location{
-    color: #757575;
-    font-weight: bolder;
+::ng-deep .mat-primary .mat-slider-thumb-label{
+    background-color:#5f749ef5 !important;
+}
+
+  /*
+    Metric
+  */
+
+.metric {
+  margin-right: 30px;
+}
+
+
+.metric-text{
+      width: 100%;
+  min-width: 150px;
+}
+
+.metric-label{
+    flex-grow: 1;
+    width: 120px;
+    padding-top: 27px;
+}
+
+.slider-margin {
+    width: 100%;
+    margin: 10px 50px 10px 0px;
+    flex-grow: 2;
+}
+
+
+.tic-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 8px 0px 8px;
+    margin-top: -23px;
+}
+.slider-tic{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 1px;
+    /* background: #989393; */
+    /* height: 10px; */
+    /* line-height: 25px; */
+    /* margin-bottom: 27px; */
+    color: #848484;
     font-size: 0.7em;
-  }
+    margin-top: -3px;
+    /* margin-left: 1px; */
 }
 
+mat-divider.team-divider{
+    margin: 20px 0px;
+}
+
+.back-to-groups{
+    padding: 14px 0px;
+    cursor: pointer;
+    color: #e43535;
+}
+
+
+.back-to-gropus-divider{
+    margin-bottom: 15px;
+}
+
+
+
+.card-footer{
+    display: flex;
+    flex-direction: row;
+    -ms-flex-align: end;
+}
+
+.deduction-score{
+    margin-left: 25px;
+}
+
+
+.category-container{
+    margin-bottom: 10px;
+    background-color: #6679a1;
+    color: white;
+ 
+    padding: 10px;
+}
+
+.metric-container{
+    display: flex;
+    margin-bottom: 25px;
+    padding: 15px 0px 15px 25px;
+}
+
+
+/* ::ng-deep .metric .mat-form-field-wrapper {
+    padding-bottom: 1.25em !important;
+    width: 120px !important;
+} */
+
+.metric-wrapper-text {
+    width: 100%;
+}
 

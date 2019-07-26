@@ -1,133 +1,92 @@
 import { RegistrationView } from '../../models/registration-view';
 import { State, Action, StateContext } from '@ngxs/store';
 import {
-  GetRegistrations,
-  RemoveOntime,
-  RemovePending,
-  AddOntime,
-  AddPending,
-  AddCompleted
+    GetRegistrations, UpdateRegistration, PendingRegistration, OnTimeRegistration, CompletedRegistration
 } from '../actions/registration.actions';
 import { RegistrationsService } from '../../services/registrations.service';
-import { tap } from 'rxjs/operators';
+import { tap, filter } from 'rxjs/operators';
+import { Registration } from '../../models/registration';
+import { RegistrationStatus } from '../../enums/registration-status.enum';
 
 export class RegistrationModel {
-  registrations: RegistrationView;
+    registrations: Registration[];
 }
 
 @State<RegistrationModel>({
-  name: 'registrations',
-  defaults: {
-    registrations: {
-      completed: [],
-      pending: [],
-      ontime: []
+    name: 'registrations',
+    defaults: {
+        registrations: []
     }
-  }
 })
 export class RegistrationState {
-  constructor(private registrationsService: RegistrationsService) {}
+    constructor(private registrationsService: RegistrationsService) { }
 
-  @Action(GetRegistrations)
-  getRegistrations({ getState, patchState }: StateContext<RegistrationModel>) {
-    const state = getState();
-    if (this.isEmpty(state.registrations)) {
-      return this.registrationsService.getRegistrations().pipe(
-        tap(result => {
-          patchState({ registrations: result });
-        })
-      );
-    }
-  }
+    @Action(GetRegistrations)
+    getRegistrations({ getState, setState }: StateContext<RegistrationModel>) {
+        const state = getState();
 
-  @Action(AddOntime)
-  addOntime(
-    { getState, patchState, dispatch }: StateContext<RegistrationModel>,
-    { registration }: AddOntime
-  ) {
-    const state = getState();
-    patchState({
-      registrations: {
-        ontime: [...state.registrations.ontime, registration],
-        pending: state.registrations.pending,
-        completed: state.registrations.completed
-      }
-    });
-    return dispatch(new RemovePending(registration));
-  }
+        if (!state.registrations || state.registrations.length === 0) {
+            return this.registrationsService.getRegistrations().pipe(
+                tap(result => {
+                    setState({ ...state, registrations: result });
+                })
+            );
+        }
 
-  @Action(AddPending)
-  addPending(
-    { getState, patchState, dispatch }: StateContext<RegistrationModel>,
-    { registration }: AddOntime
-  ) {
-    const state = getState();
-    patchState({
-      registrations: {
-        ontime: state.registrations.ontime,
-        pending: [...state.registrations.pending, registration],
-        completed: state.registrations.completed
-      }
-    });
-    return dispatch(new RemoveOntime(registration));
-  }
 
-  @Action(RemoveOntime)
-  removeOntime(
-    { getState, patchState }: StateContext<RegistrationModel>,
-    { registration }: RemoveOntime
-  ) {
-    const state = getState();
-    const ontime = state.registrations.ontime.filter(r => r !== registration);
-    patchState({
-      registrations: {
-        ontime: ontime,
-        pending: state.registrations.pending,
-        completed: state.registrations.completed
-      }
-    });
-  }
 
-  @Action(RemovePending)
-  removePending(
-    { getState, patchState }: StateContext<RegistrationModel>,
-    { registration }: RemoveOntime
-  ) {
-    const state = getState();
-    const pending = state.registrations.pending.filter(r => r !== registration);
-    patchState({
-      registrations: {
-        ontime: state.registrations.ontime,
-        pending: pending,
-        completed: state.registrations.completed
-      }
-    });
-  }
-
-  isEmpty(registrations: RegistrationView) {
-    // tslint:disable-next-line:no-debugger
-    for (const item of Object.values(registrations)) {
-      if (item.length > 0) {
-        return false;
-      }
     }
 
-    return true;
-  }
+    @Action(UpdateRegistration)
+    updateRegistrations({ getState, setState }: StateContext<RegistrationModel>,
+        { registration }: UpdateRegistration) {
+        const state = getState();
+        const registrations = state.registrations;
+        registrations.forEach((reg) => {
+            if (reg.id === registration.id) {
+                reg = registration;
+            }
+        });
+        setState({ ...state, registrations: registrations });
+    }
 
-  @Action(AddCompleted)
-  addCompleted(
-    { getState, patchState, dispatch }: StateContext<RegistrationModel>,
-    { registration }: AddCompleted
-  ) {
-    const state = getState();
-    patchState({
-      registrations: {
-        ontime: state.registrations.ontime,
-        pending: state.registrations.pending,
-        completed: [...state.registrations.completed, registration]
-      }
-    });
-    return dispatch(new RemoveOntime(registration));
-  }
+    @Action(PendingRegistration)
+    pendingRegistrations({ getState, setState }: StateContext<RegistrationModel>,
+        { registration }: UpdateRegistration) {
+        const state = getState();
+        const registrations = state.registrations;
+        registrations.forEach((reg) => {
+            if (reg.id === registration.id) {
+                reg.status.name = RegistrationStatus.Pending;
+            }
+        });
+        setState({ ...state, registrations: registrations });
+    }
+
+    @Action(OnTimeRegistration)
+    onTimeRegistrations({ getState, setState }: StateContext<RegistrationModel>,
+        { registration }: UpdateRegistration) {
+        const state = getState();
+        const registrations = state.registrations;
+        registrations.forEach((reg) => {
+            if (reg.id === registration.id) {
+                reg.status.name = RegistrationStatus.OnTime;
+            }
+        });
+        setState({ ...state, registrations: registrations });
+    }
+
+    @Action(CompletedRegistration)
+    completedRegistrations({ getState, setState }: StateContext<RegistrationModel>,
+        { registration }: UpdateRegistration) {
+        const state = getState();
+        const registrations = state.registrations;
+        registrations.forEach((reg) => {
+            if (reg.id === registration.id) {
+                reg.status.name = RegistrationStatus.Finished;
+            }
+        });
+        setState({ ...state, registrations: registrations });
+    }
+
 }

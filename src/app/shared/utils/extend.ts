@@ -4,12 +4,12 @@ declare global {
     }
 }
 
-Array.prototype.delayedForEach = function (callback, done, timeout:number, thisArg?) {
-    var i = 0,
-        l = this.length,
-        self = this;
+Array.prototype.delayedForEach = function (callback, done, timeout: number, thisArg?) {
+    let i = 0;
+    const l = this.length;
+    const self = this;
 
-    var caller = function () {
+    const caller = function () {
         callback.call(thisArg || self, self[i], i, self);
         if (++i < l) {
             setTimeout(caller, timeout);

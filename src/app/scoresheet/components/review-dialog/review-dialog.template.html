@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Guardar datos</h2>
+<mat-dialog-content>
+    <div>Estas categorias deben contener algun valor</div>
+    <div class="dialog-result">
+        <table class="stats">
+            <tr *ngFor="let item of result; last as lastRow" class="total-review" [ngClass]="(lastRow)?'last-row-stat':'row-stat'">
+                <td class="td-left" *ngIf="item.subTotal === 0">
+                    <span>{{item.name}} </span>
+                </td>
+                <td class="td-right" *ngIf="item.subTotal === 0">
+                    <span> {{item.subTotal}} / {{item.total}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions class="actions">
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button mat-dialog-close>Ok</button>
+</mat-dialog-actions>

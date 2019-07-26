@@ -1,7 +1,13 @@
+table {
+  width: 100%;
+  
+}
+
 .registration {
-  margin: 20px auto;
+  margin: 50px auto;
+  max-width: 800px;
+  height: 200px;
   cursor: pointer;
-  max-width: 400px;
 }
 
 mat-tab {
@@ -80,10 +86,37 @@ mat-tab {
   font-size: 5em;
 }
 
-@media only screen and (max-width:480px) {
-  .registration {
-    margin: 20px;
-    cursor: pointer;
-    max-width: 400px;
-  }
+.completed{
+    background-color: #dff6df;
+}
+
+.pending{
+    background-color: #ffffdd;
+}
+
+.mat-header-cell{
+    color: white;
+    font-size: 1em;
+    font-weight: bold
+}
+
+tr.mat-header-row {
+    height: 56px;
+    background-color: #697ca3;
+}
+
+mat-icon{
+    vertical-align: middle;
+    position: relative;
+    top: 2px;
+    font-size: 16px;
+}
+.status-onTime{
+    color:#697ca3;
+}
+.status-pending{
+    color:#7a7a3e;
+}
+.status-finished{
+    color: #198919;
 }

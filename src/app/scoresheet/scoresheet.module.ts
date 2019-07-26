@@ -1,3 +1,4 @@
+import { ConfirmDeactivateGuard } from './guards/spreadsheet-deactivate-guard.service';
 import { NgModule } from '@angular/core';
 
 import { ScoresheetRoutingModule } from './scoresheet-routing.module';
@@ -13,23 +14,32 @@ import { MatSliderModule } from '@angular/material/slider';
 import { NgxsModule } from '@ngxs/store';
 import { ScoresheetState } from './store/state/scoresheet.state';
 import { StatState } from './store/state/stats.state';
-import { ScoresheetDialog } from './components/dialogs/scoresheet.dialog';
+import { ScoresheetDialogComponent } from './components/dialogs/scoresheet.dialog';
 import { DeactivateDialogComponent } from './components/deactivate-dialog/deactivate-dialog.component';
+import { ReviewDialogComponent } from './components/review-dialog/review.dialog';
 
 @NgModule({
-  imports: [
-    ScoresheetRoutingModule,
-    SharedModule,
-    MatTableModule,
-    MatInputModule,
-    MatStepperModule,
-    MatExpansionModule,
-    MatSliderModule,
-    NgxsModule.forFeature([StatState, ScoresheetState])
-  ],
-  declarations: [ScoresheetComponent, ScoresheetDialog, DeactivateDialogComponent],
-  exports: [ScoresheetComponent],
-  providers: [ScoresheetService],
-  entryComponents: [ScoresheetDialog, DeactivateDialogComponent]
+    imports: [
+        ScoresheetRoutingModule,
+        SharedModule,
+        MatTableModule,
+        MatInputModule,
+        MatStepperModule,
+        MatExpansionModule,
+        MatSliderModule,
+        MatFormFieldModule,
+        NgxsModule.forFeature([StatState, ScoresheetState])
+    ],
+    declarations: [
+        ScoresheetComponent,
+        ScoresheetDialogComponent,
+        ReviewDialogComponent
+    ],
+    exports: [ScoresheetComponent],
+    providers: [ScoresheetService],
+    entryComponents: [
+        ScoresheetDialogComponent,
+        ReviewDialogComponent
+    ]
 })
-export class ScoresheetModule {}
+export class ScoresheetModule { }

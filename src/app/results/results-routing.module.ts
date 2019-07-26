@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 const routes: Routes = [
-  { path: 'results', component: LeaderboardComponent }
+  { path: '', component: LeaderboardComponent }
 ];
 
 @NgModule({
