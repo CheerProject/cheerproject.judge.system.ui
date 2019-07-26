@@ -15,26 +15,26 @@ const routes: Routes = [
         children: [
             {
                 path: 'results',
-                loadChildren: './results/results.module#ResultsModule'
+                loadChildren: () => import('./results/results.module').then(m => m.ResultsModule)
             },
             {
                 path: 'scoresheets/:registrationId',
-                loadChildren: './scoresheet/scoresheet.module#ScoresheetModule'
+                loadChildren: () => import('./scoresheet/scoresheet.module').then(m => m.ScoresheetModule)
             },
             {
                 path: 'deductions/:registrationId',
-                loadChildren: './deductions/deductions.module#DeductionsModule'
+                loadChildren: () => import('./deductions/deductions.module').then(m => m.DeductionsModule)
             },
             {
                 path: 'groups',
-                loadChildren: './groups/groups.module#GroupsModule'
+                loadChildren: () => import('./groups/groups.module').then(m => m.GroupsModule)
             },
             { path: '', redirectTo: '/groups', pathMatch: 'full' }
         ]
     },
     {
         path: 'login',
-        loadChildren: './auth/auth.module#AuthModule'
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
     }
 ];
 

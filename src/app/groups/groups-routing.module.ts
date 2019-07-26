@@ -11,7 +11,7 @@ const routes: Routes = [
         children: [
             {
                 path: ':divisionId',
-                loadChildren: '../registrations/registrations.module#RegistrationsModule'
+                loadChildren: () => import('../registrations/registrations.module').then(m => m.RegistrationsModule)
             }
         ]
     }
