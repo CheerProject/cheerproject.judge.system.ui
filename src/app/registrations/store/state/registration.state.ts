@@ -1,10 +1,10 @@
-import { RegistrationView } from '../../models/registration-view';
-import { State, Action, StateContext } from '@ngxs/store';
+
+import { State, Action, StateContext, Selector } from '@ngxs/store';
 import {
     GetRegistrations, UpdateRegistration, PendingRegistration, OnTimeRegistration, CompletedRegistration
 } from '../actions/registration.actions';
 import { RegistrationsService } from '../../services/registrations.service';
-import { tap, filter } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Registration } from '../../models/registration';
 import { RegistrationStatus } from '../../enums/registration-status.enum';
 
@@ -32,9 +32,6 @@ export class RegistrationState {
                 })
             );
         }
-
-
-
     }
 
     @Action(UpdateRegistration)
@@ -52,7 +49,7 @@ export class RegistrationState {
 
     @Action(PendingRegistration)
     pendingRegistrations({ getState, setState }: StateContext<RegistrationModel>,
-        { registration }: UpdateRegistration) {
+        { registration }: PendingRegistration) {
         const state = getState();
         const registrations = state.registrations;
         registrations.forEach((reg) => {
@@ -65,7 +62,7 @@ export class RegistrationState {
 
     @Action(OnTimeRegistration)
     onTimeRegistrations({ getState, setState }: StateContext<RegistrationModel>,
-        { registration }: UpdateRegistration) {
+        { registration }: OnTimeRegistration) {
         const state = getState();
         const registrations = state.registrations;
         registrations.forEach((reg) => {
@@ -78,7 +75,7 @@ export class RegistrationState {
 
     @Action(CompletedRegistration)
     completedRegistrations({ getState, setState }: StateContext<RegistrationModel>,
-        { registration }: UpdateRegistration) {
+        { registration }: CompletedRegistration) {
         const state = getState();
         const registrations = state.registrations;
         registrations.forEach((reg) => {

@@ -1,4 +1,3 @@
-import { RegistrationView } from './../../registrations/models/registration-view';
 import { RegistrationModel } from './../../registrations/store/state/registration.state';
 import { getActionTypeFromInstance } from '@ngxs/store';
 import { Logout } from '../store/actions/auth.actions';

@@ -11,13 +11,12 @@ import {
     OnTimeRegistration
 } from '../../store/actions/registration.actions';
 import { Observable } from 'rxjs';
-import { Stat } from '../../../scoresheet/models/stat';
-import { map } from 'rxjs/operators';
 import { RegistrationStatsModel } from '../../../scoresheet/store/state/stats.state';
-import { StatsModel } from '../../../scoresheet/store/actions/stats.actions';
 import { RegistrationStatus } from '../../enums/registration-status.enum';
-import { RegistrationState } from '../../store/state/registration.state';
-import { MatSort } from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+
 @Component({
     selector: 'app-history',
     templateUrl: './history.component.html',
@@ -27,18 +26,27 @@ export class HistoryComponent implements OnInit {
     @Select(state => state.registrations.registrations)
     registratons$: Observable<Registration[]>;
 
+    registrations: Registration[];
+
     status: any = RegistrationStatus;
 
     displayedColumns: string[] = ['Posicion', 'Nombre', 'Entrenador', 'Nivel', 'Division', 'Categoría', 'Genero', 'Estado', 'Puntos'];
 
     registrationsStat: Object = {};
 
+    dataSource: MatTableDataSource<Registration>;
+
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
 
     constructor(
-        private route: ActivatedRoute,
         private router: Router,
         private store: Store
     ) {
+        this.store.dispatch(new GetRegistrations());
+    }
+
+    ngOnInit() {
         this.store
             .select(state => state.stats)
             .subscribe((stats: RegistrationStatsModel) => {
@@ -49,12 +57,38 @@ export class HistoryComponent implements OnInit {
                     }
                 }
             });
+        this.store
+            .select(state => state.registrations.registrations)
+            .subscribe(reg => {
+                this.dataSource = new MatTableDataSource(reg);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+                this.dataSource.filterPredicate = (data, filter) => {
+
+                    const dataStr = data.team.name +
+                        data.id +
+                        data.team.name.trim().toLowerCase() +
+                        data.team.coach.trim().toLowerCase() + 
+                        data.divisionGroup.level.name.trim().toLowerCase() + 
+                        data.divisionGroup.division.name.trim().toLowerCase() + 
+                        data.divisionGroup.category.name.trim().toLowerCase() + 
+                        data.divisionGroup.gender.name.trim().toLowerCase() + 
+                        data.status.name.trim().toLowerCase() +
+                        data.points;
+                    return dataStr.indexOf(filter) != -1;
+                }
+            });
     }
 
-    ngOnInit() {
-        this.store.dispatch(new GetRegistrations());
-    }
+    applyFilter(filterValue: string) {
+        let filter = filterValue.trim().toLowerCase();
+        console.log(filter);
+        this.dataSource.filter = filter;
 
+        if (this.dataSource.paginator) {
+            this.dataSource.paginator.firstPage();
+        }
+    }
 
     update(registration: Registration): void {
         this.store.dispatch(new UpdateRegistration(registration));
