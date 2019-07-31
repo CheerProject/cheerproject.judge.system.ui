@@ -16,6 +16,7 @@ import { RegistrationStatus } from '../../enums/registration-status.enum';
 import { MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { throttleTime } from 'rxjs/operators';
 
 @Component({
     selector: 'app-history',
@@ -30,7 +31,7 @@ export class HistoryComponent implements OnInit {
 
     status: any = RegistrationStatus;
 
-    displayedColumns: string[] = ['Posicion', 'Nombre', 'Entrenador', 'Nivel', 'Division', 'Categoría', 'Genero', 'Estado', 'Puntos'];
+    displayedColumns: string[] = ['id', 'Nombre', 'Entrenador', 'Nivel', 'Division', 'Estado', 'Puntos'];
 
     registrationsStat: Object = {};
 
@@ -62,21 +63,33 @@ export class HistoryComponent implements OnInit {
             .subscribe(reg => {
                 this.dataSource = new MatTableDataSource(reg);
                 this.dataSource.paginator = this.paginator;
-                this.dataSource.sort = this.sort;
-                this.dataSource.filterPredicate = (data, filter) => {
 
+                this.dataSource.filterPredicate = (data, filter) => {
                     const dataStr = data.team.name +
                         data.id +
                         data.team.name.trim().toLowerCase() +
-                        data.team.coach.trim().toLowerCase() + 
-                        data.divisionGroup.level.name.trim().toLowerCase() + 
-                        data.divisionGroup.division.name.trim().toLowerCase() + 
-                        data.divisionGroup.category.name.trim().toLowerCase() + 
-                        data.divisionGroup.gender.name.trim().toLowerCase() + 
+                        data.team.coach.trim().toLowerCase() +
+                        data.divisionGroup.level.name.trim().toLowerCase() +
+                        data.divisionGroup.division.name.trim().toLowerCase() +
+                        data.divisionGroup.category.name.trim().toLowerCase() +
+                        data.divisionGroup.gender.name.trim().toLowerCase() +
                         data.status.name.trim().toLowerCase() +
-                        data.points;
+                        this.getSubTotal(data.id);
                     return dataStr.indexOf(filter) != -1;
                 }
+                this.dataSource.sortingDataAccessor = (item, property) => {
+                    console.log(property)
+                    console.log(item);
+                    switch(property){
+                       case 'Nombre': return item.team.name; 
+                       case 'Estado': return item.status.name;
+                       case 'Puntos': return this.getSubTotal(item.id);
+                       case 'id': return item.id;
+                       default: return item[property]; 
+                    }
+                }
+                this.dataSource.sort = this.sort;
+
             });
     }
 

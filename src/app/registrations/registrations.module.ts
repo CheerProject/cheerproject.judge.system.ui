@@ -9,12 +9,15 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RegistrationState } from './store/state/registration.state';
 import { NgxsModule } from '@ngxs/store';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule, MatSortModule } from '@angular/material';
 @NgModule({
     imports: [
         RegistrationsRoutingModule,
         SharedModule,
         MatTabsModule,
         MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
         NgxsModule.forFeature([RegistrationState])
     ],
     declarations: [HistoryComponent],
