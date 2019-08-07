@@ -16,7 +16,6 @@ import { RegistrationStatus } from '../../enums/registration-status.enum';
 import { MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { throttleTime } from 'rxjs/operators';
 
 @Component({
     selector: 'app-history',
@@ -78,14 +77,12 @@ export class HistoryComponent implements OnInit {
                     return dataStr.indexOf(filter) != -1;
                 }
                 this.dataSource.sortingDataAccessor = (item, property) => {
-                    console.log(property)
-                    console.log(item);
-                    switch(property){
-                       case 'Nombre': return item.team.name; 
-                       case 'Estado': return item.status.name;
-                       case 'Puntos': return this.getSubTotal(item.id);
-                       case 'id': return item.id;
-                       default: return item[property]; 
+                    switch (property) {
+                        case 'Nombre': return item.team.name;
+                        case 'Estado': return item.status.name;
+                        case 'Puntos': return this.getSubTotal(item.id);
+                        case 'id': return item.id;
+                        default: return item[property];
                     }
                 }
                 this.dataSource.sort = this.sort;
